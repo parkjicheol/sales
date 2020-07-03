@@ -1,0 +1,141 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb float-xl-right">
+    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 항목 관리</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 항목 리스트</a></li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">
+    매출/수금 항목 <small>매출/수금 항목 리스트</small>
+</h1>
+<!-- end page-header -->
+
+<!-- begin row -->
+<div id="content" class="serviceSurveyList">
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="searchCondition">
+                    <h4 class="panel-title"><i class="fa fa-search-plus"></i> 검색 조건</h4>
+                </div>
+                <!-- begin panel-body -->
+                <div class="panel-body pt-0">
+                    <form class="form-horizontal form-bordered">
+                        <div class="row">
+                            <div class="col-lg-2 pt-3">
+                                <select id="searchField" class="form-control">
+                                    <option value="pollTitleAndPollContents">원단 품번 + 원단 품명</option>
+                                    <option value="pollTitle">원단 품번</option>
+                                    <option value="pollContents">원단 품명/option>
+                                    <option value="regMemberName">작성자</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 pt-3">
+                                <div class="searchInputGroup">
+                                    <input id="searchKeyword" name="searchKeyword" type="text" class="form-control" placeholder="검색어를 입력해주세요">
+                                    <span id="searchClear">
+                                        <i class="btnX ion-md-close"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 pt-3"></div>
+                            <div class="col-lg-2 pt-3">
+                                <button type="button" id="search" class="btn btn-primary float-right px-4">
+                                    검색 <i class="fa fa-fw fa-search pl-3"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end panel -->
+
+            <!-- begin panel -->
+            <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
+                <div class="panel-body">
+                    <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="dataTables_wrapper dt-bootstrap">
+                            <div class="row">
+                                <div class="col-lg-12 d-flex justify-content-between">
+                                    <div class="dataTables_length" id="data-table-combine_length">
+                                        <label><select id="selectLength" name="data-table-combine_length"
+                                                aria-controls="data-table-combine"
+                                                class="custom-select-sm form-control form-control-sm">
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="1000">1000</option>
+                                                <option value="-1">전체보기</option>
+                                            </select> </label>
+                                        <p class="mb-0 px-3" style="line-height:34px">
+                                            총<span id="totalCount">0</span>건</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tableHide">
+                            <input type="text" tabindex="0" />
+                        </div>
+
+                        <div class="dataTables_wrapper dt-bootstrap overflow-auto width-full">
+                            <table id="dataTable" class="table table-bordered table-striped serviceSurveyListTable">
+                                <thead>
+                                    <tr class="tableHeadColor">
+                                        <th class="with-checkbox">
+                                            <div class="checkbox checkbox-css">
+                                                <input type="checkbox" value="" id="selectAll"> <label
+                                                    for="selectAll">&nbsp;</label>
+                                            </div>
+                                        </th>
+                                        <th class="text-center">번호</th>
+                                        <th class="text-center">원단 품번</th>
+                                        <th class="text-center">원단 품명</th>
+                                        <th class="text-center">등록자</th>
+                                        <th class="text-center">등록일자</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center">
+                                            <div class="checkbox checkbox-css">
+                                                <input type="checkbox" value="<%= data[i].POLL_SEQ %>"
+                                                    id="serviceSurveyList_checkbox_<%=i%>" name="checkkey" />
+                                                <label for="serviceSurveyList_checkbox_<%=i%>">&nbsp;</label>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">WC001-W-DMO</td>
+                                        <td class="text-center">SPX 7000</td>
+                                        <td class="text-center">admin</td>
+                                        <td class="text-center">2020-06-26 12:00:00</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td valign="top" colspan="6" class="dataTables_empty text-center">등록된이 원단이 없습니다.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <div class="float-right">
+                                <button type="button" class="btn btn-danger" data-click="swal-danger"
+                                    onclick="fn:removeServiceSurvey()">삭제</button>
+                                <button type="button" class="btn btn-success ml-1"
+                                    onclick="location.href='#/fabric/register'">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<!--added front js file of this ejs-->
+<script src="../../public/frontjs/views/service/serviceSurveyList.js" type="text/javascript"></script>

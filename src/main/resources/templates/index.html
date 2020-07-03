@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Channel Admin</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link rel="shortcut icon" href="/images/pinocchio.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="/stylesheets/default/app.min.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/bootstrap-colorpicker.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/daterangepicker.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/ionicons.min.css" rel="stylesheet" />
+    <link href="/javascripts/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="/javascripts/plugins/summernote/dist/summernote.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/dataTables/jquery.dataTables.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/dataTables/select.dataTables.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/dataTables/buttons.dataTables.css" rel="stylesheet" />
+    <link href="/stylesheets/admin.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+
+</head>
+
+<body>
+<!-- begin #page-loader -->
+<div id="page-loader" class="fade show"><span class="spinner"></span></div>
+<!-- end #page-loader -->
+
+<!-- begin #page-container -->
+<div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed">
+    <!-- begin #header -->
+    <div id="header" class="header navbar-default">
+        <!-- begin navbar-header -->
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand"><img src="/images/pinocchio.png" alt="PINOCCHIO 관리자" /></span>&nbsp;<b>PINOCCHIO 매출처별 매출/수금 내역서</b></a>
+            <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- end navbar-header -->
+
+        <!-- begin header-nav -->
+        <ul class="navbar-nav navbar-right">
+            <li class="dropdown navbar-user">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <!-- <img src="../assets/img/user/user-13.jpg" alt="" />  -->
+                    <span class="d-none d-md-inline" th:text="${session.name}"></span> <b class="caret"></b>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="javascript:;" class="dropdown-item">Setting</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/accounts/logout" class="dropdown-item">Log Out</a>
+                </div>
+            </li>
+        </ul>
+        <!-- end header-nav -->
+    </div>
+    <!-- end #header -->
+
+    <!-- begin #sidebar -->
+    <div id="sidebar" class="sidebar">
+        <!-- begin sidebar scrollbar -->
+        <div data-scrollbar="true" data-height="100%">
+            <!-- begin sidebar user -->
+            <ul class="nav">
+                <li class="nav-profile">
+                    <a href="javascript:;" data-toggle="nav-profile">
+                        <div class="cover with-shadow"></div>
+                        <div class="image">
+                            <!-- <img src="../assets/img/user/user-13.jpg" alt="" /> -->
+                        </div>
+                        <div class="info">
+                            <b class="caret pull-right"></b>
+                            PINOCCHIO
+                            <small>Front end developer</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <ul class="nav nav-profile">
+                        <li><a href="#/about"><i class="fa fa-question-circle"></i> Helps</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- end sidebar user -->
+            <!-- begin sidebar nav -->
+            <ul class="nav">
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <b class="caret"></b>
+                        <i class="fa fa-chart-line"></i>
+                        <span>매출/수금 항목</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                <b class="caret"></b>
+                                매출/수금 항목 관리
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="#/fabric/list" data-toggle="ajax">매출/수금 항목 리스트</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <b class="caret"></b>
+                        <i class="fa fa-chart-line"></i>
+                        <span>매출/수금 내역서</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                <b class="caret"></b>
+                                매출/수금 내역서
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="#/sales/list" data-toggle="ajax">매출/수금 내역서 리스트</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- end sidebar nav -->
+        </div>
+        <!-- end sidebar scrollbar -->
+    </div>
+    <div class="sidebar-bg"></div>
+    <!-- end #sidebar -->
+
+    <!-- begin #content -->
+    <div id="content" class="content"></div>
+    <!-- end #content -->
+
+    <!-- begin scroll to top btn -->
+    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
+       data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+    <!-- end scroll to top btn -->
+</div>
+<!-- end page container -->
+
+<!-- ================== BEGIN BASE JS ================== -->
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/jquery-ui.min.js"></script>
+<script src="/javascripts/jquery.slimscroll.min.js"></script>
+<script src="/javascripts/bootstrap.bundle.min.js"></script>
+<script src="/javascripts/js.cookie.js"></script>
+<script src="/javascripts/pace.min.js"></script>
+<script src="/javascripts/theme/default.min.js"></script>
+<script src="/javascripts/demo/apple.min.js"></script>
+<script src="/javascripts/plugins/js/moment.js"></script>
+<script src="/javascripts/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="/javascripts/plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="/javascripts/plugins/jquery.maskedinput/src/jquery.maskedinput.js"></script>
+<script src="/javascripts/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="/javascripts/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/javascripts/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/javascripts/demo/form-plugins.demo.js"></script>
+<script src="/javascripts/plugins/flot/jquery.flot.js"></script>
+<script src="/javascripts/plugins/flot/jquery.flot.pie.js"></script>
+<script src="/javascripts/plugins/flot/jquery.flot.stack.js"></script>
+<script src="/javascripts/plugins/flot/jquery.flot.crosshair.js"></script>
+<script src="/javascripts/plugins/flot/jquery.flot.categories.js"></script>
+<script src="/javascripts/plugins/summernote/dist/summernote.min.js"></script>
+<script src="/javascripts/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/javascripts/plugins/dataTables/dataTables.select.js"></script>
+<script src="/javascripts/plugins/dataTables/dataTables.buttons.js"></script>
+<script src="/javascripts/plugins/chart.js/dist/Chart.js"></script>
+<!-- <script src="/javascripts/demo/form-summernote.demo.js"></script> -->
+<script src="/javascripts/app.js"></script>
+<script src="/javascripts/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/javascripts/demo/ui-modal-notification.demo.js"></script>
+<script src="/javascripts/utils/common.js"></script>
+<script src="/javascripts/utils/browserDetect.js"></script>
+
+<script>
+
+    App.settings({
+        ajaxMode: true,
+        ajaxDefaultUrl: '#/main',
+        ajaxType: 'GET',
+        ajaxDataType: 'html'
+    });
+
+</script>
+<!-- ================== END BASE JS ================== -->
+
+</body>
+
+</html>

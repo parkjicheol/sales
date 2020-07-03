@@ -1,0 +1,63 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb float-xl-right">
+    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 항목 관리</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 항목 리스트</a></li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">
+    매출/수금 항목 <small>매출/수금 항목 내용</small>
+</h1>
+<!-- end page-header -->
+
+<!-- begin row -->
+<div id="content" class="serviceSurveyDetail">
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
+                <div class="searchCondition">
+                    <h4 class="panel-title"><i class="fa fa-clipboard"></i> 원단 내용</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="dataTables_wrapper dt-bootstrap">
+                            <div class="tableHide">
+                                <input type="text" tabindex="0" />
+                            </div>
+                        </div>
+                        <div class="row mx-1">
+                            <div class="pyoTable my-2">
+                                <div class="rowTable">
+                                    <span class="cell col2">원단 품번</span>
+                                    <span class="cell col3">WC001-W-DMD</span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">원단 품명</span>
+                                    <span class="cell col3">SPX 7000</span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">등록일</span>
+                                    <span class="cell col3">2020-06-26 12:00:00</span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">작성자</span>
+                                    <span class="cell col3">admin</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-2 pr-3 float-right">
+                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/service/serviceSurveyList'">목록</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<!--added front js file of this ejs-->
+<script src="../../public/frontjs/views/service/serviceSurveyDetail.js" type="text/javascript"></script>

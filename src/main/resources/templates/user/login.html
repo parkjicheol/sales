@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Channel Admin</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link rel="shortcut icon" href="/images/pinocchio.ico" />
+    <link href="/stylesheets/default/app.min.css" rel="stylesheet" />
+    <link href="/stylesheets/plugins/ionicons.min.css" rel="stylesheet" />
+    <link href="/stylesheets/admin.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+</head>
+
+<body>
+<!-- begin row -->
+<div id="content" class="adminLogin">
+    <div class="pace-top">
+        <!-- begin #page-container -->
+        <div id="page-container">
+            <!-- begin login -->
+            <div class="login login-v1">
+                <!-- begin login-container -->
+                <div class="login-container">
+                    <!-- begin login-header -->
+                    <div class="login-header">
+                        <div class="brand2">
+                            <span class="logo"><i class="ion-ios-cloud"></i></span> <b>Pinocchio</b> 페이지 <small
+                                class="text-right">피노키오 로그인 페이지 입니다.</small>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                    </div>
+                    <!-- end login-header -->
+                    <!-- begin login-body -->
+                    <div class="login-body">
+                        <!-- begin login-content -->
+                        <div class="login-content">
+                            <form id="formLogin" action="/loginProcess" method="POST"
+                                  class="margin-bottom-0">
+                                <div class="form-group m-b-20">
+                                    <input type="text" id="id" name="id"
+                                           class="form-control form-control-lg inverse-mode" placeholder="Admin ID"
+                                           required />
+                                </div>
+                                <div class="form-group m-b-20">
+                                    <input type="password" id="password" name="password"
+                                           class="form-control form-control-lg inverse-mode" placeholder="Password"
+                                           required />
+                                </div>
+                                <div class="checkbox checkbox-css m-b-20">
+                                    <input type="checkbox" id="saveId" name="saveId" /> <label for="saveId">
+                                    Remember Me </label><span class="incorrect" th:text="${feedback}"></span>
+                                </div>
+                                <div class="login-buttons">
+                                    <button type="submit" id="loginSubmit"
+                                            class="btn btn-success btn-block btn-lg">로그인</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end login-content -->
+                    </div>
+                    <!-- end login-body -->
+                </div>
+                <!-- end login-container -->
+            </div>
+            <!-- end login -->
+
+        </div>
+        <!-- end page container -->
+    </div>
+</div>
+<!-- end row -->
+
+<!-- ================== BEGIN BASE JS ================== -->
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/plugins/jquery.cookie/jquery.cookie.js"></script>
+<script src="/javascripts/utils/tag.js" type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var cookie_username = $.cookie('cookie_username');
+
+        if (cookie_username != undefined && cookie_username != '') {
+            $('#id').val(cookie_username);
+            $('#saveId').prop('checked', true);
+        }
+
+        $("#formLogin").submit(function (event) {
+
+            if ($("#saveId").is(":checked")) {
+                $.cookie('cookie_username', $.trim($("#userId").val()), { expires: 30, path: '/' });
+            } else {
+                $.removeCookie('cookie_username', { path: '/' });
+            }
+
+            $('#username').val($('#userId').val());
+
+        });
+
+    });
+</script>
+<!-- ================== END BASE JS ================== -->
+</body>
+
+</html>
