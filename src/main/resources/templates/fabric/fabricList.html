@@ -98,7 +98,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr role="row" class="odd">
+                                    <tr class="odd" th:if="${not #strings.isEmpty(fabric)}">
+                                        <td valign="top" colspan="6" class="dataTables_empty text-center">등록된 원단이 없습니다.</td>
+                                    </tr>
+                                    <tr role="row" class="odd" th:each="fabric: ${fabricAll}">
                                         <td class="text-center">
                                             <div class="checkbox checkbox-css">
                                                 <input type="checkbox" value="<%= data[i].POLL_SEQ %>"
@@ -106,32 +109,31 @@
                                                 <label for="serviceSurveyList_checkbox_<%=i%>">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">WC001-W-DMO</td>
-                                        <td class="text-center">SPX 7000</td>
+                                        <!--/*@thymesVar id="fabricAll" type=""*/-->
+                                        <td class="text-center" th:text="${fabric.seq}" th:onclick="|javascript:page('${fabric.seq}')|"></td>
+                                        <td class="text-center" th:text="${fabric.fabricNo}"></td>
+                                        <td class="text-center" th:text="${fabric.fabricName}"></td>
                                         <td class="text-center">admin</td>
-                                        <td class="text-center">2020-06-26 12:00:00</td>
-                                    </tr>
+                                        <td class="text-center" th:text="${fabric.registerDate}"></td>
+                                   </tr>
 
-                                    <tr class="odd">
-                                        <td valign="top" colspan="6" class="dataTables_empty text-center">등록된이 원단이 없습니다.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
-                        <div class="col-12 mt-3">
-                            <div class="float-right">
-                                <button type="button" class="btn btn-danger" data-click="swal-danger"
-                                    onclick="fn:removeServiceSurvey()">삭제</button>
-                                <button type="button" class="btn btn-success ml-1"
-                                    onclick="location.href='#/fabric/register'">등록</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end panel -->
+                               </tbody>
+                           </table>
+                       </div>
+
+                       <div class="col-12 mt-3">
+                           <div class="float-right">
+                               <button type="button" class="btn btn-danger" data-click="swal-danger"
+                                   onclick="fn:removeServiceSurvey()">삭제</button>
+                               <button type="button" class="btn btn-success ml-1"
+                                   onclick="location.href='#/fabric/register'">등록</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <!-- end panel -->
         </div>
     </div>
 </div>
@@ -139,3 +141,8 @@
 
 <!--added front js file of this ejs-->
 <script src="../../public/frontjs/views/service/serviceSurveyList.js" type="text/javascript"></script>
+<script>
+    function page(idx) {
+        alert(idx);
+    }
+</script>
