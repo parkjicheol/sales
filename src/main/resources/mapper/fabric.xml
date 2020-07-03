@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.FabricMapper">
+
+	<!-- 로그인 회원 정보 조회 -->
+	<select id="selectFabricListAll" resultType="com.pinocchio.sales.dto.FabricVo">
+
+		SELECT
+			seq
+			, fabric_no AS fabricNo
+			, fabric_name AS fabricName
+			, register_id AS registerId
+			, register_date AS registerDate
+		FROM
+			fabric
+
+	</select>
+
+	<insert id="insertFabricData" >
+		Insert INTO
+			fabric
+			(
+			seq
+			, fabric_no
+			, fabric_name
+			, register_id
+			, register_date
+			)
+		value
+			(
+			 #{seq}
+			 ,#{fabricNo}
+			 ,#{fabricName}
+			 ,#{registerId}
+			 ,#{registerDate}
+			)
+
+
+	</insert>
+
+	<!-- 로그인 회원 정보 조회
+	<select id="selectFabricList" parameterType="int" resultType="com.pinocchio.sales.dto.FabricVo">
+
+		SELECT
+			seq
+			, fabric_no
+			, fabric_name
+			, register_id
+			, register_date
+		FROM
+			fabric
+		WHERE
+			seq = #{seq}
+
+	</select>
+-->
+	
+
+</mapper>
