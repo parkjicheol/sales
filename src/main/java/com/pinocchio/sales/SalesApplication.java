@@ -14,7 +14,7 @@ public class SalesApplication {
 //        CharSequence cs = "1234";
 //        System.out.println("=========" + bCryptPasswordEncoder.encode("1234"));
 //주석을 달아서 변경1
-
+//주석을 달아서 2번째 변경
 
     }
 
