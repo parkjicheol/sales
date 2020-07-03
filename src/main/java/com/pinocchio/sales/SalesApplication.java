@@ -13,6 +13,9 @@ public class SalesApplication {
 //        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 //        CharSequence cs = "1234";
 //        System.out.println("=========" + bCryptPasswordEncoder.encode("1234"));
+//주석을 달아서 변경1
+
+
     }
 
 }
