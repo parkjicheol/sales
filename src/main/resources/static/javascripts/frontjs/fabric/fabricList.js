@@ -126,7 +126,7 @@ $(document).ready(function () {
 
 });
 
-function removeFabic() {
+function removeFabric() {
 
     if ($('#totalCount').text() === '0') {
         return false;

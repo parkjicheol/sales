@@ -1,12 +1,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서 관리</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서 상세</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 항목 관리</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 항목 리스트</a></li>
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
 <h1 class="page-header">
-    매출/수금 내역서 <small>매출/수금 내역서 상세</small>
+    매출/수금 항목 <small>매출/수금 항목 내용</small>
 </h1>
 <!-- end page-header -->
 
@@ -18,7 +18,7 @@
             <!-- begin panel -->
             <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
                 <div class="searchCondition">
-                    <h4 class="panel-title"><i class="fa fa-clipboard"></i> 내역서 내용</h4>
+                    <h4 class="panel-title"><i class="fa fa-clipboard"></i> 매출/수금 내용</h4>
                 </div>
                 <div class="panel-body">
                     <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -30,71 +30,25 @@
                         <div class="row mx-1">
                             <div class="pyoTable my-2">
                                 <div class="rowTable">
-                                    <span class="cell col2">설문명</span>
-                                    <span class="cell col3">
-                                        <strong>
-                                        <% if(data.POLL_TIME == '0') { %>
-                                            [대기중]
-                                        <% } else if(data.POLL_TIME == '1') { %>
-                                            [진행중]
-                                        <% } else if(data.POLL_TIME == '-1') { %>
-                                            [종료]
-                                        <% } %>
-                                        </strong>
-                                        <%= data.POLL_TITLE %>
-                                    </span>
+                                    <span class="cell col2">원단 품번</span>
+                                    <span class="cell col3" th:text="${salesDetail.fabricNo}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">등록일</span>
-                                    <span class="cell col3"><%= data.REG_DTIME %></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">설문기간</span>
-                                    <span class="cell col3"><%= data.POLL_START_DATE %> -
-                                        <%= data.POLL_FINISH_DATE %></span>
+                                    <span class="cell col2">원단 품명</span>
+                                    <span class="cell col3" th:text="${salesDetail.fabricName}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">작성자</span>
-                                    <span class="cell col3"><%= data.REG_MEMBER_NAME %></span>
+                                    <span class="cell col3" th:text="${salesDetail.registerId}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">조회수</span>
-                                    <span class="cell col3"><%= data.HIT %></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">참여수</span>
-                                    <span class="cell col3"><%= data.POLL_COUNT %></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">내용</span>
-                                    <span class="cell col3">
-                                        <% for (var i = 0; i < chart.length; i++) { %>
-                                        <div class="pt-3">
-                                            <div class="d-flex m-b-2">
-                                                <span class="col-3"><span id="chart_<%= i + 1 %>"></span>
-                                                    <%= chart[i].ITEM_CONTENTS %></span>
-                                                <div class="flex-grow-1 col-7">
-                                                    <div
-                                                        class="progress progress-md rounded-corner bg-gray-transparent-1">
-                                                        <div class="progress-bar progress-bar-striped bg-lime"
-                                                            data-animation="width"
-                                                            data-value="<%= chart[i].ANSWER_PERCENT %>%"
-                                                            style="width: 85%;"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="ml-2 f-s-11 text-center"><span data-animation="number"
-                                                        data-value="<%= chart[i].ANSWER_COUNT %>"><%= chart[i].ANSWER_COUNT %></span>명
-                                                    <span>(<%= chart[i].ANSWER_PERCENT %>%)</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% } %>
-                                    </span>
+                                    <span class="cell col2">등록일</span>
+                                    <span class="cell col3" th:text="${salesDetail.registerDate}"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row pt-2 pr-3 float-right">
-                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/service/serviceSurveyList'">목록</button>
+                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/sales/list'">목록</button>
                         </div>
                     </div>
                 </div>
@@ -104,6 +58,3 @@
     </div>
 </div>
 <!-- end row -->
-
-<!--added front js file of this ejs-->
-<script src="../../public/frontjs/views/service/serviceSurveyDetail.js" type="text/javascript"></script>

@@ -11,15 +11,18 @@ var dataTable = $('#dataTable').DataTable({
     pageLength: 20,
     buttons: [],
     ajax: {
-        "url": "/service/ajaxServiceSurveyList",
+        "url": "/sales/ajaxList",
         "type": "POST",
         "data": function (d) {
+            d.startDate = $("#startDate").val();
+            d.finishDate = $("#finishDate").val();
             d.searchField = $("#searchField").val();
             d.searchKeyword = $("#searchKeyword").val();
             d.bRunning = bRunning;
         },
         dataSrc: "data",
         complete: function (data) {
+            console.log(data);
             $('#totalCount').text(JSON.stringify(data.responseJSON.recordsTotal));
             $('#selectAll').prop("checked", false);
             bRunning = true;
@@ -28,86 +31,96 @@ var dataTable = $('#dataTable').DataTable({
     "columns": [{
         data: ''
     }, {
-        data: ''
+        data: 'saleDate'
     }, {
-        data: ''
+        data: 'saleFlag'
     }, {
-        data: 'POST_YN'
+        data: 'fabricNo'
     }, {
-        data: 'POLL_START_DATE'
+        data: 'fabricName'
     }, {
-        data: 'POLL_FINISH_DATE'
+        data: 'section'
     }, {
-        data: 'POLL_STATUS'
+        data: 'color'
     }, {
-        data: 'REG_MEMBER_NAME'
+        data: 'fabricCount'
+    },{
+        data: 'deduction'
     }, {
-        data: 'REG_DTIME'
+        data: 'unit'
     }, {
-        data: 'POLL_COUNT'
+        data: 'price'
     }, {
-        data: 'HIT'
+        data: 'tax'
+    }, {
+        data: 'delivery'
+    }, {
+        data: 'receivable'
+    }, {
+        data: 'etc'
+    }, {
+        data: 'orderNo'
     }],
     columnDefs: [{
             targets: 0,
-            'render': function (data, type, row, meta) {
+            render: function (data, type, row, meta) {
 
                 var html = '<div class="checkbox checkbox-css">';
-                html += '    <input type="checkbox" value="' + row.POLL_SEQ + '" id="mainKeywordList_checkbox_' + meta.row + '" name="checkkey" />';
-                html += '    <label for="mainKeywordList_checkbox_' + meta.row + '">&nbsp;</label>';
+                html += '    <input type="checkbox" value="' + row.seq + '" id="salesList_checkbox_' + meta.row + '" name="checkKey" />';
+                html += '    <label for="salesList_checkbox_' + meta.row + '">&nbsp;</label>';
                 html += '</div>';
 
                 return html;
             }
-        },
-        {
+        }, {
             targets: 1,
-            'render': function (data, type, row, meta) {
-                var info = dataTable.page.info();
-                return info.recordsTotal - (info.page * info.length + meta.row);
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return row.saleDate.substring(0, 10);
             }
-        },
-        {
+        }, {
             targets: 2,
-            'render': function (data, type, row, meta) {
-                var pollTimeStatus = '';
-                var linkURL = '';
-
-                switch (String(row.POLL_TIME)) {
-                    case '0':
-                        pollTimeStatus = '<span class="ml-2 badge badge-waiting">대기중</span>';
-                        break;
-                    case '1':
-                        pollTimeStatus = '<span class="ml-2 badge badge-success">진행중</span>';
-                        break;
-                    case '-1':
-                        pollTimeStatus = '<span class="ml-2 badge badge-secondary">종료</span>';
-                        break;
-                }
-
-                if (String(row.POST_YN)==='Y') {
-                    linkURL = '/service/serviceSurveyDetail';
-                } else {
-                    linkURL = '/service/serviceSurveyRegister';
-                }
-
-                return "<a href=" + linkURL + "?pollSeq=" + row.POLL_SEQ + " data-toggle='ajax'>" + row.POLL_TITLE + "</a>" + pollTimeStatus;
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return (row.saleFlag == 0) ? '<span class="text-blue-darker">매출</span>' : '<span class="text-danger">반품</span>';
+            }
+        }, {
+            targets: 3,
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<a href="#/sales/detail?seq=' + row.seq + '">' + row.fabricNo + '</a>';
+            }
+        }, {
+            targets: 4,
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<a href="#/sales/detail?seq=' + row.seq + '">' + row.fabricName + '</a>';
             }
         },
         {
-            'targets': [2],
-            'className': 'dt-body-left'
+            targets: [0, 5, 6, 14],
+            className: 'dt-body-center'
         },
         {
-            'targets': [0, 1, 3, 4, 5, 6, 7, 8, 9, 10],
-            'className': 'dt-body-center'
+            targets: [7, 8],
+            className: 'dt-body-right',
+            render: $.fn.dataTable.render.number( ',', '.', 1 )
+        },
+        {
+            targets: [9, 10, 11, 12, 13],
+            className: 'dt-body-right',
+            render: $.fn.dataTable.render.number( ',')
         }
     ]
 });
 
 $(document).ready(function () {
 
-    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 설문이 없습니다.';
+    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 매출/수금이 없습니다.';
 
     //input X버튼
     var $ipt = $('#searchKeyword'),
@@ -157,18 +170,55 @@ $(document).ready(function () {
 
     });
 
+    $('#default-daterange').daterangepicker({
+        opens: 'right',
+        format: 'YYYY-MM-DD',
+        separator: ' to ',
+        startDate: moment().subtract('month', 1).date(1),
+        endDate: moment().subtract('month', 0).date(0),
+        minDate: '2020-01-01',
+        maxDate: '2039-12-31',
+        showDropdowns: true,
+        locale: {
+            format: 'YYYY-MM-DD',
+            "monthNames": [
+                "1월",
+                "2월",
+                "3월",
+                "4월",
+                "5월",
+                "6월",
+                "7월",
+                "8월",
+                "9월",
+                "10월",
+                "11월",
+                "12월"
+            ]
+        }
+    }, function (start, end) {
+        $('#default-daterange input').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+
+        var studyStartDate = start.format('YYYY-MM-DD');
+        var studyFinishDate = end.format('YYYY-MM-DD');
+
+        $("#startDate").val(studyStartDate);
+        $("#finishDate").val(studyFinishDate);
+
+    });
+
 });
 
-function removeServiceSurvey() {
+function removeSales() {
 
     if ($('#totalCount').text() === '0') {
         return false;
     }
     
-    if ($('input:checkbox[name=checkkey]:checked').length < 1) {
+    if ($('input:checkbox[name=checkKey]:checked').length < 1) {
         swal({
-            title: '선택된 설문이 없습니다.',
-            text: '삭제할 설문을 선택해주세요.',
+            title: '선택된 매출/수금이 없습니다.',
+            text: '삭제할 매출/수금을 선택해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -205,21 +255,21 @@ function removeServiceSurvey() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            var pollSeqs = [];
+            var salesSeqs = [];
 
-            $('input:checkbox[name=checkkey]:checked').each(function () {
-                pollSeqs.push($(this).val());
+            $('input:checkbox[name=checkKey]:checked').each(function () {
+                salesSeqs.push($(this).val());
             });
 
             $.ajax({
                 type: "POST",
-                url: "/service/removeServiceSurvey",
-                data: "pollSeqs=" + pollSeqs,
+                url: "/sales/ajaxRemove",
+                data: "salesSeqs=" + salesSeqs,
                 success: function (data) {
 
                     if (Number(data.successCount) < 1) {
                         swal({
-                            title: '설문 삭제에 실패했습니다.',
+                            title: ' 삭제에 실패했습니다.',
                             text: '',
                             icon: 'error',
                             buttons: {
@@ -235,7 +285,7 @@ function removeServiceSurvey() {
                         return false;
                     }
                     swal({
-                        title: '선택하신 설문을 삭제했습니다.',
+                        title: '선택하신 매출/수금을 삭제했습니다.',
                         text: '',
                         icon: 'success',
                         buttons: {
@@ -253,7 +303,7 @@ function removeServiceSurvey() {
                 },
                 error: function (data) {
                     swal({
-                        title: '설문 삭제에 실패했습니다.',
+                        title: '매출/수금 삭제에 실패했습니다.',
                         text: '',
                         icon: 'error',
                         buttons: {
@@ -272,6 +322,4 @@ function removeServiceSurvey() {
             });
         }
     });
-
-
 };

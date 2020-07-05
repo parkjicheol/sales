@@ -97,7 +97,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd" th:if="${not #strings.isEmpty(fabric)}">
+                                    <tr class="odd" th:if="${not #strings.isEmpty(fabricList)}">
                                         <td valign="top" colspan="6" class="dataTables_empty text-center">등록된 원단이 없습니다.</td>
                                     </tr>
                                     <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">
@@ -121,7 +121,7 @@
                        <div class="col-12 mt-3">
                            <div class="float-right">
                                <button type="button" class="btn btn-danger" data-click="swal-danger"
-                                   onclick="fn:removeFabic()">삭제</button>
+                                   onclick="fn:removeFabric()">삭제</button>
                                <button type="button" class="btn btn-success ml-1"
                                    onclick="location.href='#/fabric/register'">등록</button>
                            </div>

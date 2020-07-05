@@ -14,5 +14,7 @@ public class DefaultVo {
     private String searchKeyword = "";
     private String searchField = "";
     private Boolean bRunning = true;
+    private String startDate = "";
+    private String finishDate = "";
 
 }

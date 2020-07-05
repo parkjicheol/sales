@@ -11,15 +11,16 @@ var dataTable = $('#dataTable').DataTable({
     pageLength: 20,
     buttons: [],
     ajax: {
-        "url": "/service/ajaxServiceEventList",
+        "url": "/sales/ajaxList",
         "type": "POST",
         "data": function (d) {
-            d.searchField = $("#searchField").val();
-            d.searchKeyword = $("#searchKeyword").val();
+            d.startDate = $("#startDate").val();
+            d.finishDate = $("#finishDate").val();
             d.bRunning = bRunning;
         },
         dataSrc: "data",
         complete: function (data) {
+            console.log(data);
             $('#totalCount').text(JSON.stringify(data.responseJSON.recordsTotal));
             $('#selectAll').prop("checked", false);
             bRunning = true;
@@ -28,79 +29,87 @@ var dataTable = $('#dataTable').DataTable({
     "columns": [{
         data: ''
     }, {
-        data: ''
+        data: 'saleDate'
+    },{
+        data: 'fabricNo'
     }, {
-        data: ''
+        data: 'fabricName'
     }, {
-        data: ''
+        data: 'section'
     }, {
-        data: 'EVENT_STATUS_NAME'
+        data: 'color'
     }, {
-        data: 'USE_YN'
+        data: 'fabricCount'
+    },{
+        data: 'deduction'
     }, {
-        data: 'REG_DTIME'
+        data: 'unit'
     }, {
-        data: ''
+        data: 'price'
     }, {
-        data: 'EVENT_WIN_DATE'
+        data: 'tax'
+    }, {
+        data: 'delivery'
+    }, {
+        data: 'receivable'
+    }, {
+        data: 'etc'
+    }, {
+        data: 'orderNo'
     }],
     columnDefs: [{
             targets: 0,
-            'render': function (data, type, row, meta) {
+            render: function (data, type, row, meta) {
 
                 var html = '<div class="checkbox checkbox-css">';
-                html += '    <input type="checkbox" value="' + row.EVENT_SEQ + '" id="serviceEventList_checkbox_' + meta.row + '" name="checkkey" />';
-                html += '    <label for="serviceEventList_checkbox_' + meta.row + '">&nbsp;</label>';
+                html += '    <input type="checkbox" value="' + row.seq + '" id="salesList_checkbox_' + meta.row + '" name="checkKey" />';
+                html += '    <label for="salesList_checkbox_' + meta.row + '">&nbsp;</label>';
                 html += '</div>';
 
                 return html;
             }
-        },
-        {
+        }, {
             targets: 1,
-            'render': function (data, type, row, meta) {
-                var info = dataTable.page.info();
-                return info.recordsTotal - (info.page * info.length + meta.row);
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return row.saleDate.substring(0, 10);
             }
-        },
-        {
+        }, {
             targets: 2,
-            'render': function (data, type, row, meta) {
-
-                return "<a href='/service/serviceEventDetail?eventSeq=" + row.EVENT_SEQ + "' data-toggle='ajax'>" + row.EVENT_NAME + "</a>";
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<a href="#/sales/detail?seq=' + row.seq + '">' + row.fabricNo + '</a>';
             }
-        },
-        {
+        }, {
             targets: 3,
-            'render': function (data, type, row, meta) {
-
-                return row.EVENT_START_DATE + " ~ " + row.EVENT_FINISH_DATE;
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<a href="#/sales/detail?seq=' + row.seq + '">' + row.fabricName + '</a>';
             }
         },
         {
-            targets: 7,
-            'render': function (data, type, row, meta) {
-                if (isEmpty(row.EVENT_WIN_CONTENTS)) {
-                    return "<a href='/service/serviceEventWinner?eventSeq=" + row.EVENT_SEQ + "' data-toggle='ajax'>" + "[작성]" + "</a>";
-                } else {
-                    return "<a href='/service/serviceEventWinner?eventSeq=" + row.EVENT_SEQ + "' data-toggle='ajax'>" + "[수정]" + "</a>";
-                }
-            }
+            targets: [0, 1, 4, 5, 13],
+            className: 'dt-body-center'
         },
         {
-            'targets': [2],
-            'className': 'dt-body-left'
+            targets: [6, 7],
+            className: 'dt-body-right',
+            render: $.fn.dataTable.render.number( ',', '.', 1 )
         },
         {
-            'targets': [0, 1, 3, 4, 5, 6, 7, 8],
-            'className': 'dt-body-center'
+            targets: [8, 9, 10, 11, 12],
+            className: 'dt-body-right',
+            render: $.fn.dataTable.render.number( ',')
         }
     ]
 });
 
 $(document).ready(function () {
 
-    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 이벤트가 없습니다.';
+    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 매출/수금이 없습니다.';
 
     //input X버튼
     var $ipt = $('#searchKeyword'),
@@ -150,18 +159,55 @@ $(document).ready(function () {
 
     });
 
+    $('#default-daterange').daterangepicker({
+        opens: 'right',
+        format: 'YYYY-MM-DD',
+        separator: ' to ',
+        startDate: moment().subtract('month', 1).date(1),
+        endDate: moment().subtract('month', 0).date(0),
+        minDate: '2020-01-01',
+        maxDate: '2039-12-31',
+        showDropdowns: true,
+        locale: {
+            format: 'YYYY-MM-DD',
+            "monthNames": [
+                "1월",
+                "2월",
+                "3월",
+                "4월",
+                "5월",
+                "6월",
+                "7월",
+                "8월",
+                "9월",
+                "10월",
+                "11월",
+                "12월"
+            ]
+        }
+    }, function (start, end) {
+        $('#default-daterange input').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+
+        var studyStartDate = start.format('YYYY-MM-DD');
+        var studyFinishDate = end.format('YYYY-MM-DD');
+
+        $("#startDate").val(studyStartDate);
+        $("#finishDate").val(studyFinishDate);
+
+    });
+
 });
 
-function removeServiceEvent() {
+function removeSales() {
 
     if ($('#totalCount').text() === '0') {
         return false;
     }
-
-    if ($('input:checkbox[name=checkkey]:checked').length < 1) {
+    
+    if ($('input:checkbox[name=checkKey]:checked').length < 1) {
         swal({
-            title: '선택된 이벤트가 없습니다.',
-            text: '삭제할 이벤트를 선택해주세요.',
+            title: '선택된 매출/수금이 없습니다.',
+            text: '삭제할 매출/수금을 선택해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -198,21 +244,21 @@ function removeServiceEvent() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            var eventSeqs = [];
+            var salesSeqs = [];
 
-            $('input:checkbox[name=checkkey]:checked').each(function () {
-                eventSeqs.push($(this).val());
+            $('input:checkbox[name=checkKey]:checked').each(function () {
+                salesSeqs.push($(this).val());
             });
 
             $.ajax({
                 type: "POST",
-                url: "/service/removeServiceEvent",
-                data: "eventSeqs=" + eventSeqs,
+                url: "/sales/ajaxRemove",
+                data: "salesSeqs=" + salesSeqs,
                 success: function (data) {
 
                     if (Number(data.successCount) < 1) {
                         swal({
-                            title: '이벤트 삭제에 실패했습니다.',
+                            title: ' 삭제에 실패했습니다.',
                             text: '',
                             icon: 'error',
                             buttons: {
@@ -228,7 +274,7 @@ function removeServiceEvent() {
                         return false;
                     }
                     swal({
-                        title: '선택하신 이벤트를 삭제했습니다.',
+                        title: '선택하신 매출/수금을 삭제했습니다.',
                         text: '',
                         icon: 'success',
                         buttons: {
@@ -246,7 +292,7 @@ function removeServiceEvent() {
                 },
                 error: function (data) {
                     swal({
-                        title: '이벤트 삭제에 실패했습니다.',
+                        title: '매출/수금 삭제에 실패했습니다.',
                         text: '',
                         icon: 'error',
                         buttons: {
@@ -265,6 +311,4 @@ function removeServiceEvent() {
             });
         }
     });
-
-
-}
+};

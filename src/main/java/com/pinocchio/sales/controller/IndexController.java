@@ -22,7 +22,7 @@ public class IndexController extends AbstractBaseController<IndexController> {
     @GetMapping("/main")
     public String main(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model) {
 
-        return "sales/salesList";
+        return "main";
     }
 
 }

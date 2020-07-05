@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.SalesMapper">
+
+	<!-- fabric list -->
+	<select id="selectSalesList" parameterType="com.pinocchio.sales.dto.SalesVo" resultType="com.pinocchio.sales.dto.SalesVo">
+
+		SELECT
+			S.seq
+			, S.sale_date AS saleDate
+			, S.sale_flag AS saleFlag
+			, S.fabric_seq AS fabricSeq
+			, F.fabric_no AS fabricNo
+			, F.fabric_name AS fabricName
+			, S.section
+			, S.color
+			, S.fabric_count AS fabricCount
+			, S.deduction
+			, S.unit
+			, S.price
+			, S.tax
+			, S.delivery
+			, S.receivable
+			, S.etc
+			, S.order_no AS orderNo
+			, M.name AS registerName
+			, S.register_id AS registerId
+			, S.register_date AS registerDate
+		FROM
+			sales S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN fabric F
+				ON S.fabric_seq = F.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND S.sale_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'fabricNo'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricName'">
+					AND F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricAll'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+		ORDER BY
+			S.sale_date ASC
+		LIMIT
+			#{start}, #{length}
+
+	</select>
+
+	<!-- fabric list count -->
+	<select id="selectSalesListCount" parameterType="com.pinocchio.sales.dto.SalesVo" resultType="int">
+
+		SELECT
+			COUNT(*) AS recordsTotal
+		FROM
+			sales S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN fabric F
+				ON S.fabric_seq = F.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND S.sale_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'fabricNo'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricName'">
+					AND F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricAll'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+
+	</select>
+
+	<select id="selectSalesDetail" parameterType="com.pinocchio.sales.dto.SalesVo" resultType="com.pinocchio.sales.dto.SalesVo">
+
+		SELECT
+			S.seq
+			, S.sale_date AS saleDate
+			, S.sale_flag AS saleFlag
+			, S.fabric_seq AS fabricSeq
+			, F.fabric_no AS fabricNo
+			, F.fabric_name AS fabricName
+			, S.section
+			, S.color
+			, S.fabric_count AS fabricCount
+			, S.deduction
+			, S.unit
+			, S.price
+			, S.tax
+			, S.delivery
+			, S.receivable
+			, S.etc
+			, S.order_no AS orderNo
+			, M.name AS registerName
+			, S.register_id AS registerId
+			, S.register_date AS registerDate
+		FROM
+			sales S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN fabric F
+				ON S.fabric_seq = F.seq
+		WHERE
+			S.seq = #{seq}
+
+	</select>
+
+	<insert id="insertSalesData" parameterType="com.pinocchio.sales.dto.SalesVo">
+
+		INSERT INTO sales (
+			seq
+			, sale_date
+			, sale_flag
+			, fabric_seq
+			, section
+			, color
+			, fabric_count
+			, deduction
+			, unit
+			, price
+			, tax
+			, delivery
+			, receivable
+			, etc
+			, order_no
+			, register_id
+			, register_date
+		) VALUE (
+			 #{seq}
+			, #{saleDate}
+			, #{saleFlag}
+			, #{fabricSeq}
+			, #{section}
+			, #{color}
+			, #{fabricCount}
+			, #{deduction}
+			, #{unit}
+			, #{price}
+			, #{tax}
+			, #{delivery}
+			, #{receivable}
+			, #{etc}
+			, #{orderNo}
+			, #{registerId}
+			, #{registerDate}
+		)
+
+	</insert>
+
+	<update id="updateSalesData" parameterType="com.pinocchio.sales.dto.SalesVo">
+
+		UPDATE sales
+		SET
+			sale_date = #{saleDate}
+			, sale_flag = #{saleFlag}
+			, fabric_seq = #{fabricSeq}
+			, section = #{section}
+			, color = #{color}
+			, fabric_count = #{fabricCount}
+			, deduction = #{deduction}
+			, unit = #{unit}
+			, price = #{price}
+			, tax = #{tax}
+			, delivery = #{delivery}
+			, receivable = #{receivable}
+			, etc = #{etc}
+			, order_no = #{orderNo}
+			, register_id = #{registerId}
+			, register_date = #{registerDate}
+		WHERE
+			seq = #{seq}
+
+	</update>
+
+	<delete id="deleteSalesData" parameterType="java.util.HashMap">
+
+		DELETE FROM sales
+		WHERE
+			seq IN
+			<foreach collection="seqList" item="seq" separator="," index="index" open="(" close=")">
+				#{seq}
+			</foreach>
+
+	</delete>
+
+</mapper>
