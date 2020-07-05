@@ -2,58 +2,120 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pinocchio.sales.mapper.FabricMapper">
 
-	<!-- 로그인 회원 정보 조회 -->
-	<select id="selectFabricListAll" resultType="com.pinocchio.sales.dto.FabricVo">
+	<!-- fabric list -->
+	<select id="selectFabricList" parameterType="com.pinocchio.sales.dto.FabricVo" resultType="com.pinocchio.sales.dto.FabricVo">
 
 		SELECT
-			seq
-			, fabric_no AS fabricNo
-			, fabric_name AS fabricName
-			, register_id AS registerId
-			, register_date AS registerDate
+			F.seq
+			, F.fabric_no AS fabricNo
+			, F.fabric_name AS fabricName
+			, M.name AS registerName
+			, F.register_id AS registerId
+			, F.register_date AS registerDate
 		FROM
-			fabric
+			fabric F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			1 = 1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'fabricNo'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricName'">
+					AND F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricAll'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+		ORDER BY
+			F.seq DESC
+		LIMIT
+			#{start}, #{length}
 
 	</select>
 
-	<insert id="insertFabricData" >
-		Insert INTO
-			fabric
-			(
+	<!-- fabric list count -->
+	<select id="selectFabricListCount" parameterType="com.pinocchio.sales.dto.FabricVo" resultType="int">
+
+		SELECT
+			COUNT(*) AS recordsTotal
+		FROM
+			fabric F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			1 = 1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'fabricNo'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricName'">
+					AND F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'fabricAll'">
+					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+
+	</select>
+
+	<select id="selectFabricDetail" parameterType="com.pinocchio.sales.dto.FabricVo" resultType="com.pinocchio.sales.dto.FabricVo">
+
+		SELECT
+			F.seq
+			, F.fabric_no AS fabricNo
+			, F.fabric_name AS fabricName
+			, M.name AS registerName
+			, F.register_id AS registerId
+			, F.register_date AS registerDate
+		FROM
+			fabric F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			F.seq = #{seq}
+
+	</select>
+
+	<insert id="insertFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
+
+		INSERT INTO fabric (
 			seq
 			, fabric_no
 			, fabric_name
 			, register_id
 			, register_date
-			)
-		value
-			(
+		) VALUE (
 			 #{seq}
-			 ,#{fabricNo}
-			 ,#{fabricName}
-			 ,#{registerId}
-			 ,#{registerDate}
-			)
-
+			 , #{fabricNo}
+			 , #{fabricName}
+			 , #{registerId}
+			 , NOW()
+		)
 
 	</insert>
 
-	<!-- 로그인 회원 정보 조회
-	<select id="selectFabricList" parameterType="int" resultType="com.pinocchio.sales.dto.FabricVo">
+	<update id="updateFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
 
-		SELECT
-			seq
-			, fabric_no
-			, fabric_name
-			, register_id
-			, register_date
-		FROM
-			fabric
+		UPDATE fabric
+		SET
+			fabric_no = #{fabricNo}
+			, fabric_name = #{fabricName}
 		WHERE
 			seq = #{seq}
 
-	</select>
--->
-	
+	</update>
+
+	<delete id="deleteFabricData" parameterType="java.util.HashMap">
+
+		DELETE FROM fabric
+		WHERE
+			seq IN
+			<foreach collection="seqList" item="seq" separator="," index="index" open="(" close=")">
+				#{seq}
+			</foreach>
+
+	</delete>
 
 </mapper>

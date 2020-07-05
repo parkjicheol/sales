@@ -26,10 +26,9 @@
                         <div class="row">
                             <div class="col-lg-2 pt-3">
                                 <select id="searchField" class="form-control">
-                                    <option value="pollTitleAndPollContents">원단 품번 + 원단 품명</option>
-                                    <option value="pollTitle">원단 품번</option>
-                                    <option value="pollContents">원단 품명/option>
-                                    <option value="regMemberName">작성자</option>
+                                    <option value="fabricAll">원단 품번 + 원단 품명</option>
+                                    <option value="fabricNo">원단 품번</option>
+                                    <option value="fabricName">원단 품명</option>
                                 </select>
                             </div>
                             <div class="col-lg-3 pt-3">
@@ -101,23 +100,20 @@
                                     <tr class="odd" th:if="${not #strings.isEmpty(fabric)}">
                                         <td valign="top" colspan="6" class="dataTables_empty text-center">등록된 원단이 없습니다.</td>
                                     </tr>
-                                    <tr role="row" class="odd" th:each="fabric: ${fabricAll}">
+                                    <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">
                                         <td class="text-center">
                                             <div class="checkbox checkbox-css">
-                                                <input type="checkbox" value="<%= data[i].POLL_SEQ %>"
-                                                    id="serviceSurveyList_checkbox_<%=i%>" name="checkkey" />
-                                                <label for="serviceSurveyList_checkbox_<%=i%>">&nbsp;</label>
+                                                <input type="checkbox" th:value="${fabric.seq}"
+                                                    th:id="${'fabricList_checkbox_' + index.index}" name="checkKey" />
+                                                <label th:for="${'fabricList_checkbox_' + index.index}">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <!--/*@thymesVar id="fabricAll" type=""*/-->
-                                        <td class="text-center" th:text="${fabric.seq}" th:onclick="|javascript:page('${fabric.seq}')|"></td>
-                                        <td class="text-center" th:text="${fabric.fabricNo}"></td>
-                                        <td class="text-center" th:text="${fabric.fabricName}"></td>
-                                        <td class="text-center">admin</td>
+                                        <td class="text-center" th:text="${fabric.seq}"></td>
+                                        <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricNo}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricName}"></a></td>
+                                        <td class="text-center" th:text="${fabric.registerName}"></td>
                                         <td class="text-center" th:text="${fabric.registerDate}"></td>
                                    </tr>
-
-
                                </tbody>
                            </table>
                        </div>
@@ -125,7 +121,7 @@
                        <div class="col-12 mt-3">
                            <div class="float-right">
                                <button type="button" class="btn btn-danger" data-click="swal-danger"
-                                   onclick="fn:removeServiceSurvey()">삭제</button>
+                                   onclick="fn:removeFabic()">삭제</button>
                                <button type="button" class="btn btn-success ml-1"
                                    onclick="location.href='#/fabric/register'">등록</button>
                            </div>
@@ -140,9 +136,4 @@
 <!-- end row -->
 
 <!--added front js file of this ejs-->
-<script src="../../public/frontjs/views/service/serviceSurveyList.js" type="text/javascript"></script>
-<script>
-    function page(idx) {
-        alert(idx);
-    }
-</script>
+<script src="/javascripts/frontjs/fabric/fabricList.js" type="text/javascript"></script>

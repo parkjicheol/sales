@@ -31,24 +31,24 @@
                             <div class="pyoTable my-2">
                                 <div class="rowTable">
                                     <span class="cell col2">원단 품번</span>
-                                    <span class="cell col3">WC001-W-DMD</span>
+                                    <span class="cell col3" th:text="${fabricDetail.fabricNo}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">원단 품명</span>
-                                    <span class="cell col3">SPX 7000</span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">등록일</span>
-                                    <span class="cell col3">2020-06-26 12:00:00</span>
+                                    <span class="cell col3" th:text="${fabricDetail.fabricName}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">작성자</span>
-                                    <span class="cell col3">admin</span>
+                                    <span class="cell col3" th:text="${fabricDetail.registerId}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">등록일</span>
+                                    <span class="cell col3" th:text="${fabricDetail.registerDate}"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row pt-2 pr-3 float-right">
-                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/service/serviceSurveyList'">목록</button>
+                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/fabric/list'">목록</button>
                         </div>
                     </div>
                 </div>

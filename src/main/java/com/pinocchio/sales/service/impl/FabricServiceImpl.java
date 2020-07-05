@@ -26,21 +26,20 @@ public class FabricServiceImpl implements FabricService {
 	@Autowired
 	FabricMapper fabricMapper;
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
-	 */
-	public List<FabricVo> loadFabricListAll() {
-
-		List<FabricVo> fabricVo = fabricMapper.selectFabricListAll();
-
-		return  fabricVo;
+	public List<FabricVo> getFabricList(FabricVo fabricVo) {
+		return fabricMapper.selectFabricList(fabricVo);
 	}
 
-	public FabricVo insertFabricData(FabricVo fabricVo) {
+	public int getFabricListCount(FabricVo fabricVo) {
+		return fabricMapper.selectFabricListCount(fabricVo);
+	}
 
-		fabricVo = fabricMapper.insertFabricData(fabricVo);
+	public FabricVo getFabricDetail(FabricVo fabricVo) {
+		return fabricMapper.selectFabricDetail(fabricVo);
+	}
 
-		return fabricVo;
+	public FabricVo setFabricData(FabricVo fabricVo) {
+		return fabricMapper.insertFabricData(fabricVo);
 	}
 
 }

@@ -8,7 +8,9 @@ import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,32 +27,34 @@ public class FabricController extends AbstractBaseController<FabricController> {
         this.fabricService = fabricService;
     }
 
-
     @GetMapping("/fabric/list")
-    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model) {
+    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
 
-        List<FabricVo> fabricAll =  fabricService.loadFabricListAll();
-        model.addAttribute("fabricAll", fabricAll);
+        List<FabricVo> fabricList = fabricService.getFabricList(new FabricVo());
+        model.addAttribute("fabricList", fabricList);
 
         return "fabric/fabricList";
     }
 
     @GetMapping("/fabric/detail")
-    public String detail(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model) {
+    public String detail(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
+
+        FabricVo fabricDetail = fabricService.getFabricDetail(fabricVo);
+        model.addAttribute("fabricDetail", fabricDetail);
 
         return "fabric/fabricDetail";
     }
 
     @GetMapping("/fabric/register")
-    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model) {
+    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
 
-        return "fabric/fabricRegister";
-    }
+        if (fabricVo.getSeq() != null) {
+            FabricVo fabricDetail = fabricService.getFabricDetail(fabricVo);
+            model.addAttribute("fabricDetail", fabricDetail);
+        } else {
+            model.addAttribute("fabricDetail", fabricVo);
+        }
 
-    @RequestMapping("/insert.do")
-    public String insertFabric(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
-        fabricVo.getFabricName();
-        fabricVo.getFabricNo();
         return "fabric/fabricRegister";
     }
 
