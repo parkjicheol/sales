@@ -1,3 +1,9 @@
+<style type="text/css">
+    button.ui-datepicker-current,
+    button.ui-datepicker-trigger,
+    table.ui-datepicker-calendar { display:none; }
+</style>
+
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서</a></li>
@@ -25,6 +31,11 @@
                     <form class="form-horizontal form-bordered">
                         <div class="row">
                             <div class="col-lg-2 mt-3">
+                                <select>
+                                    <th:block th:each="num: ${#numbers.sequence(1, 5)}">
+                                        <option th:value="${2010 + num}" th:text="${2010 + num}"></option>
+                                    </th:block>
+                                </select>
                                 <div class="input-group" id="default-daterange">
                                     <input type="text" id="daterangeTxt" name="default-daterange" class="form-control"
                                            value="" placeholder="날짜를 선택해주세요" readonly> <span class="input-group-append">
