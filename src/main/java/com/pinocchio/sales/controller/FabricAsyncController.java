@@ -71,11 +71,11 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
         Gson gson = new Gson();
         Map<String, Object> seq = new HashMap<String, Object>();
 
-        map.put("seq", fabricSeqs.split(","));
+        seq.put("seq", fabricSeqs.split(","));
         fabricService.deleteFabricData(seq);
-        map.put("successCount", 1);
+        seq.put("successCount", 1);
 
-        return gson.toJson(map);
+        return gson.toJson(seq);
     }
 
 }

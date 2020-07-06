@@ -24,18 +24,23 @@
                 <div class="panel-body pt-0">
                     <form class="form-horizontal form-bordered">
                         <div class="row">
-                            <div class="col-lg-2 mt-3">
-                                <div class="input-group" id="default-daterange">
-                                    <input type="text" id="daterangeTxt" name="default-daterange" class="form-control"
-                                           value="" placeholder="날짜를 선택해주세요" readonly> <span class="input-group-append">
-                                        <span class="input-group-text"> <i class="fa fa-calendar"></i>
-                                            <input type="hidden" id="startDate" name="startDate" />
-                                            <input type="hidden" id="finishDate" name="finishDate" />
-                                        </span>
-                                    </span>
-                                </div>
+                            <div class="col-lg-2 pt-3">
+                                <select id="searchYear" class="form-control">
+                                    <th:block th:each="num, index: ${#numbers.sequence(1, 10)}">
+                                        <option th:selected="${#calendars.format(#calendars.createNow(), 'yyyy')} == ${2019 + index.index}" th:value="${2019 + index.index}" th:text="${2019 + index.index + '년'}"></option>
+                                    </th:block>
+                                </select>
                             </div>
-                            <div class="col-lg-8 pt-3"></div>
+                            <div class="col-lg-2 pt-3">
+                                <select id="searchMonth" class="form-control">
+                                    <th:block th:each="num, index: ${#numbers.sequence(1, 12)}">
+                                        <option th:selected="${#calendars.format(#calendars.createNow(), 'M')} == ${index.count}" th:value="${index.count}" th:text="${index.count + '월'}"></option>
+                                    </th:block>
+                                </select>
+<!--                                <div th:text="${#strings.substring('09', #strings.length('09') - 2, #strings.length('09'))}"></div>-->
+<!--                                <div th:text="${#strings.substring('012', #strings.length('012') - 2, #strings.length('012'))}"></div>-->
+                            </div>
+                            <div class="col-lg-6 pt-3"></div>
                             <div class="col-lg-2 pt-3">
                                 <button type="button" id="search" class="btn btn-primary float-right px-4">
                                     검색 <i class="fa fa-fw fa-search pl-3"></i>
@@ -54,20 +59,9 @@
                         <div class="dataTables_wrapper dt-bootstrap">
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-between">
-                                    <div class="dataTables_length" id="data-table-combine_length">
-                                        <label><select id="selectLength" name="data-table-combine_length"
-                                                       aria-controls="data-table-combine"
-                                                       class="custom-select-sm form-control form-control-sm">
-                                            <option value="20">20</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="1000">1000</option>
-                                            <option value="-1">전체보기</option>
-                                        </select> </label>
-                                        <p class="mb-0 px-3" style="line-height:34px">
-                                            총<span id="totalCount">0</span>건</p>
-                                        </p>
-                                    </div>
+                                    <h1 class="page-header">
+                                        2020년 6월 잔금 내역 = 3,495,590원
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -79,13 +73,8 @@
                             <table id="dataTable" class="table table-bordered table-striped serviceSurveyListTable">
                                 <thead>
                                 <tr class="tableHeadColor">
-                                    <th class="with-checkbox">
-                                        <div class="checkbox checkbox-css">
-                                            <input type="checkbox" value="" id="selectAll"> <label
-                                                for="selectAll">&nbsp;</label>
-                                        </div>
-                                    </th>
                                     <th class="text-center">일자</th>
+                                    <th class="text-center">구분</th>
                                     <th class="text-center">원단 품번</th>
                                     <th class="text-center">원단 품명</th>
                                     <th class="text-center">색상명</th>
@@ -102,43 +91,97 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd" th:if="${not #strings.isEmpty(sales)}">
+                                <tr class="odd" th:if="${#strings.isEmpty(salesList)}">
                                     <td valign="top" colspan="15" class="dataTables_empty text-center">등록된 수금 내역이 없습니다.</td>
                                 </tr>
                                 <tr role="row" class="odd" th:each="sales, index : ${salesList}">
-                                    <td class="text-center">
-                                        <div class="checkbox checkbox-css">
-                                            <input type="checkbox" th:value="${sales.seq}"
-                                                   th:id="${'salesList_checkbox_' + index.index}" name="checkKey" />
-                                            <label th:for="${'salesList_checkbox_' + index.index}">&nbsp;</label>
-                                        </div>
-                                    </td>
                                     <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${#strings.substring(sales.saleDate, 0, 10)}"></a></td>
+                                    <td class="text-center">
+                                        <span class="text-blue-darker" th:if="${sales.saleFlag.toString().equals('0')}">매출</span>
+                                        <span class="text-danger" th:if="${sales.saleFlag.toString().equals('1')}">반품</span>
+                                    </td>
                                     <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricNo}"></a></td>
                                     <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricName}"></a></td>
-                                    <td class="text-center" th:text="${sales.section}"></td>
                                     <td class="text-center" th:text="${sales.color}"></td>
+                                    <td class="text-right" th:text="${sales.section}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.fabricCount, 1, 'COMMA', 1, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.deduction, 1, 'COMMA', 1, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.unit, 1, 'COMMA', 0, 'POINT')}"></td>
-                                    <td class="text-right" th:text="${#numbers.formatDecimal(sales.price, 1, 'COMMA', 0, 'POINT')}"></td>
+                                    <td class="text-right">
+                                        <span class="text-blue-darker" th:if="${sales.saleFlag.toString().equals('0')}" th:text="${#numbers.formatDecimal(sales.price, 1, 'COMMA', 0, 'POINT')}"></span>
+                                        <span class="text-danger" th:if="${sales.saleFlag.toString().equals('1')}" th:text="${#numbers.formatDecimal(sales.price, 1, 'COMMA', 0, 'POINT')}"></span>
+                                    </td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.tax, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.delivery, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.receivable, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-center" th:text="${sales.etc}"></td>
                                     <td class="text-center" th:text="${sales.orderNo}"></td>
                                 </tr>
+                                <tr role="row" style="background-color: #f2fdf8;">
+                                    <td class="text-center">2020-07-07</td>
+                                    <td class="text-center"><span class="text-green-darker">수금</span></td>
+                                    <td class="text-center"><span class="text-green-darker">[ 수금액 ]</span></td>
+                                    <td class="text-center">은행/어음</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"><span class="text-green-darker">2,000,000</span></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <tr role="row" style="background-color: #f3f3ff;">
+                                    <td class="text-center" rowspan="3" colspan="2" style="background-color: #f2f4f5;"><span class="text">합계</span></td>
+                                    <td class="text-center"><span class="text-blue-darker">< 6월 매출 ></span></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-right">76</td>
+                                    <td class="text-right">4,991.0</td>
+                                    <td class="text-right">139.0</td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"><span class="text-blue-darker">16,320,364</span></td>
+                                    <td class="text-right">1,632,036</td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <tr role="row" style="background-color: #fdf2f4;">
+                                    <td class="text-center"><span class="text-danger">< 6월 반품 ></span></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"><span class="text-danger">2,000,000</span></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <tr role="row" style="background-color: #f2fdf8;">
+                                    <td class="text-center"><span class="text-green-darker">< 6월 수금 ></span></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"><span class="text-green-darker">2,000,000</span></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="col-12 mt-3">
-                            <div class="float-right">
-                                <button type="button" class="btn btn-danger" data-click="swal-danger"
-                                        onclick="fn:removeSales()">삭제</button>
-                                <button type="button" class="btn btn-success ml-1"
-                                        onclick="location.href='#/sales/register'">등록</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,4 +193,4 @@
 <!-- end row -->
 
 <!--added front js file of this ejs-->
-<script src="/javascripts/frontjs/report/reportList.js" type="text/javascript"></script>
+<!--<script src="/javascripts/frontjs/report/reportList.js" type="text/javascript"></script>-->
