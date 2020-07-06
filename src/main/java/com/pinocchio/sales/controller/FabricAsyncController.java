@@ -69,10 +69,10 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
     public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String fabricSeqs) {
 
         Gson gson = new Gson();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> seq = new HashMap<String, Object>();
 
-        map.put("seq",fabricSeqs.split(","));
-        fabricService.deleteFabricData(map);
+        map.put("seq", fabricSeqs.split(","));
+        fabricService.deleteFabricData(seq);
         map.put("successCount", 1);
 
         return gson.toJson(map);
