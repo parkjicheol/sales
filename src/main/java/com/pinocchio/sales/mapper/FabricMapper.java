@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -14,5 +15,6 @@ public interface FabricMapper {
     public int selectFabricListCount(FabricVo fabricVo);
     public FabricVo selectFabricDetail(FabricVo fabricVo);
     public FabricVo insertFabricData(FabricVo fabricVo);
+    public int deleteFabricData(Map seq);
 
 }
