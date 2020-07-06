@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @RestController
 public class FabricAsyncController extends AbstractBaseController<FabricAsyncController> {
@@ -68,8 +69,10 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
     public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String fabricSeqs) {
 
         Gson gson = new Gson();
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> seq = new HashMap<String, Object>();
 
+        map.put("seq", fabricSeqs.split(","));
+        fabricService.deleteFabricData(seq);
         map.put("successCount", 1);
 
         return gson.toJson(map);
