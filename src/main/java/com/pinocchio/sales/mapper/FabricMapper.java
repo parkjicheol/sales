@@ -16,5 +16,7 @@ public interface FabricMapper {
     public FabricVo selectFabricDetail(FabricVo fabricVo);
     public FabricVo insertFabricData(FabricVo fabricVo);
     public int deleteFabricData(Map seq);
+    public int updateFabricData(FabricVo fabricVo);
+
 
 }
