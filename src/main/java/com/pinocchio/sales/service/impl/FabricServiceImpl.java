@@ -47,4 +47,6 @@ public class FabricServiceImpl implements FabricService {
 		return  fabricMapper.deleteFabricData(seq);
 	}
 
+	public int updateFabricData(FabricVo fabricVo){ return  fabricMapper.updateFabricData(fabricVo);}
+
 }

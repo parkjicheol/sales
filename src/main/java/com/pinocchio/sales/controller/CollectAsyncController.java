@@ -2,10 +2,11 @@ package com.pinocchio.sales.controller;
 
 import com.google.gson.Gson;
 import com.pinocchio.sales.common.abs.AbstractBaseController;
+import com.pinocchio.sales.dto.CollectVo;
 import com.pinocchio.sales.dto.FabricVo;
+import com.pinocchio.sales.service.CollectService;
 import com.pinocchio.sales.service.FabricService;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,31 +20,31 @@ import java.util.Locale;
 import java.util.Map;
 
 @RestController
-public class FabricAsyncController extends AbstractBaseController<FabricAsyncController> {
+public class CollectAsyncController extends AbstractBaseController<CollectAsyncController> {
 
-    private final FabricService fabricService;
+    private final CollectService collectService;
 
-    public FabricAsyncController(FabricService fabricService) {
-        this.fabricService = fabricService;
+    public CollectAsyncController(CollectService collectService) {
+        this.collectService = collectService;
     }
 
-    @PostMapping("/fabric/ajaxList")
-    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, FabricVo fabricVo) {
+    @PostMapping("/collect/ajaxList")
+    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, CollectVo collectVO) {
 
-        List<FabricVo> fabricList =  fabricService.getFabricList(fabricVo);
-        int fabricListCount = fabricService.getFabricListCount(fabricVo);
+        List<CollectVo> collectList =  collectService.getCollectList(collectVO);
+        int collectListCount = collectService.getCollectListCount(collectVO);
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
 
-        map.put("data", fabricList);
-        map.put("recordsFiltered", fabricListCount);
-        map.put("recordsTotal", fabricListCount);
+        map.put("data", collectList);
+        map.put("recordsFiltered", collectListCount);
+        map.put("recordsTotal", collectListCount);
 
         return gson.toJson(map);
     }
 
-    @PostMapping("/fabric/ajaxRegister")
+   /* @PostMapping("/fabric/ajaxRegister")
     public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
 
         Gson gson = new Gson();
@@ -60,7 +61,7 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
         fabricVo.getSeq();
-        fabricService.updateFabricData(fabricVo);
+        collectService.updateFabricData(fabricVo);
 
         map.put("successCount", 1);
 
@@ -74,10 +75,10 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
         Map<String, Object> seq = new HashMap<String, Object>();
 
         seq.put("seq", fabricSeqs.split(","));
-        fabricService.deleteFabricData(seq);
+        collectService.deleteFabricData(seq);
         seq.put("successCount", 1);
 
         return gson.toJson(seq);
-    }
+    }*/
 
 }

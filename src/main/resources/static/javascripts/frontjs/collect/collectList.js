@@ -11,13 +11,11 @@ var dataTable = $('#dataTable').DataTable({
     pageLength: 10,
     buttons: [],
     ajax: {
-        "url": "/sales/ajaxList",
+        "url": "/collect/ajaxList",
         "type": "POST",
         "data": function (d) {
             d.startDate = $("#startDate").val();
             d.finishDate = $("#finishDate").val();
-            d.searchField = $("#searchField").val();
-            d.searchKeyword = $("#searchKeyword").val();
             d.bRunning = bRunning;
         },
         dataSrc: "data",
@@ -31,96 +29,59 @@ var dataTable = $('#dataTable').DataTable({
     "columns": [{
         data: ''
     }, {
-        data: 'saleDate'
-    }, {
-        data: 'saleFlag'
-    }, {
-        data: 'fabricNo'
-    }, {
-        data: 'fabricName'
-    }, {
-        data: 'section'
-    }, {
-        data: 'color'
-    }, {
-        data: 'fabricCount'
+        data: 'seq'
     },{
-        data: 'deduction'
+        data: 'collectDate'
     }, {
-        data: 'unit'
+        data: 'collectType'
     }, {
         data: 'price'
     }, {
-        data: 'tax'
-    }, {
-        data: 'delivery'
-    }, {
-        data: 'receivable'
-    }, {
-        data: 'etc'
-    }, {
-        data: 'orderNo'
+        data: 'registerDate'
     }],
     columnDefs: [{
             targets: 0,
             render: function (data, type, row, meta) {
 
                 var html = '<div class="checkbox checkbox-css">';
-                html += '    <input type="checkbox" value="' + row.seq + '" id="salesList_checkbox_' + meta.row + '" name="checkKey" />';
-                html += '    <label for="salesList_checkbox_' + meta.row + '">&nbsp;</label>';
+                html += '    <input type="checkbox" value="' + row.seq + '" id="collectList_checkbox_' + meta.row + '" name="checkKey" />';
+                html += '    <label for="collectList_checkbox_' + meta.row + '">&nbsp;</label>';
                 html += '</div>';
 
                 return html;
             }
-        }, {
-            targets: 1,
-            className: 'dt-body-center',
-            selector: 'td',
-            render: function (data, type, row, meta) {
-                return row.saleDate.substring(0, 10);
-            }
-        }, {
+        },{
             targets: 2,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return (row.saleFlag == 0) ? '<span class="text-blue-darker">매출</span>' : '<span class="text-danger">반품</span>';
+                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectDate + '</a>';
             }
         }, {
             targets: 3,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/sales/detail?seq=' + row.seq + '">' + row.fabricNo + '</a>';
+                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectType + '</a>';
             }
         }, {
             targets: 4,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/sales/detail?seq=' + row.seq + '">' + row.fabricName + '</a>';
+                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.price + '</a>';
             }
         },
         {
-            targets: [0, 5, 6, 14],
+            targets: [0, 1, 4, 5],
             className: 'dt-body-center'
-        },
-        {
-            targets: [7, 8],
-            className: 'dt-body-right',
-            render: $.fn.dataTable.render.number( ',', '.', 1 )
-        },
-        {
-            targets: [9, 10, 11, 12, 13],
-            className: 'dt-body-right',
-            render: $.fn.dataTable.render.number( ',')
         }
     ]
 });
 
 $(document).ready(function () {
 
-    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 매출/수금이 없습니다.';
+    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 정보가 없습니다.';
 
     //input X버튼
     var $ipt = $('#searchKeyword'),
@@ -209,7 +170,7 @@ $(document).ready(function () {
 
 });
 
-function removeSales() {
+function removeFabric() {
 
     if ($('#totalCount').text() === '0') {
         return false;
@@ -217,8 +178,8 @@ function removeSales() {
     
     if ($('input:checkbox[name=checkKey]:checked').length < 1) {
         swal({
-            title: '선택된 매출/수금이 없습니다.',
-            text: '삭제할 매출/수금을 선택해주세요.',
+            title: '선택된 원단이 없습니다.',
+            text: '삭제할 원단을 선택해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -255,16 +216,16 @@ function removeSales() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            var salesSeqs = [];
+            var collectSeqs = [];
 
             $('input:checkbox[name=checkKey]:checked').each(function () {
-                salesSeqs.push($(this).val());
+                collectSeqs.push($(this).val());
             });
 
             $.ajax({
                 type: "POST",
-                url: "/sales/ajaxRemove",
-                data: "salesSeqs=" + salesSeqs,
+                url: "/collect/ajaxRemove",
+                data: "collectSeqs=" + collectSeqs,
                 success: function (data) {
 
                     if (Number(data.successCount) < 1) {
@@ -285,7 +246,7 @@ function removeSales() {
                         return false;
                     }
                     swal({
-                        title: '선택하신 매출/수금을 삭제했습니다.',
+                        title: '선택하신 원단을 삭제했습니다.',
                         text: '',
                         icon: 'success',
                         buttons: {
@@ -303,7 +264,7 @@ function removeSales() {
                 },
                 error: function (data) {
                     swal({
-                        title: '매출/수금 삭제에 실패했습니다.',
+                        title: '원단 삭제에 실패했습니다.',
                         text: '',
                         icon: 'error',
                         buttons: {

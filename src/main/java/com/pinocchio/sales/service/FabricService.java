@@ -12,5 +12,6 @@ public interface FabricService {
     public FabricVo getFabricDetail(FabricVo fabricVo);
     public FabricVo setFabricData(FabricVo fabricVo);
     public int deleteFabricData(Map seq);
+    public int updateFabricData(FabricVo fabricVo);
 
 }

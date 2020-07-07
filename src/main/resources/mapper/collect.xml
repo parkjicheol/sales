@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.CollectMapper">
+
+	<!-- fabric list -->
+	<select id="selectCollectList" parameterType="com.pinocchio.sales.dto.CollectVo" resultType="com.pinocchio.sales.dto.CollectVo">
+
+		SELECT
+			F.seq
+			, F.collect_date AS collectDate
+			, F.collect_type AS collectType
+			, F.price AS price
+			, M.name AS registerName
+			, F.register_id AS registerId
+			, F.register_date AS registerDate
+			, F.state AS state
+		FROM
+			collect F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			1 = 1
+		AND
+			state = '0'
+		<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+			AND F.collect_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+		</if>
+
+
+		ORDER BY
+			F.seq DESC
+		LIMIT
+			#{start}, #{length}
+
+	</select>
+
+	<!-- fabric list count -->
+	<select id="selectCollectListCount" parameterType="com.pinocchio.sales.dto.CollectVo" resultType="int">
+
+		SELECT
+			COUNT(*) AS recordsTotal
+		FROM
+			collect F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			1 = 1
+		AND
+			state = '0'
+		<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+			AND F.collect_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+		</if>
+
+	</select>
+
+
+	<select id="selectCollectDetail" parameterType="com.pinocchio.sales.dto.CollectVo" resultType="com.pinocchio.sales.dto.CollectVo">
+
+		SELECT
+			F.seq
+			, F.collect_date AS collectDate
+			, F.collect_type AS collectType
+			, F.price AS price
+			, M.name AS registerName
+			, F.register_id AS registerId
+			, F.register_date AS registerDate
+			, F.state AS state
+		FROM
+			collect F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			F.seq = #{seq}
+
+	</select>
+	<!--
+        <insert id="insertFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
+
+            INSERT INTO fabric (
+                seq
+                , fabric_no
+                , fabric_name
+                , register_id
+                , register_date
+            ) VALUE (
+                 #{seq}
+                 , #{fabricNo}
+                 , #{fabricName}
+                 , #{registerId}
+                 , NOW()
+            )
+
+        </insert>
+
+        <update id="updateFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
+
+            UPDATE fabric
+            SET
+                fabric_no = #{fabricNo}
+                , fabric_name = #{fabricName}
+            WHERE
+                seq = #{seq}
+
+        </update>
+
+        <update id="deleteFabricData" parameterType="java.util.Map">
+
+            UPDATE fabric
+            SET
+                state = '1'
+            WHERE
+                seq IN
+                <foreach collection="seq" item="item" separator="," index="index" open="(" close=")">
+                    #{item}
+                </foreach>
+
+        </update>
+    -->
+
+</mapper>

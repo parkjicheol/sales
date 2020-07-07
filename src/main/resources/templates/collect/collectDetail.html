@@ -1,0 +1,61 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb float-xl-right">
+    <li class="breadcrumb-item"><a href="javascript:;">원단 항목 관리</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원 항목 리스트</a></li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">
+    수금 항목 <small>수금 항목 내용</small>
+</h1>
+<!-- end page-header -->
+
+<!-- begin row -->
+<div id="content" class="serviceSurveyDetail">
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
+                <div class="searchCondition">
+                    <h4 class="panel-title"><i class="fa fa-clipboard"></i> 원단 내용</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="dataTables_wrapper dt-bootstrap">
+                            <div class="tableHide">
+                                <input type="text" tabindex="0" />
+                            </div>
+                        </div>
+                        <div class="row mx-1">
+                            <div class="pyoTable my-2">
+                                <div class="rowTable">
+                                    <span class="cell col2">수금일자</span>
+                                    <span class="cell col3" th:text="${collectDetail.collectDate}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">수금지급방법</span>
+                                    <span class="cell col3" th:text="${collectDetail.collectType}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">수금액</span>
+                                    <span class="cell col3" th:text="${collectDetail.price}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">등록일</span>
+                                    <span class="cell col3" th:text="${collectDetail.registerDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-2 pr-3 float-right">
+                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/collect/list'">목록</button>
+                            <button type="button" class="btn btn-primary ml-1" th:onclick="|location.href='#/collect/register?seq=${collectDetail.seq}'|">수정</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+</div>
+<!-- end row -->
