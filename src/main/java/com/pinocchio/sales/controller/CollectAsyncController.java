@@ -44,41 +44,43 @@ public class CollectAsyncController extends AbstractBaseController<CollectAsyncC
         return gson.toJson(map);
     }
 
-   /* @PostMapping("/fabric/ajaxRegister")
-    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
+    @PostMapping("/collect/ajaxRegister")
+    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, CollectVo collectVo) {
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
+        collectVo.setRegisterId("admin");
+        collectService.setCollectData(collectVo);
 
         map.put("successCount", 1);
 
         return gson.toJson(map);
     }
 
-    @PostMapping("/fabric/ajaxModify")
-    public String modify(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
+    @PostMapping("/collect/ajaxModify")
+    public String modify(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, CollectVo collectVo) {
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
-        fabricVo.getSeq();
-        collectService.updateFabricData(fabricVo);
+        collectVo.getSeq();
+        collectService.updateCollectData(collectVo);
 
         map.put("successCount", 1);
 
         return gson.toJson(map);
     }
 
-    @PostMapping("/fabric/ajaxRemove")
-    public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String fabricSeqs) {
+    @PostMapping("/collect/ajaxRemove")
+    public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String collectSeqs) {
 
         Gson gson = new Gson();
         Map<String, Object> seq = new HashMap<String, Object>();
 
-        seq.put("seq", fabricSeqs.split(","));
-        collectService.deleteFabricData(seq);
+        seq.put("seq", collectSeqs.split(","));
+        collectService.deleteCollectData(seq);
         seq.put("successCount", 1);
 
         return gson.toJson(seq);
-    }*/
+    }
 
 }

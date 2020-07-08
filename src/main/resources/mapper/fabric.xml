@@ -84,14 +84,12 @@
 	<insert id="insertFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
 
 		INSERT INTO fabric (
-			seq
-			, fabric_no
+			fabric_no
 			, fabric_name
 			, register_id
 			, register_date
 		) VALUE (
-			 #{seq}
-			 , #{fabricNo}
+			 #{fabricNo}
 			 , #{fabricName}
 			 , #{registerId}
 			 , NOW()

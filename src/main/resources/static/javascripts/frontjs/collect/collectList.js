@@ -170,7 +170,7 @@ $(document).ready(function () {
 
 });
 
-function removeFabric() {
+function removeCollect() {
 
     if ($('#totalCount').text() === '0') {
         return false;
@@ -246,7 +246,7 @@ function removeFabric() {
                         return false;
                     }
                     swal({
-                        title: '선택하신 원단을 삭제했습니다.',
+                        title: '선택하신 내용 삭제했습니다.',
                         text: '',
                         icon: 'success',
                         buttons: {
@@ -264,7 +264,7 @@ function removeFabric() {
                 },
                 error: function (data) {
                     swal({
-                        title: '원단 삭제에 실패했습니다.',
+                        title: '삭제에 실패했습니다.',
                         text: '',
                         icon: 'error',
                         buttons: {

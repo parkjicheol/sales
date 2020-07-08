@@ -37,15 +37,15 @@ public class CollectServiceImpl implements CollectService {
 	public CollectVo getCollectDetail(CollectVo collectVo){
 		return collectMapper.selectCollectDetail(collectVo);
 	}
-/*
-	public FabricVo setFabricData(FabricVo fabricVo) {
-		return fabricMapper.insertFabricData(fabricVo);
+
+	public int setCollectData(CollectVo collectVo) {
+		return collectMapper.insertCollectData(collectVo);
 	}
 
-	public int deleteFabricData(Map seq) {
-		return  fabricMapper.deleteFabricData(seq);
+	public int deleteCollectData(Map seq) {
+		return  collectMapper.deleteCollectData(seq);
 	}
 
-	public int updateFabricData(FabricVo fabricVo){ return  fabricMapper.updateFabricData(fabricVo);}*/
+	public int updateCollectData(CollectVo collectVo){ return  collectMapper.updateCollectData(collectVo);}
 
 }
