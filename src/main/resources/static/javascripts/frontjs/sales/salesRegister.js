@@ -39,7 +39,7 @@ function setSalesRegister() {
         return false;
     }
 
-    var url = ($("#salesName").val() != '') ? "/sales/ajaxModify" : "/sales/ajaxRegister";
+    var url = ($("#salesName").val() != undefined) ? "/sales/ajaxModify" : "/sales/ajaxRegister";
 
     $.ajax({
         type: "POST",
