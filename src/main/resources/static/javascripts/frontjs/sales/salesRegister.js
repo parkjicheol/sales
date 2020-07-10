@@ -7,8 +7,19 @@ $(document).ready(function () {
         language: 'kor'
     });
 
+    //테이블 조회갯수 지정
+    $("#fabricLength").on("change", function (event) {
+        var oSettings = dataTable.settings()[0];
+        var len = Number($("#selectLength option:selected").val());
+
+        oSettings._iDisplayLength = len === -1 ? $("#totalCount").text() : len;
+
+        dataTable.draw();
+
+    });
+
     // modal-SearchCourse02Datatable 생성
-    var SearchCourse02Datatable = $('#SearchCourse02Datatable').DataTable({
+    var fabricDatatable = $('#fabricDatatable').DataTable({
         dom: 'Blfrtip',
         addTableClass: 'col-lg-12 px-0',
         lengthChange: false,
@@ -18,44 +29,50 @@ $(document).ready(function () {
         pageLength: 20,
         buttons: [],
         ajax: {
-            "url": "/site/main/ajaxSearchCourseList",
+            "url": "/fabric/ajaxList",
             "type": "POST",
             "data": function (d) {
-                d.courseKindCd = $("#search02CourseKindCd").val();
-                d.searchField = $("#search02SearchField").val();
-                d.useYn = $("#search02UseYn").val();
-                d.searchKw = $("#search02SearchKw").val();
-                d.bRunning = bRunningSearch02;
+                d.searchField = $("#searchField").val();
+                d.searchKeyword = $("#searchKeyword").val();
+                d.bRunning = bRunning;
             },
             dataSrc: "data",
             complete: function (data) {
-                $("#search02TotalCount").text(data.responseJSON.recordsTotal);
+                console.log(data);
+                $('#totalCount').text(JSON.stringify(data.responseJSON.recordsTotal));
+                $('#selectAll').prop("checked", false);
+                bRunning = true;
             }
         },
         "columns": [{
-            data: ''
+            data: 'seq'
+        },{
+            data: 'fabricNo'
         }, {
-            data: 'COURSE_KIND_NM'
+            data: 'fabricName'
         }, {
-            data: 'COURSE_NAME'
+            data: 'registerId'
         }, {
-            data: 'LABOR_REFUND_YN'
+            data: 'registerDate'
         }],
         columnDefs: [{
-            targets: 0,
-            'render': function (data, type, row, meta) {
-                var info = SearchCourse02Datatable.page.info();
-                return info.recordsTotal - (info.page * info.length + meta.row);
+            targets: 1,
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<a href="javascript:;" onclick="fn:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricNo + '</a>';
             }
-        },{
+        }, {
             targets: 2,
-            'render': function (data, type, row, meta) {
-                return '<a href="javascript:;" onclick="fn:setPromotionCourse(\'' + row.COURSE_CODE + '\')"">'+ row.COURSE_NAME + '</a>';
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<a href="javascript:;" onclick="fn:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricName + '</a>';
             }
         },
             {
-                'targets': [0, 1, 2, 3],
-                'className': 'dt-body-center'
+                targets: [0, 3, 4],
+                className: 'dt-body-center'
             }
         ]
     });
@@ -98,7 +115,7 @@ function setSalesRegister() {
         return false;
     }
 
-    var url = ($("#salesName").val() != '') ? "/sales/ajaxModify" : "/sales/ajaxRegister";
+    var url = ($("#salesName").val() != undefined) ? "/sales/ajaxModify" : "/sales/ajaxRegister";
 
     $.ajax({
         type: "POST",
