@@ -47,15 +47,15 @@ public class SalesController extends AbstractBaseController<SalesController> {
     @GetMapping("/sales/register")
     public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SalesVo salesVo) {
 
+        List<FabricVo> fabricList = fabricService.getFabricList(new FabricVo());
+        model.addAttribute("fabricList", fabricList);
+
         if (salesVo.getSeq() != null) {
             SalesVo salesDetail = salesService.getSalesDetail(salesVo);
             model.addAttribute("salesDetail", salesDetail);
         } else {
             model.addAttribute("salesDetail", salesVo);
         }
-
-        List<FabricVo> fabricList = fabricService.getFabricList(new FabricVo());
-        model.addAttribute("fabricList", fabricList);
 
         return "sales/salesRegister";
     }

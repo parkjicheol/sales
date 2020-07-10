@@ -28,7 +28,7 @@ $(document).ready(function () {
         ordering: false,
         searching: false,
         initialLoad: false,
-        pageLength: 20,
+        pageLength: 10,
         buttons: [],
         ajax: {
             "url": "/fabric/ajaxList",
@@ -160,4 +160,12 @@ function getSalesList() {
             window.location.href = "#/sales/list";
         }
     });
+}
+
+function setFabric(fabricSeq, fabricNo, fabricName) {
+
+    $('#fabricSeq').val(fabricSeq);
+    $('#fabricNo').val(fabricNo);
+    $('#fabricName').val(fabricName);
+
 }

@@ -17,9 +17,8 @@
 				ON F.register_id = M.id
 		WHERE
 			1 = 1
-		AND
-			state = '0'
-
+			AND
+				state = '0'
 			<if test="searchKeyword != null and searchKeyword != ''">
 				<if test="searchField == 'fabricNo'">
 					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -49,6 +48,8 @@
 				ON F.register_id = M.id
 		WHERE
 			1 = 1
+			AND
+				state = '0'
 			<if test="searchKeyword != null and searchKeyword != ''">
 				<if test="searchField == 'fabricNo'">
 					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
