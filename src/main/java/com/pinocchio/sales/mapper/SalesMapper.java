@@ -13,6 +13,6 @@ public interface SalesMapper {
     public List<SalesVo> selectSalesList(SalesVo salesVo);
     public int selectSalesListCount(SalesVo salesVo);
     public SalesVo selectSalesDetail(SalesVo salesVo);
-    public SalesVo insertSalesData(SalesVo salesVo);
+    public int insertSalesData(SalesVo salesVo);
 
 }
