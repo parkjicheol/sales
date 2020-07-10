@@ -32,13 +32,31 @@
                             <div class="row mx-1">
                                 <div class="pyoTable my-2">
                                     <div class="rowTable">
+                                        <span class="cell col2">매출 일자</span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <div class="input-group date" id="datepicker-sales">
+                                                    <input type="text" class="form-control"
+                                                           value="" readonly />
+                                                    <input id="saleDate" name="saleDate" type="hidden"
+                                                           value="">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
                                         <span class="cell col2">원단 품번</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="pollTitle" name="pollTitle" type="text"
-                                                       class="form-control subject" placeholder="제목을 입력해주세요"
-                                                       value="<%= data.POLL_TITLE %>"><span id="searchClear"><i
-                                                    class="btnX ion-md-close"></i></span>
+                                                <input id="fabricNo" name="fabricNo" type="text"
+                                                       class="form-control subject" placeholder="원단 품번을 입력해주세요"
+                                                >
+                                                <button type="button" class="btn btn-success ml-1 mr-1" data-toggle="modal" data-target="#modal-SearchFabric">
+                                                    과정찾기
+                                                </button>
                                             </div>
                                         </span>
                                     </div>
@@ -46,10 +64,9 @@
                                         <span class="cell col2">원단 품명</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="pollTitle" name="pollTitle" type="text"
-                                                       class="form-control subject" placeholder="제목을 입력해주세요"
-                                                       value="<%= data.POLL_TITLE %>"><span id="searchClear"><i
-                                                    class="btnX ion-md-close"></i></span>
+                                                <input id="fabricName" name="fabricName" type="text"
+                                                       class="form-control subject" placeholder="원단 품명을 입력해주세요"
+                                                >
                                             </div>
                                         </span>
                                     </div>
@@ -72,8 +89,148 @@
         </div>
         <!-- end panel -->
     </div>
+
+    <!-- modal-SearchCourse 과정찾기 모달 체크박스 o -->
+    <div class="modal modal-message memberDetail fade show display_none pb-5" id="modal-SearchFabric" aria-modal="true">
+        <input type="hidden" id="courseSearchKindCd" value="06" running="false">
+        <div class="modal-dialog my-2">
+            <div class="modal-content mt-0 mb-5">
+                <div class="modal-body width-full pt-4 mt-3">
+                    <div class="alert alert-default m-b-0 py-0">
+                        <div class="row">
+                            <!-- begin col-12 -->
+                            <div class="col-xl-12">
+                                <!-- begin panel -->
+                                <div class="panel panel-inverse mb-0">
+                                    <!-- begin panel-body -->
+                                    <div class="panel-body p-0">
+                                        <div class="searchCondition">
+                                            <h4 class="panel-title">과정 찾기 - 검색 조건</h4>
+                                            <a class="close closeBtn"href="javascript:;" data-dismiss="modal"><i class="btnX ion-md-close"></i></a>
+                                        </div>
+                                        <form class="form-horizontal form-bordered pt-3">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <select class="form-control" id="search01CourseKindCd">
+                                                        <option value="">과정구분</option>
+                                                        <option value="PL">북러닝</option>
+                                                        <option value="EL">이러닝</option>
+                                                        <option value="OL">집합</option>
+                                                        <option value="LL">전화/화상</option>
+                                                        <option value="BL">콜라보</option>
+                                                        <option value="TG">열공소</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <select class="form-control" id="search01SearchField">
+                                                        <option value="courseName">과정명</option>
+                                                        <option value="courseCode">과정코드</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <select class="form-control" id="search01UseYn">
+                                                        <option value="">사용여부</option>
+                                                        <option value="Y">개강</option>
+                                                        <option value="N">폐강</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <form action="" method="" name="search_form">
+                                                        <input id="search01SearchKw" type="text" class="form-control" placeholder="검색어를 입력해주세요" />
+                                                    </form>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <button id="SearchCourse01Btn" type="button" class="btn btn-primary float-right px-4">
+                                                        검색 <i class="fa fa-fw fa-search pl-3"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- end panel -->
+
+                                <!-- begin panel -->
+                                <div class="panel panel-inverse mb-0 pt-2" data-sortable-id="">
+                                    <div class="panel-body p-0">
+                                        <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                            <div class="dataTables_wrapper dt-bootstrap">
+                                                <div class="">
+                                                    <div class="dataTables_length mb-2 py-2" id="data-table-combine_length">
+                                                        <label><select id="SearchCourse01Length" name="data-table-combine_length" aria-controls="data-table-combine" class="custom-select-sm form-control form-control-sm">
+                                                            <option value="20">20</option>
+                                                            <option value="50">50</option>
+                                                            <option value="100">100</option>
+                                                            <option value="1000">1000</option>
+                                                            <option value="-1">전체보기</option>
+                                                        </select> </label>
+                                                        <p class="mb-0 ml-3">
+                                                            총 <span id="search01TotalCount">0</span> 건
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="tableHide">
+                                                    <input type="text" tabindex="0" />
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <table id="SearchCourse01Datatable" class="table table-bordered table-striped mb-3">
+                                                    <thead>
+                                                    <tr class="tableHeadColor">
+                                                        <th class="with-checkbox">
+                                                            <div class="checkbox checkbox-css">
+                                                                <input type="checkbox" value="" id="selectAll"> <label
+                                                                    for="selectAll">&nbsp;</label>
+                                                            </div>
+                                                        </th>
+                                                        <th class="text-center">번호</th>
+                                                        <th class="text-center">원단 품번</th>
+                                                        <th class="text-center">원단 품명</th>
+                                                        <th class="text-center">등록자</th>
+                                                        <th class="text-center">등록일자</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr class="odd" th:if="${#strings.isEmpty(fabricList)}">
+                                                        <td valign="top" colspan="6" class="dataTables_empty text-center">등록된 원단이 없습니다.</td>
+                                                    </tr>
+                                                    <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">
+                                                        <td class="text-center">
+                                                            <div class="checkbox checkbox-css">
+                                                                <input type="checkbox" th:value="${fabric.seq}"
+                                                                       th:id="${'fabricList_checkbox_' + index.index}" name="checkKey" />
+                                                                <label th:for="${'fabricList_checkbox_' + index.index}">&nbsp;</label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center" th:text="${fabric.seq}"></td>
+                                                        <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricNo}"></a></td>
+                                                        <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricName}"></a></td>
+                                                        <td class="text-center" th:text="${fabric.registerId}"></td>
+                                                        <td class="text-center" th:text="${fabric.registerDate}"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="py-3 text-right">
+                                                <div>
+                                                    <button type="button" class="btn btn-danger ml-1" data-dismiss="modal">닫기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end panel -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal-SearchCourse 과정찾기 모달 체크박스 o -->
+
 </div>
 <!-- end row -->
 
 <!--added front js file of this ejs-->
-<script src="/javascripts/frontjs/views/service/serviceSurveyRegister.js" type="text/javascript"></script>
+<script src="/javascripts/frontjs/sales/salesRegister.js" type="text/javascript"></script>

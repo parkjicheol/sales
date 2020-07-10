@@ -1,5 +1,64 @@
 $(document).ready(function () {
 
+    $('#datepicker-sales').datepicker({
+        todayHighlight: true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        language: 'kor'
+    });
+
+    // modal-SearchCourse02Datatable 생성
+    var SearchCourse02Datatable = $('#SearchCourse02Datatable').DataTable({
+        dom: 'Blfrtip',
+        addTableClass: 'col-lg-12 px-0',
+        lengthChange: false,
+        ordering: false,
+        searching: false,
+        initialLoad: false,
+        pageLength: 20,
+        buttons: [],
+        ajax: {
+            "url": "/site/main/ajaxSearchCourseList",
+            "type": "POST",
+            "data": function (d) {
+                d.courseKindCd = $("#search02CourseKindCd").val();
+                d.searchField = $("#search02SearchField").val();
+                d.useYn = $("#search02UseYn").val();
+                d.searchKw = $("#search02SearchKw").val();
+                d.bRunning = bRunningSearch02;
+            },
+            dataSrc: "data",
+            complete: function (data) {
+                $("#search02TotalCount").text(data.responseJSON.recordsTotal);
+            }
+        },
+        "columns": [{
+            data: ''
+        }, {
+            data: 'COURSE_KIND_NM'
+        }, {
+            data: 'COURSE_NAME'
+        }, {
+            data: 'LABOR_REFUND_YN'
+        }],
+        columnDefs: [{
+            targets: 0,
+            'render': function (data, type, row, meta) {
+                var info = SearchCourse02Datatable.page.info();
+                return info.recordsTotal - (info.page * info.length + meta.row);
+            }
+        },{
+            targets: 2,
+            'render': function (data, type, row, meta) {
+                return '<a href="javascript:;" onclick="fn:setPromotionCourse(\'' + row.COURSE_CODE + '\')"">'+ row.COURSE_NAME + '</a>';
+            }
+        },
+            {
+                'targets': [0, 1, 2, 3],
+                'className': 'dt-body-center'
+            }
+        ]
+    });
 
 })
 
