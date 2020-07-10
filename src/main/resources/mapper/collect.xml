@@ -70,39 +70,41 @@
 			F.seq = #{seq}
 
 	</select>
-	<!--
-        <insert id="insertFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
 
-            INSERT INTO fabric (
-                seq
-                , fabric_no
-                , fabric_name
+	<insert id="insertCollectData" parameterType="com.pinocchio.sales.dto.CollectVo">
+
+            INSERT INTO collect (
+            	 collect_date
+                , collect_type
+                , price
                 , register_id
                 , register_date
+
             ) VALUE (
-                 #{seq}
-                 , #{fabricNo}
-                 , #{fabricName}
+                #{collectDate}
+                 , #{collectType}
+                 , #{price}
                  , #{registerId}
                  , NOW()
             )
 
-        </insert>
+    </insert>
 
-        <update id="updateFabricData" parameterType="com.pinocchio.sales.dto.FabricVo">
+        <update id="updateCollectData" parameterType="com.pinocchio.sales.dto.CollectVo">
 
-            UPDATE fabric
+            UPDATE collect
             SET
-                fabric_no = #{fabricNo}
-                , fabric_name = #{fabricName}
+                collect_date = #{collectDate}
+                , collect_type = #{collectType}
+                , price = #{price}
             WHERE
                 seq = #{seq}
 
         </update>
 
-        <update id="deleteFabricData" parameterType="java.util.Map">
+      <update id="deleteCollectData" parameterType="java.util.Map">
 
-            UPDATE fabric
+            UPDATE collect
             SET
                 state = '1'
             WHERE
@@ -112,6 +114,5 @@
                 </foreach>
 
         </update>
-    -->
 
 </mapper>

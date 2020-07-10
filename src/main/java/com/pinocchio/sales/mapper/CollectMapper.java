@@ -15,9 +15,11 @@ public interface CollectMapper {
     public List<CollectVo> selectCollectList(CollectVo CollectVo);
     public int selectCollectListCount(CollectVo CollectVo);
     public CollectVo selectCollectDetail(CollectVo CollectVo);
-    /*public FabricVo insertFabricData(FabricVo fabricVo);
-    public int deleteFabricData(Map seq);
-    public int updateFabricData(FabricVo fabricVo);*/
+    public int insertCollectData(CollectVo CollectVo);
+    public int deleteCollectData(Map seq);
+    public int updateCollectData(CollectVo CollectVo);
+
+
 
 
 }

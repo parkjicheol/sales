@@ -39,7 +39,7 @@ public class FabricServiceImpl implements FabricService {
 		return fabricMapper.selectFabricDetail(fabricVo);
 	}
 
-	public FabricVo setFabricData(FabricVo fabricVo) {
+	public int setFabricData(FabricVo fabricVo) {
 		return fabricMapper.insertFabricData(fabricVo);
 	}
 

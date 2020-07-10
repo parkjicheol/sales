@@ -11,8 +11,8 @@ public interface CollectService {
     public List<CollectVo> getCollectList(CollectVo collectVo);
     public int getCollectListCount(CollectVo collectVo);
     public CollectVo getCollectDetail(CollectVo collectVo);
-     /*public FabricVo setFabricData(FabricVo fabricVo);
-    public int deleteFabricData(Map seq);
-    public int updateFabricData(FabricVo fabricVo);*/
+    public int setCollectData(CollectVo collectVo);
+    public int deleteCollectData(Map seq);
+    public int updateCollectData(CollectVo collectVo);
 
 }

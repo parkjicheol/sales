@@ -16,7 +16,6 @@ public class FabricVo extends DefaultVo {
     private Long seq;
     private String fabricNo;
     private String fabricName;
-    private String registerName;
     private String registerId;
     private String registerDate;
 

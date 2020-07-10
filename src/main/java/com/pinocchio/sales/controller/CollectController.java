@@ -41,18 +41,18 @@ public class CollectController extends AbstractBaseController<CollectController>
 
         return "collect/collectDetail";
     }
-    /*
-    @GetMapping("/fabric/register")
-    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, FabricVo fabricVo) {
 
-        if (fabricVo.getSeq() != null) {
-            FabricVo fabricDetail = fabricService.getFabricDetail(fabricVo);
-            model.addAttribute("fabricDetail", fabricDetail);
+    @GetMapping("/collect/register")
+    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, CollectVo collectVo) {
+
+        if (collectVo.getSeq() != null) {
+            CollectVo collectDetail = collectService.getCollectDetail(collectVo);
+            model.addAttribute("collectDetail", collectDetail);
         } else {
-            model.addAttribute("fabricDetail", fabricVo);
+            model.addAttribute("collectDetail", collectVo);
         }
 
-        return "fabric/fabricRegister";
-    }*/
+        return "collect/collectRegister";
+    }
 
 }

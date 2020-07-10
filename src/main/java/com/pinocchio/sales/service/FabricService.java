@@ -10,7 +10,7 @@ public interface FabricService {
     public List<FabricVo> getFabricList(FabricVo fabricVo);
     public int getFabricListCount(FabricVo fabricVo);
     public FabricVo getFabricDetail(FabricVo fabricVo);
-    public FabricVo setFabricData(FabricVo fabricVo);
+    public int setFabricData(FabricVo fabricVo);
     public int deleteFabricData(Map seq);
     public int updateFabricData(FabricVo fabricVo);
 

@@ -39,7 +39,7 @@ function setFabricRegister() {
         return false;
     }
 
-    var url = ($("#fabricName").val() != '') ? "/fabric/ajaxModify" : "/fabric/ajaxRegister";
+    var url = ($("#seq").val() != undefined) ? "/fabric/ajaxModify" : "/fabric/ajaxRegister";
 
     $.ajax({
         type: "POST",

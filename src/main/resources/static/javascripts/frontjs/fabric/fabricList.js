@@ -35,7 +35,7 @@ var dataTable = $('#dataTable').DataTable({
     }, {
         data: 'fabricName'
     }, {
-        data: 'registerName'
+        data: 'registerId'
     }, {
         data: 'registerDate'
     }],

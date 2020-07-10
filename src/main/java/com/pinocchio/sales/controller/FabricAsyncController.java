@@ -49,6 +49,10 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
 
+        fabricVo.setRegisterId("admin");
+
+        fabricService.setFabricData(fabricVo);
+
         map.put("successCount", 1);
 
         return gson.toJson(map);
