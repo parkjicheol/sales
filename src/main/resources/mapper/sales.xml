@@ -49,7 +49,7 @@
 				</if>
 			</if>
 		ORDER BY
-			S.sale_date ASC
+			S.sale_date DESC
 		LIMIT
 			#{start}, #{length}
 

@@ -10,7 +10,7 @@ import lombok.ToString;
 public class DefaultVo {
 
     private Integer start = 0;
-    private Integer length = 20;
+    private Integer length = 10;
     private String searchKeyword = "";
     private String searchField = "";
     private Boolean bRunning = true;

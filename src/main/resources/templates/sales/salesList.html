@@ -1,3 +1,9 @@
+<style type="text/css">
+    button.ui-datepicker-current,
+    button.ui-datepicker-trigger,
+    table.ui-datepicker-calendar { display:none; }
+</style>
+
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서</a></li>
@@ -73,6 +79,7 @@
                                         <label><select id="selectLength" name="data-table-combine_length"
                                                        aria-controls="data-table-combine"
                                                        class="custom-select-sm form-control form-control-sm">
+                                            <option value="10">10</option>
                                             <option value="20">20</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
@@ -118,7 +125,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd" th:if="${not #strings.isEmpty(sales)}">
+                                <tr class="odd" th:if="${#strings.isEmpty(salesList)}">
                                     <td valign="top" colspan="15" class="dataTables_empty text-center">등록된 수금 내역이 없습니다.</td>
                                 </tr>
                                 <tr role="row" class="odd" th:each="sales, index : ${salesList}">
@@ -136,12 +143,15 @@
                                     </td>
                                     <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricNo}"></a></td>
                                     <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricName}"></a></td>
-                                    <td class="text-center" th:text="${sales.section}"></td>
                                     <td class="text-center" th:text="${sales.color}"></td>
+                                    <td class="text-right" th:text="${sales.section}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.fabricCount, 1, 'COMMA', 1, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.deduction, 1, 'COMMA', 1, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.unit, 1, 'COMMA', 0, 'POINT')}"></td>
-                                    <td class="text-right" th:text="${#numbers.formatDecimal(sales.price, 1, 'COMMA', 0, 'POINT')}"></td>
+                                    <td class="text-right">
+                                        <span class="text-blue-darker" th:if="${sales.saleFlag.toString().equals('0')}" th:text="${#numbers.formatDecimal(sales.price, 1, 'COMMA', 0, 'POINT')}"></span>
+                                        <span class="text-danger" th:if="${sales.saleFlag.toString().equals('1')}" th:text="${#numbers.formatDecimal(sales.price, 1, 'COMMA', 0, 'POINT')}"></span>
+                                    </td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.tax, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.delivery, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.receivable, 1, 'COMMA', 0, 'POINT')}"></td>

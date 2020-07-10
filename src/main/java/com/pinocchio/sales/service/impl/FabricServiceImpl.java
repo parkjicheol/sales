@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <PRE>
@@ -38,8 +39,14 @@ public class FabricServiceImpl implements FabricService {
 		return fabricMapper.selectFabricDetail(fabricVo);
 	}
 
-	public FabricVo setFabricData(FabricVo fabricVo) {
+	public int setFabricData(FabricVo fabricVo) {
 		return fabricMapper.insertFabricData(fabricVo);
 	}
+
+	public int deleteFabricData(Map seq) {
+		return  fabricMapper.deleteFabricData(seq);
+	}
+
+	public int updateFabricData(FabricVo fabricVo){ return  fabricMapper.updateFabricData(fabricVo);}
 
 }

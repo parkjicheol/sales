@@ -3,11 +3,11 @@ $(document).ready(function () {
 
 })
 
-function setSalesRegister() {
+function setCollectRegister() {
 
-    if (isEmpty($("#salesNo").val())) {
+    if (isEmpty($("#collectDate").val())) {
         swal({
-            title: '원단 품번을 입력해주세요.',
+            title: '수금일자를 입력해주세요',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -22,9 +22,9 @@ function setSalesRegister() {
         return false;
     }
 
-    if (isEmpty($("#salesName").val())) {
+    if (isEmpty($("#collectType").val())) {
         swal({
-            title: '원단 품명을 입력해주세요.',
+            title: '수금지급방법을 입력하세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -39,7 +39,24 @@ function setSalesRegister() {
         return false;
     }
 
-    var url = ($("#salesName").val() != undefined) ? "/sales/ajaxModify" : "/sales/ajaxRegister";
+    if (isEmpty($("#price").val())) {
+        swal({
+            title: '금액을 입력하세요.',
+            icon: 'info',
+            buttons: {
+                confirm: {
+                    text: '확인',
+                    value: true,
+                    visible: true,
+                    className: 'btn btn-info',
+                    closeModal: true
+                }
+            }
+        });
+        return false;
+    }
+
+    var url = ($("#seq").val() != undefined) ? "/collect/ajaxModify" : "/collect/ajaxRegister";
 
     $.ajax({
         type: "POST",
@@ -47,16 +64,16 @@ function setSalesRegister() {
         data: $("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/sales/list";
+            window.location.href = "#/collect/list";
         },
         error: function (data) {
-            alert("원단 등록에 실패했습니다.");
+            alert("수금액 등록에 실패했습니다.");
         }
     });
 
 }
 
-function getSalesList() {
+function getCollectList() {
     swal({
         title: '목록으로 이동하시겠습니까?',
         // text: 'You will not be able to recover this imaginary file!',
@@ -79,7 +96,7 @@ function getSalesList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/sales/list";
+            window.location.href = "#/collect/list";
         }
     });
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @RestController
 public class FabricAsyncController extends AbstractBaseController<FabricAsyncController> {
@@ -48,6 +49,10 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
 
+        fabricVo.setRegisterId("admin");
+
+        fabricService.setFabricData(fabricVo);
+
         map.put("successCount", 1);
 
         return gson.toJson(map);
@@ -58,6 +63,8 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
+        fabricVo.getSeq();
+        fabricService.updateFabricData(fabricVo);
 
         map.put("successCount", 1);
 
@@ -68,11 +75,13 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
     public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String fabricSeqs) {
 
         Gson gson = new Gson();
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> seq = new HashMap<String, Object>();
 
-        map.put("successCount", 1);
+        seq.put("seq", fabricSeqs.split(","));
+        fabricService.deleteFabricData(seq);
+        seq.put("successCount", 1);
 
-        return gson.toJson(map);
+        return gson.toJson(seq);
     }
 
 }

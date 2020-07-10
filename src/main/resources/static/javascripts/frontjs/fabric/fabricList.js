@@ -8,7 +8,7 @@ var dataTable = $('#dataTable').DataTable({
     ordering: false,
     searching: false,
     initialLoad: false,
-    pageLength: 20,
+    pageLength: 10,
     buttons: [],
     ajax: {
         "url": "/fabric/ajaxList",
@@ -35,7 +35,7 @@ var dataTable = $('#dataTable').DataTable({
     }, {
         data: 'fabricName'
     }, {
-        data: 'registerName'
+        data: 'registerId'
     }, {
         data: 'registerDate'
     }],
