@@ -1,3 +1,5 @@
+var bRunning = false;
+
 $(document).ready(function () {
 
     $('#datepicker-sales').datepicker({
