@@ -51,7 +51,7 @@
                                         <span class="cell col2">원단 품번</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="fabricNo" name="fabricNo" type="text"
+                                                <input id="fabricNo" name="fabricNo" type="text" readonly
                                                        class="form-control subject" placeholder="원단 품번을 입력해주세요"
                                                 >
                                             </div>
@@ -61,11 +61,11 @@
                                         <span class="cell col2">원단 품명</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="fabricName" name="fabricName" type="text"
+                                                <input id="fabricName" name="fabricName" type="text" readonly
                                                        class="form-control subject" placeholder="원단 품명을 입력해주세요"
                                                 >
                                                 <button type="button" class="btn btn-success ml-1 mr-1" data-toggle="modal" data-target="#modal-SearchFabric">
-                                                    과정찾기
+                                                    원단찾기
                                                 </button>
                                             </div>
                                         </span>
@@ -127,7 +127,7 @@
                                                 </div>
                                                 <div class="col-lg-5 pt-3"></div>
                                                 <div class="col-lg-2 pt-3">
-                                                    <button type="button" id="search" class="btn btn-primary float-right px-4">
+                                                    <button type="button" id="search" class="btn btn-primary float-right px-4" onclick="searchFabric();">
                                                         검색 <i class="fa fa-fw fa-search pl-3"></i>
                                                     </button>
                                                 </div>
@@ -179,9 +179,9 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr class="odd" th:if="${#strings.isEmpty(fabricList)}">
+                                                    <!--<tr class="odd" th:if="${#strings.isEmpty(fabricList)}">
                                                         <td valign="top" colspan="6" class="dataTables_empty text-center">등록된 원단이 없습니다.</td>
-                                                    </tr>
+                                                    </tr>-->
                                                     <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">
                                                         <td class="text-center" th:text="${fabric.seq}"></td>
                                                         <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricNo}"></a></td>

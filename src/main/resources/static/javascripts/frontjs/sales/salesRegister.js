@@ -1,3 +1,5 @@
+var bRunning = false;
+
 $(document).ready(function () {
 
     $('#datepicker-sales').datepicker({
@@ -26,7 +28,7 @@ $(document).ready(function () {
         ordering: false,
         searching: false,
         initialLoad: false,
-        pageLength: 20,
+        pageLength: 10,
         buttons: [],
         ajax: {
             "url": "/fabric/ajaxList",
@@ -158,4 +160,8 @@ function getSalesList() {
             window.location.href = "#/sales/list";
         }
     });
+}
+
+function searchFabric() {
+    alert("검색검색");
 }
