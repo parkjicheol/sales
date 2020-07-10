@@ -83,7 +83,24 @@ $(document).ready(function () {
 
 function setSalesRegister() {
 
-    /*if (isEmpty($("#salesNo").val())) {
+    if (isEmpty($("#saleDate").val())) {
+        swal({
+            title: '매출 일자를 입력해주세요.',
+            icon: 'info',
+            buttons: {
+                confirm: {
+                    text: '확인',
+                    value: true,
+                    visible: true,
+                    className: 'btn btn-info',
+                    closeModal: true
+                }
+            }
+        });
+        return false;
+    }
+
+    if (isEmpty($("#fabricNo").val())) {
         swal({
             title: '원단 품번을 입력해주세요.',
             icon: 'info',
@@ -98,9 +115,9 @@ function setSalesRegister() {
             }
         });
         return false;
-    }*/
+    }
 
-    /*if (isEmpty($("#salesName").val())) {
+    if (isEmpty($("#fabricName").val())) {
         swal({
             title: '원단 품명을 입력해주세요.',
             icon: 'info',
@@ -115,7 +132,7 @@ function setSalesRegister() {
             }
         });
         return false;
-    }*/
+    }
 
     var url = ($("#salesName").val() != undefined) ? "/sales/ajaxModify" : "/sales/ajaxRegister";
 

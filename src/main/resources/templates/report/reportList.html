@@ -27,14 +27,14 @@
                             <div class="col-lg-2 pt-3">
                                 <select id="searchYear" class="form-control">
                                     <th:block th:each="num, index: ${#numbers.sequence(1, 10)}">
-                                        <option th:selected="${#calendars.format(#calendars.createNow(), 'yyyy')} == ${2019 + index.index}" th:value="${2019 + index.index}" th:text="${2019 + index.index + '년'}"></option>
+                                        <option th:selected="${year} == ${2019 + index.index}" th:value="${2019 + index.index}" th:text="${2019 + index.index + '년'}"></option>
                                     </th:block>
                                 </select>
                             </div>
                             <div class="col-lg-2 pt-3">
                                 <select id="searchMonth" class="form-control">
                                     <th:block th:each="num, index: ${#numbers.sequence(1, 12)}">
-                                        <option th:selected="${#calendars.format(#calendars.createNow(), 'M')} == ${index.count}" th:value="${index.count}" th:text="${index.count + '월'}"></option>
+                                        <option th:selected="${month} == ${index.count}" th:value="${index.count}" th:text="${index.count + '월'}"></option>
                                     </th:block>
                                 </select>
 <!--                                <div th:text="${#strings.substring('09', #strings.length('09') - 2, #strings.length('09'))}"></div>-->
@@ -59,8 +59,8 @@
                         <div class="dataTables_wrapper dt-bootstrap">
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-between">
-                                    <h1 class="page-header">
-                                        2020년 6월 잔금 내역 = 3,495,590원
+                                    <h1 class="page-header" th:text="${year + '년 ' + month + '월 매출/수금 내역서'}">
+<!--                                        2020년 6월 잔금 내역 = 3,495,590원-->
                                     </h1>
                                 </div>
                             </div>
@@ -117,17 +117,17 @@
                                     <td class="text-center" th:text="${sales.etc}"></td>
                                     <td class="text-center" th:text="${sales.orderNo}"></td>
                                 </tr>
-                                <tr role="row" style="background-color: #f2fdf8;">
+                                <tr role="row" style="background-color: #f2fdf8;" th:each="collect, index : ${collectList}">
                                     <td class="text-center">2020-07-07</td>
                                     <td class="text-center"><span class="text-green-darker">수금</span></td>
                                     <td class="text-center"><span class="text-green-darker">[ 수금액 ]</span></td>
-                                    <td class="text-center">은행/어음</td>
+                                    <td class="text-center" th:text="${collect.collectType}"></td>
                                     <td class="text-center"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-green-darker">2,000,000</span></td>
+                                    <td class="text-right"><span class="text-green-darker" th:text="${#numbers.formatDecimal(collect.price, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -136,29 +136,29 @@
                                 </tr>
                                 <tr role="row" style="background-color: #f3f3ff;">
                                     <td class="text-center" rowspan="3" colspan="2" style="background-color: #f2f4f5;"><span class="text">합계</span></td>
-                                    <td class="text-center"><span class="text-blue-darker">< 6월 매출 ></span></td>
+                                    <td class="text-center"><span class="text-blue-darker" th:text="${'< ' + month + '월 매출 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
-                                    <td class="text-right">76</td>
-                                    <td class="text-right">4,991.0</td>
-                                    <td class="text-right">139.0</td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumSection, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumFabricCount, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumDeduction, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-blue-darker">16,320,364</span></td>
-                                    <td class="text-right">1,632,036</td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumTax, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #fdf2f4;">
-                                    <td class="text-center"><span class="text-danger">< 6월 반품 ></span></td>
+                                    <td class="text-center"><span class="text-danger" th:text="${'< ' + month + '월 반품 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumSectionReturn, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumFabricCountReturn, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumDeductionReturn, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"></td>
-                                    <td class="text-right"></td>
-                                    <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-danger">2,000,000</span></td>
+                                    <td class="text-right"><span class="text-danger" th:text="${#numbers.formatDecimal(sumReturnPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -166,14 +166,14 @@
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #f2fdf8;">
-                                    <td class="text-center"><span class="text-green-darker">< 6월 수금 ></span></td>
+                                    <td class="text-center"><span class="text-green-darker" th:text="${'< ' + month + '월 수금 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-green-darker">2,000,000</span></td>
+                                    <td class="text-right"><span class="text-green-darker" th:text="${#numbers.formatDecimal(sumCollectPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -193,4 +193,4 @@
 <!-- end row -->
 
 <!--added front js file of this ejs-->
-<!--<script src="/javascripts/frontjs/report/reportList.js" type="text/javascript"></script>-->
+<script src="/javascripts/frontjs/report/reportList.js" type="text/javascript"></script>

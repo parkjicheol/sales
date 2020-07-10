@@ -10,7 +10,19 @@ a:hover{text-decoration:none;color:inherit;}
 .close.closeBtn .btnX{color:#fff;}
 .modal-dialog{height:100%;-ms-overflow-y:auto;-ms-overflow-style:none;}
 
+.bg {
+    /* The image used */
+    background-image: url("/images/jean.jpeg");
 
+    /* Full height */
+    width: 100%;
+    height: 1000px;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 /* 로그인페이지 */
 .adminLogin .incorrect{color:pink;float:right;}

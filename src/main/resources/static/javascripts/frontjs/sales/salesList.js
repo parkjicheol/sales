@@ -39,9 +39,9 @@ var dataTable = $('#dataTable').DataTable({
     }, {
         data: 'fabricName'
     }, {
-        data: 'section'
-    }, {
         data: 'color'
+    }, {
+        data: 'section'
     }, {
         data: 'fabricCount'
     },{

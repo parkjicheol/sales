@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.ReportMapper">
+
+	<!-- sales list -->
+	<select id="selectSalesList" parameterType="com.pinocchio.sales.dto.SalesVo" resultType="com.pinocchio.sales.dto.SalesVo">
+
+		SELECT
+			S.seq
+			, S.sale_date AS saleDate
+			, S.sale_flag AS saleFlag
+			, S.fabric_seq AS fabricSeq
+			, F.fabric_no AS fabricNo
+			, F.fabric_name AS fabricName
+			, S.section
+			, S.color
+			, S.fabric_count AS fabricCount
+			, S.deduction
+			, S.unit
+			, S.price
+			, S.tax
+			, S.delivery
+			, S.receivable
+			, S.etc
+			, S.order_no AS orderNo
+			, M.name AS registerName
+			, S.register_id AS registerId
+			, S.register_date AS registerDate
+		FROM
+			sales S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN fabric F
+				ON S.fabric_seq = F.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND S.sale_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+			</if>
+		ORDER BY
+			S.sale_date ASC
+
+	</select>
+
+	<!-- collect list -->
+	<select id="selectCollectList" parameterType="com.pinocchio.sales.dto.CollectVo" resultType="com.pinocchio.sales.dto.CollectVo">
+
+		SELECT
+			F.seq
+			, F.collect_date AS collectDate
+			, F.collect_type AS collectType
+			, F.price AS price
+			, M.name AS registerName
+			, F.register_id AS registerId
+			, F.register_date AS registerDate
+			, F.state AS state
+		FROM
+			collect F INNER JOIN member M
+				ON F.register_id = M.id
+		WHERE
+			1 = 1
+			AND
+				state = '0'
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND F.collect_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+			</if>
+		ORDER BY
+			F.seq ASC
+		LIMIT
+			#{start}, #{length}
+
+	</select>
+
+</mapper>

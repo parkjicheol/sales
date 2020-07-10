@@ -19,7 +19,4 @@ public interface CollectMapper {
     public int deleteCollectData(Map seq);
     public int updateCollectData(CollectVo CollectVo);
 
-
-
-
 }
