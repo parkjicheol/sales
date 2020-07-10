@@ -62,14 +62,14 @@ $(document).ready(function () {
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="javascript:;" onclick="fn:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricNo + '</a>';
+                return '<a href="javascript:;" onclick="javascript:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricNo + '</a>';
             }
         }, {
             targets: 2,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="javascript:;" onclick="fn:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricName + '</a>';
+                return '<a href="javascript:;" onclick="javascript:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricName + '</a>';
             }
         },
             {
@@ -167,5 +167,7 @@ function setFabric(fabricSeq, fabricNo, fabricName) {
     $('#fabricSeq').val(fabricSeq);
     $('#fabricNo').val(fabricNo);
     $('#fabricName').val(fabricName);
+
+    $('#modal-SearchFabric').modal('hide');
 
 }

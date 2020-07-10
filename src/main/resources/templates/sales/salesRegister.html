@@ -187,8 +187,8 @@
                                                     </tr>-->
                                                     <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">
                                                         <td class="text-center" th:text="${fabric.seq}"></td>
-                                                        <td class="text-center"><a th:href="${'fn:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricNo}"></a></td>
-                                                        <td class="text-center"><a th:href="${'fn:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricName}"></a></td>
+                                                        <td class="text-center"><a th:href="${'javascript:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricNo}"></a></td>
+                                                        <td class="text-center"><a th:href="${'javascript:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricName}"></a></td>
                                                         <td class="text-center" th:text="${fabric.registerId}"></td>
                                                         <td class="text-center" th:text="${fabric.registerDate}"></td>
                                                     </tr>
