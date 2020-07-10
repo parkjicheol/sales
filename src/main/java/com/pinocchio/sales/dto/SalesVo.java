@@ -13,8 +13,8 @@ public class SalesVo extends DefaultVo {
     private String saleDate;
     private Byte saleFlag;
     private Long fabricSeq;
-    private String fabricNo;
-    private String fabricName;
+    private String fabricNo = "";
+    private String fabricName = "";
     private String section;
     private String color;
     private Float fabricCount;

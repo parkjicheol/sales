@@ -17,7 +17,6 @@
         <div class="col-xl-12">
             <!-- begin panel -->
             <form id="registerForm" name="registerForm">
-                <input type="hidden" name="pollSeq" value="<%= data.POLL_SEQ %>">
                 <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
                     <div class="searchCondition">
                         <h4 class="panel-title"><i class="fa fa-clipboard"></i> 매출/수금 내역서 등록</h4>
@@ -36,9 +35,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <div class="input-group date" id="datepicker-sales">
-                                                    <input type="text" class="form-control"
-                                                           value="" readonly />
-                                                    <input id="saleDate" name="saleDate" type="hidden"
+                                                    <input id="saleDate" name="saleDate"
                                                            value="">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -73,6 +70,126 @@
                                             </div>
                                         </span>
                                     </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">구분 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="saleFlag" name="saleFlag" type="text"
+                                                       class="form-control subject" placeholder="구분을 선택해주세"
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">색상명 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="color" name="color" type="text"
+                                                       class="form-control subject" placeholder="원단 품번을 입력해주세요"
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">절수 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="section" name="section" type="text"
+                                                       class="form-control subject" placeholder="절수를 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">수량 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="fabricCount" name="fabricCount" type="text"
+                                                       class="form-control subject" placeholder="수량을 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">공제 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="deduction" name="deduction" type="text"
+                                                       class="form-control subject" placeholder="공제를 입력해주세요."
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">단가 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="unit" name="unit" type="text"
+                                                       class="form-control subject" placeholder="단가를 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">금액(수금)</span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="price" name="price" type="text"
+                                                       class="form-control subject" placeholder="금액을 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">세액(DC)</span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="tax" name="tax" type="text"
+                                                       class="form-control subject" placeholder="세액을 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">운임 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="delivery" name="delivery" type="text"
+                                                       class="form-control subject" placeholder="운임을 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">미수잔액 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="receivable" name="receivable" type="text"
+                                                       class="form-control subject" placeholder="미수잔액을 입력해주세요."
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">비고 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="etc" name="etc" type="text"
+                                                       class="form-control subject" placeholder="비고를 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
+                                        <span class="cell col2">수주번호  </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="orderNo" name="orderNo" type="text"
+                                                       class="form-control subject" placeholder="수주번호를 입력해주세요. "
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +212,6 @@
 
     <!-- modal-SearchCourse 과정찾기 모달 체크박스 o -->
     <div class="modal modal-message memberDetail fade show display_none pb-5" id="modal-SearchFabric" aria-modal="true">
-        <input type="hidden" id="courseSearchKindCd" value="06" running="false">
         <div class="modal-dialog my-2">
             <div class="modal-content mt-0 mb-5">
                 <div class="modal-body width-full pt-4 mt-3">
@@ -187,8 +303,8 @@
                                                     </tr>-->
                                                     <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">
                                                         <td class="text-center" th:text="${fabric.seq}"></td>
-                                                        <td class="text-center"><a th:href="${'fn:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricNo}"></a></td>
-                                                        <td class="text-center"><a th:href="${'fn:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricName}"></a></td>
+                                                        <td class="text-center"><a th:href="${'javascript:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricNo}"></a></td>
+                                                        <td class="text-center"><a th:href="${'javascript:setFabric(''' + fabric.seq + ''', ''' + fabric.fabricNo +  ''', ''' + fabric.fabricName + ''')'}" th:text="${fabric.fabricName}"></a></td>
                                                         <td class="text-center" th:text="${fabric.registerId}"></td>
                                                         <td class="text-center" th:text="${fabric.registerDate}"></td>
                                                     </tr>

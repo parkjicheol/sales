@@ -37,7 +37,7 @@ public class SalesServiceImpl implements SalesService {
 		return fabricMapper.selectSalesDetail(salesVo);
 	}
 
-	public SalesVo setSalesData(SalesVo salesVo) {
+	public int setSalesData(SalesVo salesVo) {
 		return fabricMapper.insertSalesData(salesVo);
 	}
 

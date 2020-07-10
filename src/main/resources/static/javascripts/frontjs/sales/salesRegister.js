@@ -83,7 +83,7 @@ $(document).ready(function () {
 
 function setSalesRegister() {
 
-    if (isEmpty($("#salesNo").val())) {
+    /*if (isEmpty($("#salesNo").val())) {
         swal({
             title: '원단 품번을 입력해주세요.',
             icon: 'info',
@@ -98,9 +98,9 @@ function setSalesRegister() {
             }
         });
         return false;
-    }
+    }*/
 
-    if (isEmpty($("#salesName").val())) {
+    /*if (isEmpty($("#salesName").val())) {
         swal({
             title: '원단 품명을 입력해주세요.',
             icon: 'info',
@@ -115,7 +115,7 @@ function setSalesRegister() {
             }
         });
         return false;
-    }
+    }*/
 
     var url = ($("#salesName").val() != undefined) ? "/sales/ajaxModify" : "/sales/ajaxRegister";
 
@@ -167,5 +167,8 @@ function setFabric(fabricSeq, fabricNo, fabricName) {
     $('#fabricSeq').val(fabricSeq);
     $('#fabricNo').val(fabricNo);
     $('#fabricName').val(fabricName);
+
+    $('#modal-SearchFabric').modal('hide');
+
 
 }
