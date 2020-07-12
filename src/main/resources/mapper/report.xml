@@ -65,8 +65,34 @@
 			</if>
 		ORDER BY
 			F.seq ASC
-		LIMIT
-			#{start}, #{length}
+
+	</select>
+
+	<select id="selectSalesTotalList" parameterType="com.pinocchio.sales.dto.SalesVo" resultType="com.pinocchio.sales.dto.SalesVo">
+
+		SELECT
+			SUM(section) AS section
+			, SUM(fabric_count) AS fabricCount
+			, SUM(deduction) AS deduction
+			, SUM(unit) AS unit
+			, SUM(price) AS price
+			, SUM(tax) AS tax
+		FROM
+			sales
+		WHERE
+			sale_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+			AND sale_flag = #{saleFlag}
+
+	</select>
+
+	<select id="selectCollectTotalPrice" parameterType="com.pinocchio.sales.dto.CollectVo" resultType="int">
+
+		SELECT
+			SUM(price) AS collectTotalPrice
+		FROM
+			collect
+		WHERE
+			collect_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
 
 	</select>
 

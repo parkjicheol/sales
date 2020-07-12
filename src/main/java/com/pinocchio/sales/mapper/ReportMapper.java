@@ -12,6 +12,7 @@ import java.util.List;
 public interface ReportMapper {
 
     public List<SalesVo> selectSalesList(SalesVo salesVo);
+    public SalesVo selectSalesTotalList(SalesVo salesVo);
     public List<CollectVo> selectCollectList(CollectVo CollectVo);
-
+    public int selectCollectTotalPrice(CollectVo CollectVo);
 }

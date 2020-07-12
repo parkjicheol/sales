@@ -121,7 +121,11 @@
                                     <td class="text-center">2020-07-07</td>
                                     <td class="text-center"><span class="text-green-darker">수금</span></td>
                                     <td class="text-center"><span class="text-green-darker">[ 수금액 ]</span></td>
-                                    <td class="text-center" th:text="${collect.collectType}"></td>
+                                    <td class="text-center">
+                                        <span th:if="${collect.collectType.toString().equals('0')}">은행</span>
+                                        <span th:if="${collect.collectType.toString().equals('1')}">어음</span>
+                                        <span th:if="${collect.collectType.toString().equals('2')}">기타</span>
+                                    </td>
                                     <td class="text-center"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -139,12 +143,12 @@
                                     <td class="text-center"><span class="text-blue-darker" th:text="${'< ' + month + '월 매출 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumSection, 1, 'COMMA', 1, 'POINT')}"></span></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumFabricCount, 1, 'COMMA', 1, 'POINT')}"></span></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumDeduction, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(collectTotal.section, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(collectTotal.fabricCount, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(collectTotal.deduction, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumTax, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(collectTotal.price, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(collectTotal.tax, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -154,12 +158,12 @@
                                     <td class="text-center"><span class="text-danger" th:text="${'< ' + month + '월 반품 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumSectionReturn, 1, 'COMMA', 1, 'POINT')}"></span></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumFabricCountReturn, 1, 'COMMA', 1, 'POINT')}"></span></td>
-                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(sumDeductionReturn, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(returnTotal.section, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(returnTotal.fabricCount, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(returnTotal.deduction, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-danger" th:text="${#numbers.formatDecimal(sumReturnPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
-                                    <td class="text-right"></td>
+                                    <td class="text-right"><span class="text-danger" th:text="${#numbers.formatDecimal(returnTotal.price, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-blue-darker" th:text="${#numbers.formatDecimal(returnTotal.tax, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -173,7 +177,7 @@
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
-                                    <td class="text-right"><span class="text-green-darker" th:text="${#numbers.formatDecimal(sumCollectPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
+                                    <td class="text-right"><span class="text-green-darker" th:text="${#numbers.formatDecimal(collectTotalPrice, 1, 'COMMA', 1, 'POINT')}"></span></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>

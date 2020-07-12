@@ -31,7 +31,7 @@
                             <div class="pyoTable my-2">
                                 <div class="rowTable">
                                     <span class="cell col2">수금일자</span>
-                                    <span class="cell col3" th:text="${collectDetail.collectDate}"></span>
+                                    <span class="cell col3" th:text="${#strings.substring(collectDetail.collectDate, 0, 10)}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수금지급방법</span>
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수금액</span>
-                                    <span class="cell col3" th:text="${collectDetail.price}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 1, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">등록일</span>

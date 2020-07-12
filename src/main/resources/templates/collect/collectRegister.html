@@ -35,9 +35,13 @@
                                         <span class="cell col2">수금일자</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="collectDate" name="collectDate" type="text" th:value="${collectDetail.collectDate}"
-                                                    class="form-control subject" placeholder="수금일자를 입력하세요"
-                                                    >
+                                                <div class="input-group date" id="datepicker-collect">
+                                                    <input type="text" id="collectDate" name="collectDate" class="form-control"
+                                                           th:value="${#strings.substring(collectDetail.collectDate, 0, 10)}" placeholder="날짜를 선택해주세요." readonly>
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </span>
                                     </div>
@@ -45,9 +49,13 @@
                                         <span class="cell col2">수금지급방법</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="collectType" name="collectType" type="text" th:value="${collectDetail.collectType}"
-                                                    class="form-control subject" placeholder="수금방법을 입력하세요"
-                                                    >
+                                                <div class="input-group">
+                                                    <div class="radio radio-css pt-0 mt-2 mb-2 radio-inline">
+                                                        <input type="radio" name="collectType" id="collectType0" value="0" th:checked="${collectDetail.collectType == '0' or collectDetail.collectType == null}" /><label for="collectType0">은행</label>
+                                                        <input type="radio" name="collectType" id="collectType1" value="1" th:checked="${collectDetail.collectType == '1'}" /><label for="collectType1" class="ml-2">어음</label>
+                                                        <input type="radio" name="collectType" id="collectType2" value="2" th:checked="${collectDetail.collectType == '2'}" /><label for="collectType2" class="ml-2">기타</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </span>
                                     </div>
@@ -55,8 +63,8 @@
                                         <span class="cell col2">수금액</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="price" name="price" type="text" th:value="${collectDetail.price}"
-                                                       class="form-control subject" placeholder="수금액을 입력하세요"
+                                                <input id="price" name="price" type="text" th:value="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 1, 'POINT')}"
+                                                       class="form-control subject" placeholder="수금액을 입력하세요."
                                                 >
                                             </div>
                                         </span>

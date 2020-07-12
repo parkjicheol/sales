@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    $('#datepicker-collect').datepicker({
+        todayHighlight: true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        language: 'kor'
+    });
 
 })
 
@@ -8,23 +14,6 @@ function setCollectRegister() {
     if (isEmpty($("#collectDate").val())) {
         swal({
             title: '수금일자를 입력해주세요',
-            icon: 'info',
-            buttons: {
-                confirm: {
-                    text: '확인',
-                    value: true,
-                    visible: true,
-                    className: 'btn btn-info',
-                    closeModal: true
-                }
-            }
-        });
-        return false;
-    }
-
-    if (isEmpty($("#collectType").val())) {
-        swal({
-            title: '수금지급방법을 입력하세요.',
             icon: 'info',
             buttons: {
                 confirm: {

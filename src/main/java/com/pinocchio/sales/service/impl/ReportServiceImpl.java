@@ -29,8 +29,11 @@ public class ReportServiceImpl implements ReportService {
 	public List<SalesVo> getSalesList(SalesVo salesVo) {
 		return reportMapper.selectSalesList(salesVo);
 	}
-	public List<CollectVo> getCollectList(CollectVo collectVo) {
-		return reportMapper.selectCollectList(collectVo);
+	public SalesVo getSalesTotalList(SalesVo salesVo) {
+		return reportMapper.selectSalesTotalList(salesVo);
 	}
-
+	public List<CollectVo> getCollectList(CollectVo collectVo) { return reportMapper.selectCollectList(collectVo); }
+	public int getCollectTotalPrice(CollectVo collectVo) {
+		return reportMapper.selectCollectTotalPrice(collectVo);
+	}
 }

@@ -17,7 +17,11 @@ $(document).ready(function () {
         oSettings._iDisplayLength = len === -1 ? $("#totalCount").text() : len;
 
         dataTable.draw();
+    });
 
+    $("#price").on("keyup", function (event) {
+        var price = $('#price').val();
+        $('#tax').val(Math.round(price / 10));
     });
 
     // modal-SearchCourse02Datatable 생성

@@ -40,7 +40,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-lg-2 pt-3">
+                            <div class="col-lg-10 pt-3">
                                 <button type="button" id="search" class="btn btn-primary float-right px-4">
                                     검색 <i class="fa fa-fw fa-search pl-3"></i>
                                 </button>
@@ -110,8 +110,12 @@
                                             </div>
                                         </td>
                                         <td class="text-center" th:text="${collect.seq}"></td>
-                                        <td class="text-center"><a th:href="${'#/collect/detail?seq=' + collect.seq}" th:text="${collect.collectDate}"></a></td>
-                                        <td class="text-center"><a th:href="${'#/collect/detail?seq=' + collect.seq}" th:text="${collect.collectType}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/collect/detail?seq=' + collect.seq}" th:text="${#strings.substring(collect.collectDate, 0, 10)}"></a></td>
+                                        <td class="text-center">
+                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('0')}">은행</a>
+                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('1')}">어음</a>
+                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('2')}">기타</a>
+                                        </td>
                                         <td class="text-right" ><a th:href="${'#/collect/detail?seq=' + collect.seq}" th:text="${#numbers.formatDecimal(collect.price, 1, 'COMMA', 1, 'POINT')}"></a></td>
                                         <td class="text-center" th:text="${collect.registerDate}"></td>
                                    </tr>

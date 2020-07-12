@@ -62,44 +62,15 @@ public class ReportController extends AbstractBaseController<ReportController> {
         List<SalesVo> salesList = reportService.getSalesList(salesVo);
         model.addAttribute("salesList", salesList);
 
-        Double sumSection = 0D;
-        Double sumFabricCount = 0D;
-        Double sumDeduction = 0D;
-        Double sumPrice = 0D;
-        Double sumTax = 0D;
+        salesVo.setSaleFlag((byte) 0);
+        SalesVo collectTotalVo = reportService.getSalesTotalList(salesVo);
 
-        Double sumSectionReturn = 0D;
-        Double sumFabricCountReturn = 0D;
-        Double sumDeductionReturn = 0D;
-        Double sumReturnPrice = 0D;
+        model.addAttribute("collectTotal", collectTotalVo);
 
-        for (SalesVo sales : salesList) {
+        salesVo.setSaleFlag((byte) 1);
+        SalesVo returnTotalVo = reportService.getSalesTotalList(salesVo);
 
-            if (sales.getSaleFlag() == 0) {
-                sumSection += sales.getSection();
-                sumFabricCount += sales.getFabricCount();
-                sumDeduction += sales.getDeduction();
-                sumPrice += sales.getPrice();
-                sumTax += sales.getTax();
-            } else {
-                sumSectionReturn += sales.getSection();
-                sumFabricCountReturn += sales.getFabricCount();
-                sumDeductionReturn += sales.getDeduction();
-                sumReturnPrice += sales.getPrice();
-            }
-
-        }
-
-        model.addAttribute("sumSection", sumSection);
-        model.addAttribute("sumFabricCount", sumFabricCount);
-        model.addAttribute("sumDeduction", sumDeduction);
-        model.addAttribute("sumPrice", sumPrice);
-        model.addAttribute("sumTax", sumTax);
-
-        model.addAttribute("sumSectionReturn", sumSectionReturn);
-        model.addAttribute("sumFabricCountReturn", sumFabricCountReturn);
-        model.addAttribute("sumDeductionReturn", sumDeductionReturn);
-        model.addAttribute("sumReturnPrice", sumReturnPrice);
+        model.addAttribute("returnTotal", returnTotalVo);
 
         CollectVo collectVo = new CollectVo();
         collectVo.setStartDate(startString);
@@ -108,12 +79,14 @@ public class ReportController extends AbstractBaseController<ReportController> {
         List<CollectVo> collectList = reportService.getCollectList(collectVo);
         model.addAttribute("collectList", collectList);
 
-        Double sumCollectPrice = collectList
-                .stream()
-                .mapToDouble(CollectVo::getPrice)
-                .sum();
+        int collectTotalPrice = reportService.getCollectTotalPrice(collectVo);
 
-        model.addAttribute("sumCollectPrice", sumCollectPrice);
+//        Double sumCollectPrice = collectList
+//                .stream()
+//                .mapToDouble(CollectVo::getPrice)
+//                .sum();
+
+        model.addAttribute("collectTotalPrice", collectTotalPrice);
 
         return "report/reportList";
     }
