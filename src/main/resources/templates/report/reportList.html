@@ -138,7 +138,7 @@
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr role="row" style="background-color: #f3f3ff;">
+                                <tr role="row" style="background-color: #f3f3ff;" th:if="${not #strings.isEmpty(collectTotal)}">
                                     <td class="text-center" rowspan="3" colspan="2" style="background-color: #f2f4f5;"><span class="text">합계</span></td>
                                     <td class="text-center"><span class="text-blue-darker" th:text="${'< ' + month + '월 매출 >'}"></span></td>
                                     <td class="text-center"></td>
@@ -154,7 +154,7 @@
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr role="row" style="background-color: #fdf2f4;">
+                                <tr role="row" style="background-color: #fdf2f4;" th:if="${not #strings.isEmpty(returnTotal)}">
                                     <td class="text-center"><span class="text-danger" th:text="${'< ' + month + '월 반품 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
@@ -169,7 +169,7 @@
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr role="row" style="background-color: #f2fdf8;">
+                                <tr role="row" style="background-color: #f2fdf8;" th:if="${not #strings.isEmpty(collectTotalPrice)}">
                                     <td class="text-center"><span class="text-green-darker" th:text="${'< ' + month + '월 수금 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
