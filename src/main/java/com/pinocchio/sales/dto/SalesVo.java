@@ -11,7 +11,7 @@ public class SalesVo extends DefaultVo {
 
     private Long seq;
     private String saleDate;
-    private Byte saleFlag;
+    private Byte saleFlag = 0;
     private Long fabricSeq;
     private String fabricNo = "";
     private String fabricName = "";
