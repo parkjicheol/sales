@@ -35,7 +35,7 @@ $(document).ready(function () {
         pageLength: 10,
         buttons: [],
         ajax: {
-            "url": "/fabric/ajaxList",
+            "url": "/sales/ajaxList",
             "type": "POST",
             "data": function (d) {
                 d.searchField = $("#searchField").val();

@@ -37,13 +37,13 @@
 				AND S.sale_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
-				<if test="searchField == 'fabricNo'">
+				<if test="searchField == 'salesNo'">
 					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%')
 				</if>
-				<if test="searchField == 'fabricName'">
+				<if test="searchField == 'salesName'">
 					AND F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
 				</if>
-				<if test="searchField == 'fabricAll'">
+				<if test="searchField == 'salesAll'">
 					AND F.fabric_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
 						F.fabric_name LIKE CONCAT('%', #{searchKeyword}, '%')
 				</if>
