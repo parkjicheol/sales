@@ -1,0 +1,71 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb float-xl-right">
+    <li class="breadcrumb-item"><a href="javascript:;">매출 업체 관리</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매출 업체 관리</a></li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">
+    매출 업체 관리 <small>매출 업체 내용</small>
+</h1>
+<!-- end page-header -->
+
+<!-- begin row -->
+<div id="content" class="serviceSurveyDetail">
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
+                <div class="searchCondition">
+                    <h4 class="panel-title"><i class="fa fa-clipboard"></i> 업체 내용</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="dataTables_wrapper dt-bootstrap">
+                            <div class="tableHide">
+                                <input type="text" tabindex="0" />
+                            </div>
+                        </div>
+                        <div class="row mx-1">
+                            <div class="pyoTable my-2">
+                                <div class="rowTable">
+                                    <span class="cell col2">사업자번호</span>
+                                    <span class="cell col3" th:text="${companyDetail.companyNo}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">업체명</span>
+                                    <span class="cell col3" th:text="${companyDetail.companyName}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">등록증</span>
+                                    <span class="cell col3" th:text="${companyDetail.companyLicense}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">이미지</span>
+                                    <span class="cell col3">
+                                        <img th:src="${companyDetail.fileName}" style="width: 100%; max-width: 600px;" />
+                                    </span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">작성자</span>
+                                    <span class="cell col3" th:text="${companyDetail.registerId}"></span>
+                                </div>
+                                <div class="rowTable">
+                                    <span class="cell col2">등록일</span>
+                                    <span class="cell col3" th:text="${companyDetail.registerDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-2 pr-3 float-right">
+                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/company/list'">목록</button>
+                            <button type="button" class="btn btn-primary ml-1" th:onclick="|location.href='#/company/register?seq=${companyDetail.seq}'|">수정</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+</div>
+<!-- end row -->

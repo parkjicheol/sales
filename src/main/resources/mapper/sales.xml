@@ -176,8 +176,6 @@
 			, receivable = #{receivable}
 			, etc = #{etc}
 			, order_no = #{orderNo}
-			, register_id = #{registerId}
-			, register_date = #{registerDate}
 		WHERE
 			seq = #{seq}
 

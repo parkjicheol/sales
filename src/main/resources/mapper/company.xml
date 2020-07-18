@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.CompanyMapper">
+
+	<!-- company list -->
+	<select id="selectCompanyList" parameterType="com.pinocchio.sales.dto.CompanyVo" resultType="com.pinocchio.sales.dto.CompanyVo">
+
+		SELECT
+			C.seq
+			, C.company_no AS companyNo
+			, C.company_name AS companyName
+			, C.company_license AS companyLicense
+			, C.file_name AS fileName
+			, M.name AS registerName
+			, C.register_id AS registerId
+			, C.register_date AS registerDate
+		FROM
+			company C INNER JOIN member M
+				ON C.register_id = M.id
+		WHERE
+			1 = 1
+			AND
+				state = '0'
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'companyNo'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyName'">
+					AND C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyAll'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+		ORDER BY
+			C.seq DESC
+		LIMIT
+			#{start}, #{length}
+
+	</select>
+
+	<!-- company list count -->
+	<select id="selectCompanyListCount" parameterType="com.pinocchio.sales.dto.CompanyVo" resultType="int">
+
+		SELECT
+			COUNT(*) AS recordsTotal
+		FROM
+			company C INNER JOIN member M
+				ON C.register_id = M.id
+		WHERE
+			1 = 1
+			AND
+				state = '0'
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'companyNo'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyName'">
+					AND C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyAll'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+
+	</select>
+
+	<select id="selectCompanyDetail" parameterType="com.pinocchio.sales.dto.CompanyVo" resultType="com.pinocchio.sales.dto.CompanyVo">
+
+		SELECT
+			C.seq
+			, C.company_no AS companyNo
+			, C.company_name AS companyName
+			, C.company_license AS companyLicense
+			, C.file_name AS fileName
+			, M.name AS registerName
+			, C.register_id AS registerId
+			, C.register_date AS registerDate
+		FROM
+			company C INNER JOIN member M
+				ON C.register_id = M.id
+		WHERE
+			C.seq = #{seq}
+
+	</select>
+
+	<insert id="insertCompanyData" parameterType="com.pinocchio.sales.dto.CompanyVo">
+
+		INSERT INTO company (
+			company_no
+			, company_name
+			, company_license
+			, file_name
+			, register_id
+			, register_date
+		) VALUE (
+			 #{companyNo}
+			 , #{companyName}
+			 , #{companyLicense}
+			 , #{fileName}
+			 , #{registerId}
+			 , NOW()
+		)
+
+	</insert>
+
+	<update id="updateCompanyData" parameterType="com.pinocchio.sales.dto.CompanyVo">
+
+		UPDATE company
+		SET
+			company_no = #{companyNo}
+			, company_name = #{companyName}
+			, company_license = #{companyLicense}
+			, file_name = #{#{fileName}}
+		WHERE
+			seq = #{seq}
+
+	</update>
+
+	<update id="deleteCompanyData" parameterType="java.util.Map">
+
+		UPDATE company
+		SET
+			state = '1'
+		WHERE
+			seq IN
+			<foreach collection="seq" item="item" separator="," index="index" open="(" close=")">
+				#{item}
+			</foreach>
+
+	</update>
+
+</mapper>

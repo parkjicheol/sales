@@ -14,11 +14,11 @@ var dataTable = $('#dataTable').DataTable({
         "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
     },
     ajax: {
-        "url": "/collect/ajaxList",
+        "url": "/company/ajaxList",
         "type": "POST",
         "data": function (d) {
-            d.startDate = $("#startDate").val();
-            d.finishDate = $("#finishDate").val();
+            d.searchField = $("#searchField").val();
+            d.searchKeyword = $("#searchKeyword").val();
             d.bRunning = bRunning;
         },
         dataSrc: "data",
@@ -32,11 +32,17 @@ var dataTable = $('#dataTable').DataTable({
     "columns": [{
         data: ''
     }, {
-        data: 'collectDate'
+        data: 'seq'
+    },{
+        data: 'companyNo'
     }, {
-        data: 'collectType'
+        data: 'companyName'
     }, {
-        data: 'price'
+        data: 'companyLicense'
+    }, {
+        data: 'fileName'
+    }, {
+        data: 'registerId'
     }, {
         data: 'registerDate'
     }],
@@ -45,36 +51,35 @@ var dataTable = $('#dataTable').DataTable({
             render: function (data, type, row, meta) {
 
                 var html = '<div class="checkbox checkbox-css">';
-                html += '    <input type="checkbox" value="' + row.seq + '" id="collectList_checkbox_' + meta.row + '" name="checkKey" />';
-                html += '    <label for="collectList_checkbox_' + meta.row + '">&nbsp;</label>';
+                html += '    <input type="checkbox" value="' + row.seq + '" id="companyList_checkbox_' + meta.row + '" name="checkKey" />';
+                html += '    <label for="companyList_checkbox_' + meta.row + '">&nbsp;</label>';
                 html += '</div>';
 
                 return html;
-            }
-        },{
-            targets: 1,
-            className: 'dt-body-center',
-            selector: 'td',
-            render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectDate.substring(0, 10) + '</a>';
             }
         }, {
             targets: 2,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectType + '</a>';
+                return '<a href="#/company/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
             }
         }, {
             targets: 3,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.price + '</a>';
+                return '<a href="#/company/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
             }
-        },
-        {
-            targets: [0, 4],
+        }, {
+            targets: 5,
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return '<span onclick="fileDownload(\'' + $.trim(row.fileName) + '\');"><i class="fa fa-images"></i></span>';
+            }
+        }, {
+            targets: [0, 1, 4, 6, 7],
             className: 'dt-body-center'
         }
     ]
@@ -82,7 +87,7 @@ var dataTable = $('#dataTable').DataTable({
 
 $(document).ready(function () {
 
-    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 정보가 없습니다.';
+    dataTable.settings()[0].oLanguage.sEmptyTable = '등록된 업체가 없습니다.';
 
     //input X버튼
     var $ipt = $('#searchKeyword'),
@@ -132,46 +137,9 @@ $(document).ready(function () {
 
     });
 
-    $('#default-daterange').daterangepicker({
-        opens: 'right',
-        format: 'YYYY-MM-DD',
-        separator: ' to ',
-        startDate: moment().subtract('month', 1).date(1),
-        endDate: moment().subtract('month', 0).date(0),
-        minDate: '2020-01-01',
-        maxDate: '2039-12-31',
-        showDropdowns: true,
-        locale: {
-            format: 'YYYY-MM-DD',
-            "monthNames": [
-                "1월",
-                "2월",
-                "3월",
-                "4월",
-                "5월",
-                "6월",
-                "7월",
-                "8월",
-                "9월",
-                "10월",
-                "11월",
-                "12월"
-            ]
-        }
-    }, function (start, end) {
-        $('#default-daterange input').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
-
-        var studyStartDate = start.format('YYYY-MM-DD');
-        var studyFinishDate = end.format('YYYY-MM-DD');
-
-        $("#startDate").val(studyStartDate);
-        $("#finishDate").val(studyFinishDate);
-
-    });
-
 });
 
-function removeCollect() {
+function removeFabric() {
 
     if ($('#totalCount').text() === '0') {
         return false;
@@ -179,8 +147,8 @@ function removeCollect() {
     
     if ($('input:checkbox[name=checkKey]:checked').length < 1) {
         swal({
-            title: '선택된 원단이 없습니다.',
-            text: '삭제할 원단을 선택해주세요.',
+            title: '선택된 업체가 없습니다.',
+            text: '삭제할 업체를 선택해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -217,16 +185,16 @@ function removeCollect() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            var collectSeqs = [];
+            var companySeqs = [];
 
             $('input:checkbox[name=checkKey]:checked').each(function () {
-                collectSeqs.push($(this).val());
+                companySeqs.push($(this).val());
             });
 
             $.ajax({
                 type: "POST",
-                url: "/collect/ajaxRemove",
-                data: "collectSeqs=" + collectSeqs,
+                url: "/company/ajaxRemove",
+                data: "companySeqs=" + companySeqs,
                 success: function (data) {
 
                     if (Number(data.successCount) < 1) {
@@ -247,7 +215,7 @@ function removeCollect() {
                         return false;
                     }
                     swal({
-                        title: '선택하신 내용 삭제했습니다.',
+                        title: '선택하신 업체를 삭제했습니다.',
                         text: '',
                         icon: 'success',
                         buttons: {
@@ -265,7 +233,7 @@ function removeCollect() {
                 },
                 error: function (data) {
                     swal({
-                        title: '삭제에 실패했습니다.',
+                        title: '업체 삭제에 실패했습니다.',
                         text: '',
                         icon: 'error',
                         buttons: {

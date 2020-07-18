@@ -27,7 +27,7 @@ public class ReportController extends AbstractBaseController<ReportController> {
         this.reportService = reportService;
     }
 
-    @GetMapping("/report/list")
+    @GetMapping("/sales/report")
     public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model) {
 
         LocalDate currentDate = LocalDate.now();
@@ -37,7 +37,7 @@ public class ReportController extends AbstractBaseController<ReportController> {
         return getReportList(model, currentDate);
     }
 
-    @GetMapping("/report/list/{year}/{month}")
+    @GetMapping("/sales/report/{year}/{month}")
     public String search(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model,
                          @PathVariable("year") String year, @PathVariable("month") String month) {
 
@@ -88,7 +88,7 @@ public class ReportController extends AbstractBaseController<ReportController> {
 
         model.addAttribute("collectTotalPrice", collectTotalPrice);
 
-        return "report/reportList";
+        return "report/salesList";
     }
 
 }

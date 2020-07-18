@@ -10,5 +10,6 @@ public interface SalesService {
     public int getSalesListCount(SalesVo salesVo);
     public SalesVo getSalesDetail(SalesVo salesVo);
     public int setSalesData(SalesVo salesVo);
+    public int updateSalesData(SalesVo salesVo);
 
 }

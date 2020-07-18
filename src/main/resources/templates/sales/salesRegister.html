@@ -1,12 +1,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서 관리</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서 등록</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
 <h1 class="page-header">
-    매출/수금 내역서 <small>매출/수금 내역서 등록</small>
+    원단 매출/수금 내역서 <small>원단 매출 내역서 등록</small>
 </h1>
 <!-- end page-header -->
 
@@ -17,6 +17,7 @@
         <div class="col-xl-12">
             <!-- begin panel -->
             <form id="registerForm" name="registerForm">
+                <input type="hidden" id="seq" name="seq" th:value="${salesDetail.seq}">
                 <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
                     <div class="searchCondition">
                         <h4 class="panel-title"><i class="fa fa-clipboard"></i> 매출/수금 내역서 등록</h4>
@@ -36,7 +37,7 @@
                                             <div class="searchInputGroup">
                                                 <div class="input-group date" id="datepicker-sales">
                                                     <input type="text"  id="saleDate" name="saleDate" class="form-control"
-                                                           value="" placeholder="날짜를 선택해주세요." readonly>
+                                                           th:value="${#strings.substring(salesDetail.saleDate, 0, 10)}" placeholder="날짜를 선택해주세요." readonly>
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
@@ -53,7 +54,7 @@
                                                 >
                                                 <div class="input-group" style="width: 50%;">
                                                     <input type="text"  id="fabricNo" name="fabricNo" class="form-control"
-                                                           value="" placeholder="원단 품번을 입력해주세요." readonly>
+                                                           th:value="${salesDetail.fabricNo}" placeholder="원단 품번을 입력해주세요." readonly>
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-search" data-toggle="modal" data-target="#modal-SearchFabric"></i>
                                                     </div>
@@ -67,7 +68,7 @@
                                             <div class="searchInputGroup">
                                                 <div class="input-group" style="width: 50%;">
                                                     <input type="text"  id="fabricName" name="fabricName" class="form-control"
-                                                           value="" placeholder="원단 품명을 입력해주세요." readonly>
+                                                           th:value="${salesDetail.fabricName}" placeholder="원단 품명을 입력해주세요." readonly>
 <!--                                                    <div class="input-group-addon">-->
 <!--                                                        <i class="fa fa-search" data-toggle="modal" data-target="#modal-SearchFabric"></i>-->
 <!--                                                    </div>-->
@@ -81,8 +82,8 @@
                                             <div class="searchInputGroup">
                                                 <div class="input-group">
                                                     <div class="radio radio-css pt-0 mt-2 mb-2 radio-inline">
-                                                        <input type="radio" name="saleFlag" id="saleFlag0" value="0" checked="true" /><label for="saleFlag0">매출</label>
-                                                        <input type="radio" name="saleFlag" id="saleFlag1" value="1" /><label for="saleFlag1" class="ml-2">반품</label>
+                                                        <input type="radio" name="saleFlag" id="saleFlag0" value="0" th:checked="${salesDetail.saleFlag == '0' or salesDetail.collectType == null}" /><label for="saleFlag0">매출</label>
+                                                        <input type="radio" name="saleFlag" id="saleFlag1" value="1" th:checked="${salesDetail.saleFlag == '1'}" /><label for="saleFlag1" class="ml-2">반품</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,7 +94,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="color" name="color" type="text"
-                                                       class="form-control subject" placeholder="색상명을 입력해주세요."
+                                                       th:value="${salesDetail.color}" class="form-control subject" placeholder="색상명을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -103,7 +104,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="section" name="section" type="number"
-                                                       class="form-control subject" placeholder="절수를 입력해주세요."
+                                                       th:value="${salesDetail.section}" class="form-control subject" placeholder="절수를 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -113,7 +114,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="fabricCount" name="fabricCount" type="number"
-                                                       class="form-control subject" placeholder="수량을 입력해주세요."
+                                                       th:value="${salesDetail.fabricCount}" class="form-control subject" placeholder="수량을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -123,7 +124,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="deduction" name="deduction" type="number"
-                                                       class="form-control subject" placeholder="공제를 입력해주세요."
+                                                       th:value="${salesDetail.deduction}" class="form-control subject" placeholder="공제를 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -133,7 +134,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="unit" name="unit" type="number"
-                                                       class="form-control subject" placeholder="단가를 입력해주세요."
+                                                       th:value="${salesDetail.unit}" class="form-control subject" placeholder="단가를 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -143,7 +144,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="price" name="price" type="number"
-                                                       class="form-control subject" placeholder="금액을 입력해주세요."
+                                                       th:value="${salesDetail.price}" class="form-control subject" placeholder="금액을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -153,7 +154,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="tax" name="tax" type="number"
-                                                       class="form-control subject" placeholder="세액을 입력해주세요." readonly
+                                                       th:value="${salesDetail.tax}" class="form-control subject" placeholder="세액을 입력해주세요." readonly
                                                 >
                                             </div>
                                         </span>
@@ -163,7 +164,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="delivery" name="delivery" type="number"
-                                                       class="form-control subject" placeholder="운임을 입력해주세요."
+                                                       th:value="${salesDetail.delivery}" class="form-control subject" placeholder="운임을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -173,7 +174,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="receivable" name="receivable" type="number"
-                                                       class="form-control subject" placeholder="미수잔액을 입력해주세요."
+                                                       th:value="${salesDetail.receivable}" class="form-control subject" placeholder="미수잔액을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -183,7 +184,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="etc" name="etc" type="text"
-                                                       class="form-control subject" placeholder="비고를 입력해주세요."
+                                                       th:value="${salesDetail.etc}" class="form-control subject" placeholder="비고를 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -193,7 +194,7 @@
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="orderNo" name="orderNo" type="text"
-                                                       class="form-control subject" placeholder="수주번호를 입력해주세요."
+                                                       th:value="${salesDetail.orderNo}" class="form-control subject" placeholder="수주번호를 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -201,14 +202,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <div class="row pt-2 pr-3 float-right">
-                            <div class="">
-                                <button type="button" class="btn btn-success"
-                                        onclick="fn:getSalesList()">목록</button>
-                                <button type="button" class="btn btn-primary ml-1"
-                                        onclick="fn:setSalesRegister()">저장</button>
+                        <div>
+                            <div class="row pt-2 pr-3 float-right">
+                                <div class="">
+                                    <button type="button" class="btn btn-success"
+                                            onclick="fn:getSalesList()">목록</button>
+                                    <button type="button" class="btn btn-primary ml-1"
+                                            onclick="fn:setSalesRegister()">저장</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -306,7 +307,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <!--<tr class="odd" th:if="${#strings.isEmpty(fabricList)}">
+                                                    <!--<tr class="odd" th:if="${#lists.isEmpty(fabricList)}">
                                                         <td valign="top" colspan="6" class="dataTables_empty text-center">등록된 원단이 없습니다.</td>
                                                     </tr>-->
                                                     <tr role="row" class="odd" th:each="fabric, index : ${fabricList}">

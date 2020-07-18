@@ -1,13 +1,26 @@
 $(document).ready(function () {
 
+    //첨부파일
+    var uploadFile = $('.fileBox .uploadBtn');
+    uploadFile.on('change', function () {
+        if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+            var filesize = $(this)[0].files[0].size;
+        } else {
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+
+        setFileInfo(filename, filesize, this);
+
+    });
 
 })
 
 function setFabricRegister() {
 
-    if (isEmpty($("#fabricNo").val())) {
+    if (isEmpty($("#companyNo").val())) {
         swal({
-            title: '원단 품번을 입력해주세요.',
+            title: '사업자번호를 입력해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -22,9 +35,9 @@ function setFabricRegister() {
         return false;
     }
 
-    if (isEmpty($("#fabricName").val())) {
+    if (isEmpty($("#companyName").val())) {
         swal({
-            title: '원단 품명을 입력해주세요.',
+            title: '업체명을 입력해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -39,18 +52,22 @@ function setFabricRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined) ? "/fabric/ajaxRegister" : "/fabric/ajaxModify";
-
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/company/ajaxRegister" : "/company/ajaxModify";
+    console.log(url);
     $.ajax({
         type: "POST",
         url: url,
-        data: $("#registerForm").serialize(),
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: new FormData($("#registerForm")[0]), //$("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/fabric/list";
+            window.location.href = "#/company/list";
         },
         error: function (data) {
-            alert("원단 등록에 실패했습니다.");
+            alert("업체 등록에 실패했습니다.");
         }
     });
 
@@ -79,7 +96,12 @@ function getFabricList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/fabric/list";
+            window.location.href = "#/company/list";
         }
     });
+}
+
+function setFileInfo(filename, filesize, fileObj) {
+    $(fileObj).siblings('.fileName').val(filename);
+    $(fileObj).siblings('span.capacity').text("(" + formatBytes(filesize, 3) + " / 10MB)");
 }

@@ -138,7 +138,7 @@ function setSalesRegister() {
         return false;
     }
 
-    var url = ($("#salesName").val() != undefined) ? "/sales/ajaxModify" : "/sales/ajaxRegister";
+    var url = ($("#seq").val() == undefined) ? "/sales/ajaxRegister" : "/sales/ajaxModify";
 
     $.ajax({
         type: "POST",
@@ -149,7 +149,7 @@ function setSalesRegister() {
             window.location.href = "#/sales/list";
         },
         error: function (data) {
-            alert("원단 등록에 실패했습니다.");
+            alert("매출 등록에 실패했습니다.");
         }
     });
 
