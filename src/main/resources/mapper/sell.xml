@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.SellMapper">
+
+	<!-- company list -->
+	<select id="selectSellList" parameterType="com.pinocchio.sales.dto.SellVo" resultType="com.pinocchio.sales.dto.SellVo">
+
+		SELECT
+			S.seq
+			, S.sell_date AS sellDate
+			, S.company_seq AS companySeq
+			, C.company_no AS companyNo
+			, C.company_name AS companyName
+			, S.price AS price
+			, S.publish AS publish
+			, S.deposit AS deposit
+			, M.name AS registerName
+			, S.register_id AS registerId
+			, S.register_date AS registerDate
+		FROM
+			sell S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN company C
+				ON S.company_seq = C.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND S.sell_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'companyNo'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyName'">
+					AND C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyAll'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+		ORDER BY
+			S.sell_date DESC
+		LIMIT
+			#{start}, #{length}
+
+	</select>
+
+	<!-- company list count -->
+	<select id="selectSellListCount" parameterType="com.pinocchio.sales.dto.SellVo" resultType="int">
+
+		SELECT
+			COUNT(*) AS recordsTotal
+		FROM
+			sell S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN company C
+				ON S.company_seq = C.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND S.sell_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'companyNo'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyName'">
+					AND C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyAll'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+
+	</select>
+
+	<select id="selectSellDetail" parameterType="com.pinocchio.sales.dto.SellVo" resultType="com.pinocchio.sales.dto.SellVo">
+
+		SELECT
+			S.seq
+			, S.sell_date AS sellDate
+			, S.company_seq AS companySeq
+			, C.company_no AS companyNo
+			, C.company_name AS companyName
+			, S.price AS price
+			, S.publish AS publish
+			, S.deposit AS deposit
+			, M.name AS registerName
+			, S.register_id AS registerId
+			, S.register_date AS registerDate
+		FROM
+			sell S INNER JOIN member M
+				ON S.register_id = M.id
+			INNER JOIN company C
+				ON S.company_seq = C.seq
+		WHERE
+			S.seq = #{seq}
+
+	</select>
+
+	<insert id="insertSellData" parameterType="com.pinocchio.sales.dto.SellVo">
+
+		INSERT INTO sell (
+			 sell_date
+			, company_seq
+			, price
+			, publish
+			, deposit
+			, register_id
+			, register_date
+		) VALUE (
+			 #{sellDate}
+			, #{sellDate}
+			, #{companySeq}
+			, #{price}
+			, #{publish}
+			, #{deposit}
+			, #{registerId}
+			, NOW()
+		)
+
+	</insert>
+
+	<update id="updateSellData" parameterType="com.pinocchio.sales.dto.SellVo">
+
+		UPDATE sell
+		SET
+			sell_date = #{sellDate}
+			, company_seq = #{companySeq}
+			, price = #{price}
+			, publish = #{publish}
+			, deposit = #{deposit}
+		WHERE
+			seq = #{seq}
+
+	</update>
+
+	<delete id="deleteSellData" parameterType="java.util.HashMap">
+
+		DELETE FROM sell
+		WHERE
+			seq IN
+			<foreach collection="seqList" item="seq" separator="," index="index" open="(" close=")">
+				#{seq}
+			</foreach>
+
+	</delete>
+
+</mapper>

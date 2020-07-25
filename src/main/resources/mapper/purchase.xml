@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinocchio.sales.mapper.PurchaseMapper">
+
+	<!-- company list -->
+	<select id="selectPurchaseList" parameterType="com.pinocchio.sales.dto.PurchaseVo" resultType="com.pinocchio.sales.dto.PurchaseVo">
+
+		SELECT
+			P.seq
+			, P.purchase_date AS purchaseDate
+			, P.company_seq AS companySeq
+			, C.company_no AS companyNo
+			, C.company_name AS companyName
+			, P.total AS total
+			, P.bank AS bank
+			, P.cash AS cash
+			, P.bill_flag AS billFlag
+			, P.page_flag AS pageFlag
+			, M.name AS registerName
+			, P.register_id AS registerId
+			, P.register_date AS registerDate
+		FROM
+			purchase P INNER JOIN member M
+				ON P.register_id = M.id
+			INNER JOIN company C
+				ON P.company_seq = C.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND P.purchase_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'companyNo'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyName'">
+					AND C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyAll'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+		ORDER BY
+			P.purchase_date DESC
+		LIMIT
+			#{start}, #{length}
+
+	</select>
+
+	<!-- company list count -->
+	<select id="selectPurchaseListCount" parameterType="com.pinocchio.sales.dto.PurchaseVo" resultType="int">
+
+		SELECT
+			COUNT(*) AS recordsTotal
+		FROM
+			purchase P INNER JOIN member M
+				ON P.register_id = M.id
+			INNER JOIN company C
+				ON P.company_seq = C.seq
+		WHERE
+			1 = 1
+			<if test="(startDate != null and startDate != '') and (finishDate != null and finishDate != '')">
+				AND P.purchase_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchField == 'companyNo'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyName'">
+					AND C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchField == 'companyAll'">
+					AND C.company_no LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>
+
+	</select>
+
+	<select id="selectPurchaseDetail" parameterType="com.pinocchio.sales.dto.PurchaseVo" resultType="com.pinocchio.sales.dto.PurchaseVo">
+
+		SELECT
+			P.seq
+			, P.purchase_date AS purchaseDate
+			, P.company_seq AS companySeq
+			, C.company_no AS companyNo
+			, C.company_name AS companyName
+			, P.total AS total
+			, P.bank AS bank
+			, P.cash AS cash
+			, P.bill_flag AS billFlag
+			, P.page_flag AS pageFlag
+			, M.name AS registerName
+			, P.register_id AS registerId
+			, P.register_date AS registerDate
+		FROM
+			purchase P INNER JOIN member M
+				ON P.register_id = M.id
+			INNER JOIN company C
+				ON P.company_seq = C.seq
+		WHERE
+			P.seq = #{seq}
+
+	</select>
+
+	<insert id="insertPurchaseData" parameterType="com.pinocchio.sales.dto.PurchaseVo">
+
+		INSERT INTO purchase (
+			 purchase_date
+			, company_seq
+			, total
+			, bank
+			, cash
+			, bill_flag
+			, page_flag
+			, register_id
+			, register_date
+		) VALUE (
+			 #{purchaseDate}
+			, #{purchaseDate}
+			, #{companySeq}
+			, #{total}
+			, #{bank}
+			, #{cash}
+			, #{billFlag}
+			, #{pageFlag}
+			, #{registerId}
+			, NOW()
+		)
+
+	</insert>
+
+	<update id="updatePurchaseData" parameterType="com.pinocchio.sales.dto.PurchaseVo">
+
+		UPDATE purchase
+		SET
+			purchase_date = #{purchaseDate}
+			, company_seq = #{companySeq}
+			, total = #{total}
+			, bank = #{bank}
+			, cash = #{cash}
+			, bil_flag = #{billFlag}
+			, page_flag = #{pageFlag}
+		WHERE
+			seq = #{seq}
+
+	</update>
+
+	<delete id="deletePurchaseData" parameterType="java.util.HashMap">
+
+		DELETE FROM purchase
+		WHERE
+			seq IN
+			<foreach collection="seqList" item="seq" separator="," index="index" open="(" close=")">
+				#{seq}
+			</foreach>
+
+	</delete>
+
+</mapper>
