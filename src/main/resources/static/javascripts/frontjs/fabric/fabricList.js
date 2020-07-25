@@ -10,6 +10,9 @@ var dataTable = $('#dataTable').DataTable({
     initialLoad: false,
     pageLength: 10,
     buttons: [],
+    language: {
+        "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
+    },
     ajax: {
         "url": "/fabric/ajaxList",
         "type": "POST",

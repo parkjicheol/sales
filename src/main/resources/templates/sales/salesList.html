@@ -6,13 +6,13 @@
 
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">매출/수금 내역서 리스트</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
 <h1 class="page-header">
-    매출/수금 내역서 <small>매출/수금 내역서 리스트</small>
+    원단 매출/수금 내역서 <small>원단 매출 내역서 리스트</small>
 </h1>
 <!-- end page-header -->
 
@@ -125,7 +125,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd" th:if="${#strings.isEmpty(salesList)}">
+                                <tr class="odd" th:if="${#lists.isEmpty(salesList)}">
                                     <td valign="top" colspan="15" class="dataTables_empty text-center">등록된 수금 내역이 없습니다.</td>
                                 </tr>
                                 <tr role="row" class="odd" th:each="sales, index : ${salesList}">

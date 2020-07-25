@@ -47,6 +47,9 @@ public class SalesAsyncController extends AbstractBaseController<SalesAsyncContr
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
 
+        salesVo.setRegisterId("admin");
+        salesService.setSalesData(salesVo);
+
         map.put("successCount", 1);
 
         return gson.toJson(map);
@@ -57,6 +60,9 @@ public class SalesAsyncController extends AbstractBaseController<SalesAsyncContr
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
+
+        salesVo.setRegisterId("admin");
+        salesService.updateSalesData(salesVo);
 
         map.put("successCount", 1);
 

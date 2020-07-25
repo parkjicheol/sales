@@ -50,7 +50,6 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
         HashMap<String, Object> map = new HashMap<String, Object>();
 
         fabricVo.setRegisterId("admin");
-
         fabricService.setFabricData(fabricVo);
 
         map.put("successCount", 1);
@@ -63,7 +62,8 @@ public class FabricAsyncController extends AbstractBaseController<FabricAsyncCon
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
-        fabricVo.getSeq();
+
+        fabricVo.setRegisterId("admin");
         fabricService.updateFabricData(fabricVo);
 
         map.put("successCount", 1);

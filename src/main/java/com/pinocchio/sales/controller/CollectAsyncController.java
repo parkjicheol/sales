@@ -49,6 +49,7 @@ public class CollectAsyncController extends AbstractBaseController<CollectAsyncC
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
+
         collectVo.setRegisterId("admin");
         collectService.setCollectData(collectVo);
 
@@ -62,7 +63,8 @@ public class CollectAsyncController extends AbstractBaseController<CollectAsyncC
 
         Gson gson = new Gson();
         HashMap<String, Object> map = new HashMap<String, Object>();
-        collectVo.getSeq();
+
+        collectVo.setRegisterId("admin");
         collectService.updateCollectData(collectVo);
 
         map.put("successCount", 1);

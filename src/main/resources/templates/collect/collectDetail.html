@@ -1,12 +1,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">원단 항목 관리</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">원 항목 리스트</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
 <h1 class="page-header">
-    수금 항목 <small>수금 항목 내용</small>
+    원단 매출/수금 내역서 <small>원단 수금 상세</small>
 </h1>
 <!-- end page-header -->
 
@@ -31,15 +31,17 @@
                             <div class="pyoTable my-2">
                                 <div class="rowTable">
                                     <span class="cell col2">수금일자</span>
-                                    <span class="cell col3" th:text="${collectDetail.collectDate}"></span>
+                                    <span class="cell col3" th:text="${#strings.substring(collectDetail.collectDate, 0, 10)}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수금지급방법</span>
-                                    <span class="cell col3" th:text="${collectDetail.collectType}"></span>
+                                    <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('0')}">은행</span>
+                                    <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('1')}">어음</span>
+                                    <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('2')}">기타</span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수금액</span>
-                                    <span class="cell col3" th:text="${collectDetail.price}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 1, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">등록일</span>

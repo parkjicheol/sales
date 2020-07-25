@@ -10,6 +10,9 @@ var dataTable = $('#dataTable').DataTable({
     initialLoad: false,
     pageLength: 10,
     buttons: [],
+    language: {
+        "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
+    },
     ajax: {
         "url": "/collect/ajaxList",
         "type": "POST",
@@ -29,8 +32,6 @@ var dataTable = $('#dataTable').DataTable({
     "columns": [{
         data: ''
     }, {
-        data: 'seq'
-    },{
         data: 'collectDate'
     }, {
         data: 'collectType'
@@ -51,21 +52,21 @@ var dataTable = $('#dataTable').DataTable({
                 return html;
             }
         },{
-            targets: 2,
+            targets: 1,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectDate + '</a>';
+                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectDate.substring(0, 10) + '</a>';
             }
         }, {
-            targets: 3,
+            targets: 2,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
                 return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectType + '</a>';
             }
         }, {
-            targets: 4,
+            targets: 3,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
@@ -73,7 +74,7 @@ var dataTable = $('#dataTable').DataTable({
             }
         },
         {
-            targets: [0, 1, 4, 5],
+            targets: [0, 4],
             className: 'dt-body-center'
         }
     ]

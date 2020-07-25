@@ -23,22 +23,26 @@ import java.util.List;
 public class SalesServiceImpl implements SalesService {
 
 	@Autowired
-	SalesMapper fabricMapper;
+	SalesMapper salesMapper;
 
 	public List<SalesVo> getSalesList(SalesVo salesVo) {
-		return fabricMapper.selectSalesList(salesVo);
+		return salesMapper.selectSalesList(salesVo);
 	}
 
 	public int getSalesListCount(SalesVo salesVo) {
-		return fabricMapper.selectSalesListCount(salesVo);
+		return salesMapper.selectSalesListCount(salesVo);
 	}
 
 	public SalesVo getSalesDetail(SalesVo salesVo) {
-		return fabricMapper.selectSalesDetail(salesVo);
+		return salesMapper.selectSalesDetail(salesVo);
 	}
 
-	public SalesVo setSalesData(SalesVo salesVo) {
-		return fabricMapper.insertSalesData(salesVo);
+	public int setSalesData(SalesVo salesVo) {
+		return salesMapper.insertSalesData(salesVo);
+	}
+
+	public int updateSalesData(SalesVo salesVo) {
+		return salesMapper.updateSalesData(salesVo);
 	}
 
 }

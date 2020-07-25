@@ -10,7 +10,19 @@ a:hover{text-decoration:none;color:inherit;}
 .close.closeBtn .btnX{color:#fff;}
 .modal-dialog{height:100%;-ms-overflow-y:auto;-ms-overflow-style:none;}
 
+.bg {
+    /* The image used */
+    background-image: url("/images/jean.jpeg");
 
+    /* Full height */
+    width: 100%;
+    height: 1000px;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 /* 로그인페이지 */
 .adminLogin .incorrect{color:pink;float:right;}
@@ -209,6 +221,8 @@ a.paginate_button:hover{color:#2d353c!important;background:#f2f4f5!important;}
 .addFileBtn .fileBox .capacity{margin-left:15px;vertical-align:middle;}
 
 /* 모달 explore버전 회원관리,탈퇴승인관리 */
+
+
 .modalEX .modal-footer{position:relative;height:50px;}
 .modalEX .modal-footer a{position:absolute;left:50%;top:50%;transform: translate(-50.1%,-50.1%);}
 .memberDetail span{font-size:12px;}

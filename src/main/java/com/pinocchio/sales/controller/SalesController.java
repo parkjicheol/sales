@@ -1,7 +1,9 @@
 package com.pinocchio.sales.controller;
 
 import com.pinocchio.sales.common.abs.AbstractBaseController;
+import com.pinocchio.sales.dto.FabricVo;
 import com.pinocchio.sales.dto.SalesVo;
+import com.pinocchio.sales.service.FabricService;
 import com.pinocchio.sales.service.SalesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,11 @@ import java.util.Locale;
 public class SalesController extends AbstractBaseController<SalesController> {
 
     private final SalesService salesService;
+    private final FabricService fabricService;
 
-    public SalesController(SalesService salesService) {
+    public SalesController(SalesService salesService, FabricService fabricService) {
         this.salesService = salesService;
+        this.fabricService = fabricService;
     }
 
     @GetMapping("/sales/list")
@@ -42,6 +46,9 @@ public class SalesController extends AbstractBaseController<SalesController> {
 
     @GetMapping("/sales/register")
     public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SalesVo salesVo) {
+
+        List<FabricVo> fabricList = fabricService.getFabricList(new FabricVo());
+        model.addAttribute("fabricList", fabricList);
 
         if (salesVo.getSeq() != null) {
             SalesVo salesDetail = salesService.getSalesDetail(salesVo);
