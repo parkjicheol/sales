@@ -27,34 +27,34 @@ public class PurchaseController extends AbstractBaseController<PurchaseControlle
     }
 
     @GetMapping("/purchase/list")
-    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, PurchaseVo salesVo) {
+    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, PurchaseVo purchaseVo) {
 
-        List<PurchaseVo> salesList = purchaseService.getPurchaseList(new PurchaseVo());
-        model.addAttribute("salesList", salesList);
+        List<PurchaseVo> purchaseList = purchaseService.getPurchaseList(new PurchaseVo());
+        model.addAttribute("purchaseList", purchaseList);
 
         return "purchase/purchaseList";
     }
 
     @GetMapping("/purchase/detail")
-    public String detail(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, PurchaseVo salesVo) {
+    public String detail(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, PurchaseVo purchaseVo) {
 
-        PurchaseVo salesDetail = purchaseService.getPurchaseDetail(salesVo);
-        model.addAttribute("salesDetail", salesDetail);
+        PurchaseVo purchaseDetail = purchaseService.getPurchaseDetail(purchaseVo);
+        model.addAttribute("purchaseDetail", purchaseDetail);
 
         return "purchase/purchaseDetail";
     }
 
     @GetMapping("/purchase/register")
-    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, PurchaseVo salesVo) {
+    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, PurchaseVo purchaseVo) {
 
         List<CompanyVo> companyList = companyService.getCompanyList(new CompanyVo());
         model.addAttribute("companyList", companyList);
 
-        if (salesVo.getSeq() != null) {
-            PurchaseVo salesDetail = purchaseService.getPurchaseDetail(salesVo);
-            model.addAttribute("salesDetail", salesDetail);
+        if (purchaseVo.getSeq() != null) {
+            PurchaseVo purchaseDetail = purchaseService.getPurchaseDetail(purchaseVo);
+            model.addAttribute("purchaseDetail", purchaseDetail);
         } else {
-            model.addAttribute("salesDetail", salesVo);
+            model.addAttribute("purchaseDetail", purchaseVo);
         }
 
         return "purchase/purchaseRegister";

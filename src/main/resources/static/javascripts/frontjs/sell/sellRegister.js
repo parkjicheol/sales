@@ -2,7 +2,7 @@ var bRunning = false;
 
 $(document).ready(function () {
 
-    $('#datepicker-sales').datepicker({
+    $('#datepicker-sell').datepicker({
         todayHighlight: true,
         autoclose: true,
         format: 'yyyy-mm-dd',
@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     //테이블 조회갯수 지정
-    $("#fabricLength").on("change", function (event) {
+    $("#companyLength").on("change", function (event) {
         var oSettings = dataTable.settings()[0];
         var len = Number($("#selectLength option:selected").val());
 
@@ -19,13 +19,8 @@ $(document).ready(function () {
         dataTable.draw();
     });
 
-    $("#price").on("keyup", function (event) {
-        var price = $('#price').val();
-        $('#tax').val(Math.round(price / 10));
-    });
-
     // modal-SearchCourse02Datatable 생성
-    var fabricDatatable = $('#fabricDatatable').DataTable({
+    var companyDatatable = $('#companyDatatable').DataTable({
         dom: 'Blfrtip',
         addTableClass: 'col-lg-12 px-0',
         lengthChange: false,
@@ -35,7 +30,7 @@ $(document).ready(function () {
         pageLength: 10,
         buttons: [],
         ajax: {
-            "url": "/fabric/ajaxList",
+            "url": "/company/ajaxList",
             "type": "POST",
             "data": function (d) {
                 d.searchField = $("#searchField").val();
@@ -53,9 +48,9 @@ $(document).ready(function () {
         "columns": [{
             data: 'seq'
         },{
-            data: 'fabricNo'
+            data: 'companyNo'
         }, {
-            data: 'fabricName'
+            data: 'companyName'
         }, {
             data: 'registerId'
         }, {
@@ -66,14 +61,14 @@ $(document).ready(function () {
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="javascript:;" onclick="javascript:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricNo + '</a>';
+                return '<a href="javascript:;" onclick="javascript:setCompany(\'' + row.seq + '\', \'' + row.companyNo + '\', \'' + row.companyName + '\')"">'+ row.companyNo + '</a>';
             }
         }, {
             targets: 2,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="javascript:;" onclick="javascript:setFabric(\'' + row.seq + '\', \'' + row.fabricNo + '\', \'' + row.fabricName + '\')"">'+ row.fabricName + '</a>';
+                return '<a href="javascript:;" onclick="javascript:setCompany(\'' + row.seq + '\', \'' + row.companyNo + '\', \'' + row.companyName + '\')"">'+ row.companyName + '</a>';
             }
         },
             {
@@ -87,7 +82,7 @@ $(document).ready(function () {
 
 function setSalesRegister() {
 
-    if (isEmpty($("#saleDate").val())) {
+    if (isEmpty($("#sellDate").val())) {
         swal({
             title: '매출 일자를 입력해주세요.',
             icon: 'info',
@@ -104,9 +99,9 @@ function setSalesRegister() {
         return false;
     }
 
-    if (isEmpty($("#fabricNo").val())) {
+    if (isEmpty($("#companyNo").val())) {
         swal({
-            title: '원단 품번을 입력해주세요.',
+            title: '사업자번호를 입력해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -121,9 +116,9 @@ function setSalesRegister() {
         return false;
     }
 
-    if (isEmpty($("#fabricName").val())) {
+    if (isEmpty($("#companyName").val())) {
         swal({
-            title: '원단 품명을 입력해주세요.',
+            title: '업체명을 입력해주세요.',
             icon: 'info',
             buttons: {
                 confirm: {
@@ -138,7 +133,7 @@ function setSalesRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/sales/ajaxRegister" : "/sales/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/sell/ajaxRegister" : "/sell/ajaxModify";
 
     $.ajax({
         type: "POST",
@@ -146,7 +141,7 @@ function setSalesRegister() {
         data: $("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/sales/list";
+            window.location.href = "#/sell/list";
         },
         error: function (data) {
             alert("매출 등록에 실패했습니다.");
@@ -178,17 +173,17 @@ function getSalesList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/sales/list";
+            window.location.href = "#/sell/list";
         }
     });
 }
 
-function setFabric(fabricSeq, fabricNo, fabricName) {
+function setCompany(companySeq, companyNo, companyName) {
 
-    $('#fabricSeq').val(fabricSeq);
-    $('#fabricNo').val(fabricNo);
-    $('#fabricName').val(fabricName);
+    $('#companySeq').val(companySeq);
+    $('#companyNo').val(companyNo);
+    $('#companyName').val(companyName);
 
-    $('#modal-SearchFabric').modal('hide');
+    $('#modal-SearchCompany').modal('hide');
 
 }

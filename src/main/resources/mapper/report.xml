@@ -96,4 +96,90 @@
 
 	</select>
 
+	<select id="selectPurchaseList" parameterType="com.pinocchio.sales.dto.ReportVo" resultType="com.pinocchio.sales.dto.ReportVo">
+
+		SELECT
+			yyyyMM
+			, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
+			, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+			, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85 AS percent
+			, ((MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85) - MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END)) AS empty
+		FROM
+		(
+			SELECT
+				LEFT(sell_date, 7) AS yyyyMM
+				, 'sell' AS type
+				, SUM(price) AS total
+			FROM
+				sell
+			WHERE
+				sell_date BETWEEN CONCAT(#{year}, '-01-01 00:00:00') AND CONCAT(#{year}, '-12-31 23:59:59')
+			GROUP BY
+				LEFT(sell_date, 7)
+
+			UNION ALL
+
+			SELECT
+				LEFT(purchase_date, 7) AS yyyyMM
+				, 'purchase' AS type
+				, SUM(total) AS total
+			FROM
+				purchase
+			WHERE
+				purchase_date BETWEEN CONCAT(#{year}, '-01-01 00:00:00') AND CONCAT(#{year}, '-12-31 23:59:59')
+			GROUP BY
+				LEFT(purchase_date, 7)
+		) cal
+		GROUP BY
+			yyyyMM
+
+	</select>
+
+	<select id="selectPurchaseTotalList" parameterType="com.pinocchio.sales.dto.ReportVo" resultType="com.pinocchio.sales.dto.ReportVo">
+
+		SELECT
+			SUM(sellTotal) AS sellTotal
+			, SUM(purchaseTotal) AS purchaseTotal
+			, SUM(percent) AS percent
+			, SUM(empty) AS empty
+		FROM
+		(
+			SELECT
+				yyyyMM
+				, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
+				, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+				, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85 AS percent
+				, ((MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85) - MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END)) AS empty
+			FROM
+			(
+				SELECT
+					LEFT(sell_date, 7) AS yyyyMM
+					, 'sell' AS type
+					, SUM(price) AS total
+				FROM
+					sell
+				WHERE
+					sell_date BETWEEN CONCAT(#{year}, '-01-01 00:00:00') AND CONCAT(#{year}, '-12-31 23:59:59')
+				GROUP BY
+					LEFT(sell_date, 7)
+
+				UNION ALL
+
+				SELECT
+					LEFT(purchase_date, 7) AS yyyyMM
+					, 'purchase' AS type
+					, SUM(total) AS total
+				FROM
+					purchase
+				WHERE
+					purchase_date BETWEEN CONCAT(#{year}, '-01-01 00:00:00') AND CONCAT(#{year}, '-12-31 23:59:59')
+				GROUP BY
+					LEFT(purchase_date, 7)
+			) cal
+			GROUP BY
+				yyyyMM
+		) summary
+
+	</select>
+
 </mapper>

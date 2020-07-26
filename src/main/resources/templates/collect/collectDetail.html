@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수금액</span>
-                                    <span class="cell col3" th:text="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 1, 'POINT')}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">등록일</span>

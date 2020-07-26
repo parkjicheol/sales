@@ -111,8 +111,7 @@
 			, register_id
 			, register_date
 		) VALUE (
-			 #{sellDate}
-			, #{sellDate}
+			#{sellDate}
 			, #{companySeq}
 			, #{price}
 			, #{publish}

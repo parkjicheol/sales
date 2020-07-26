@@ -17,8 +17,8 @@ public class PurchaseVo extends DefaultVo {
     private Double total;
     private Double bank;
     private Double cash;
-    private String billFlag;
-    private String pageFlag;
+    private Byte billFlag;
+    private Byte pageFlag;
     private String registerName;
     private String registerId;
     private String registerDate;

@@ -27,34 +27,34 @@ public class SellController extends AbstractBaseController<SellController> {
     }
 
     @GetMapping("/sell/list")
-    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SellVo salesVo) {
+    public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SellVo sellVo) {
 
-        List<SellVo> salesList = sellService.getSellList(new SellVo());
-        model.addAttribute("salesList", salesList);
+        List<SellVo> sellList = sellService.getSellList(new SellVo());
+        model.addAttribute("sellList", sellList);
 
         return "sell/sellList";
     }
 
     @GetMapping("/sell/detail")
-    public String detail(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SellVo salesVo) {
+    public String detail(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SellVo sellVo) {
 
-        SellVo salesDetail = sellService.getSellDetail(salesVo);
-        model.addAttribute("salesDetail", salesDetail);
+        SellVo sellDetail = sellService.getSellDetail(sellVo);
+        model.addAttribute("sellDetail", sellDetail);
 
         return "sell/sellDetail";
     }
 
     @GetMapping("/sell/register")
-    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SellVo salesVo) {
+    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, SellVo sellVo) {
 
         List<CompanyVo> companyList = companyService.getCompanyList(new CompanyVo());
         model.addAttribute("companyList", companyList);
 
-        if (salesVo.getSeq() != null) {
-            SellVo salesDetail = sellService.getSellDetail(salesVo);
-            model.addAttribute("salesDetail", salesDetail);
+        if (sellVo.getSeq() != null) {
+            SellVo sellDetail = sellService.getSellDetail(sellVo);
+            model.addAttribute("sellDetail", sellDetail);
         } else {
-            model.addAttribute("salesDetail", salesVo);
+            model.addAttribute("sellDetail", sellVo);
         }
 
         return "sell/sellRegister";

@@ -45,7 +45,7 @@ function setCollectRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined) ? "/collect/ajaxRegister" : "/collect/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/collect/ajaxRegister" : "/collect/ajaxModify";
 
     $.ajax({
         type: "POST",

@@ -94,12 +94,10 @@
         $("#formLogin").submit(function (event) {
 
             if ($("#saveId").is(":checked")) {
-                $.cookie('cookie_username', $.trim($("#userId").val()), { expires: 30, path: '/' });
+                $.cookie('cookie_username', $.trim($("#id").val()), { expires: 30, path: '/' });
             } else {
                 $.removeCookie('cookie_username', { path: '/' });
             }
-
-            $('#username').val($('#userId').val());
 
         });
 

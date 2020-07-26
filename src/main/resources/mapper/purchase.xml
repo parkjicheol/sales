@@ -118,7 +118,6 @@
 			, register_date
 		) VALUE (
 			 #{purchaseDate}
-			, #{purchaseDate}
 			, #{companySeq}
 			, #{total}
 			, #{bank}

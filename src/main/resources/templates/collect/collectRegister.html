@@ -63,7 +63,7 @@
                                         <span class="cell col2">수금액</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="price" name="price" type="text" th:value="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 1, 'POINT')}"
+                                                <input id="price" name="price" type="text" th:value="${#numbers.formatDecimal(collectDetail.price, 1, 'COMMA', 0, 'POINT')}"
                                                        class="form-control subject" placeholder="수금액을 입력하세요."
                                                 >
                                             </div>

@@ -1,6 +1,8 @@
 package com.pinocchio.sales.service.impl;
 
 import com.pinocchio.sales.dto.CollectVo;
+import com.pinocchio.sales.dto.PurchaseVo;
+import com.pinocchio.sales.dto.ReportVo;
 import com.pinocchio.sales.dto.SalesVo;
 import com.pinocchio.sales.mapper.ReportMapper;
 import com.pinocchio.sales.service.ReportService;
@@ -27,4 +29,8 @@ public class ReportServiceImpl implements ReportService {
 	public int getCollectTotalPrice(CollectVo collectVo) {
 		return reportMapper.selectCollectTotalPrice(collectVo);
 	}
+	public List<ReportVo> getPurchaseList(ReportVo reportVo) {
+		return reportMapper.selectPurchaseList(reportVo);
+	}
+	public ReportVo getPurchaseTotalList(ReportVo reportVo) { return reportMapper.selectPurchaseTotalList(reportVo); }
 }

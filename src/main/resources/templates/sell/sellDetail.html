@@ -1,12 +1,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">원단 매출/수금 내역서</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매입/매출 관리</a></li>
+    <li class="breadcrumb-item"><a href="javascript:;">매입/매출 관리</a></li>
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
 <h1 class="page-header">
-    원단 매출/수금 내역서 <small>원단 매출 항목 상세</small>
+    매출 관리 리스트 <small>매출 관리 상세</small>
 </h1>
 <!-- end page-header -->
 
@@ -31,71 +31,33 @@
                             <div class="pyoTable my-2">
                                 <div class="rowTable">
                                     <span class="cell col2">매출 일자</span>
-                                    <span class="cell col3" th:text="${salesDetail.saleDate}"></span>
+                                    <span class="cell col3" th:text="${sellDetail.sellDate}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">원단 품번</span>
-                                    <span class="cell col3" th:text="${salesDetail.fabricNo}"></span>
+                                    <span class="cell col2">사업자번</span>
+                                    <span class="cell col3" th:text="${sellDetail.companyNo}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">원단 품명</span>
-                                    <span class="cell col3" th:text="${salesDetail.fabricName}"></span>
+                                    <span class="cell col2">업체명</span>
+                                    <span class="cell col3" th:text="${sellDetail.companyName}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">구분</span>
-                                    <span class="cell col3 text-blue-darker" th:if="${salesDetail.saleFlag.toString().equals('0')}">매출</span>
-                                    <span class="cell col3 text-danger" th:if="${salesDetail.saleFlag.toString().equals('1')}">반품</span>
+                                    <span class="cell col2">공급가</span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(sellDetail.price, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">색상명</span>
-                                    <span class="cell col3" th:text="${salesDetail.color}"></span>
+                                    <span class="cell col2">발행 금액</span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(sellDetail.publish, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
-                                    <span class="cell col2">절수</span>
-                                    <span class="cell col3" th:text="${salesDetail.section}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">수량</span>
-                                    <span class="cell col3" th:text="${salesDetail.fabricCount}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">공제</span>
-                                    <span class="cell col3" th:text="${salesDetail.deduction}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">단가</span>
-                                    <span class="cell col3" th:text="${salesDetail.unit}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">금액(수금)</span>
-                                    <span class="cell col3 text-blue-darker" th:if="${salesDetail.saleFlag.toString().equals('0')}" th:text="${#numbers.formatDecimal(salesDetail.price, 1, 'COMMA', 0, 'POINT')}"></span>
-                                    <span class="cell col3 text-danger" th:if="${salesDetail.saleFlag.toString().equals('1')}" th:text="${#numbers.formatDecimal(salesDetail.price, 1, 'COMMA', 0, 'POINT')}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">세액(DC)</span>
-                                    <span class="cell col3" th:text="${salesDetail.tax}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">운임</span>
-                                    <span class="cell col3" th:text="${salesDetail.delivery}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">미수잔액</span>
-                                    <span class="cell col3" th:text="${salesDetail.receivable}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">비고</span>
-                                    <span class="cell col3" th:text="${salesDetail.etc}"></span>
-                                </div>
-                                <div class="rowTable">
-                                    <span class="cell col2">수주번호</span>
-                                    <span class="cell col3" th:text="${salesDetail.orderNo}"></span>
+                                    <span class="cell col2">입금 금액</span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(sellDetail.deposit, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row pt-2 pr-3 float-right">
-                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/sales/list'">목록</button>
-                            <button type="button" class="btn btn-primary ml-1" th:onclick="|location.href='#/sales/register?seq=${salesDetail.seq}'|">수정</button>
+                            <button type="button" class="btn btn-success ml-1" onclick="location.href='#/sell/list'">목록</button>
+                            <button type="button" class="btn btn-primary ml-1" th:onclick="|location.href='#/sell/register?seq=${sellDetail.seq}'|">수정</button>
                         </div>
                     </div>
                 </div>
