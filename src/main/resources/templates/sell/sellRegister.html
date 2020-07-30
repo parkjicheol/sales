@@ -80,8 +80,8 @@
                                         <span class="cell col2">공급가</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="price" name="price" type="number"
-                                                       th:value="${sellDetail.price}" class="form-control subject" placeholder="공급가를 입력해주세요."
+                                                <input id="price" name="price" type="text"
+                                                       th:value="${#numbers.formatDecimal(sellDetail.price, 1, 'COMMA', 0, 'POINT')}" class="form-control subject" placeholder="공급가를 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -90,8 +90,8 @@
                                         <span class="cell col2">발행 금액</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="publish" name="publish" type="number"
-                                                       th:value="${sellDetail.publish}" class="form-control subject" placeholder="발행 금액을 입력해주세요."
+                                                <input id="publish" name="publish" type="text"
+                                                       th:value="${#numbers.formatDecimal(sellDetail.publish, 1, 'COMMA', 0, 'POINT')}" class="form-control subject" placeholder="발행 금액을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -100,8 +100,8 @@
                                         <span class="cell col2">입금 금액</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="deposit" name="deposit" type="number"
-                                                       th:value="${sellDetail.deposit}" class="form-control subject" placeholder="입금 금액을 입력해주세요."
+                                                <input id="deposit" name="deposit" type="text"
+                                                       th:value="${#numbers.formatDecimal(sellDetail.deposit, 1, 'COMMA', 0, 'POINT')}" class="form-control subject" placeholder="입금 금액을 입력해주세요."
                                                 >
                                             </div>
                                         </span>

@@ -9,6 +9,20 @@ $(document).ready(function () {
         language: 'kor'
     });
 
+    $("#price, #publish, #deposit").on("keypress", null, function () {
+        if ((event.keyCode < 48) || (event.keyCode > 57))
+            event.returnValue=false;
+    });
+
+    $("#price, #publish, #deposit").on("keyup", null, function () {
+        var $input = $(this);
+        $input.val($input.val().replace(/[^0-9]/g,""));
+        var value = $input.val().replace(/,/gi, ''),
+            num = value.replace(/(.)(?=(.{3})+$)/g,"$1,");
+
+        $input.val(num);
+    });
+
     //테이블 조회갯수 지정
     $("#companyLength").on("change", function (event) {
         var oSettings = dataTable.settings()[0];
