@@ -149,6 +149,11 @@ function setSalesRegister() {
 
     var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/sell/ajaxRegister" : "/sell/ajaxModify";
 
+    var targetForm = $("#registerForm :input");
+    $.each(targetForm, function (index, elem) {
+        $(this).val($(this).val().replace(/,/g, ''));
+    });
+
     $.ajax({
         type: "POST",
         url: url,
