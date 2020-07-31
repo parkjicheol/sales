@@ -9,10 +9,26 @@ $(document).ready(function () {
         language: 'kor'
     });
 
+    $("#bank, #cash").on("keypress", null, function() {
+       if((event.keyCode < 48) || (event.keyCode > 57))
+           event.returnValue=false;
+    });
+
+    $("#bank, #cash").on("keyup", null, function () {
+        var $input = $(this);
+        $input.val($input.val().replace(/[^0-9]/g,""));
+        var value = $input.val().replace(/,/gi, ''),
+            num = value.replace(/(.)(?=(.{3})+$)/g,"$1,");
+
+        $input.val(num);
+    });
+
+
     $("#bank, #cash").on("keyup", function (event) {
-        var bank = $('#bank').val();
-        var cash = $('#cash').val();
-        $('#total').val(Number(bank) + Number(cash));
+        var bank = $('#bank').val().replace(/,/gi, '');
+        var cash = $('#cash').val().replace(/,/gi, '');
+        var total = String(Number(bank) + Number(cash)).replace(/(.)(?=(.{3})+$)/g,"$1,");
+        $('#total').val(total);
     });
 
     //테이블 조회갯수 지정
@@ -140,6 +156,11 @@ function setPurchaseRegister() {
     }
 
     var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/purchase/ajaxRegister" : "/purchase/ajaxModify";
+
+    var targetForm = $("#registerForm :input");
+    $.each(targetForm, function (index, elem) {
+        $(this).val($(this).val().replace(/,/g, ''));
+    });
 
     $.ajax({
         type: "POST",

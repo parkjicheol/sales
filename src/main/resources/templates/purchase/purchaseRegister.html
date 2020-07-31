@@ -38,7 +38,7 @@
                                                 <div class="input-group date" id="datepicker-purchase">
                                                     <input type="text"  id="purchaseDate" name="purchaseDate" class="form-control"
                                                            th:value="${#strings.substring(purchaseDetail.purchaseDate, 0, 10)}" placeholder="날짜를 선택해주세요." readonly>
-                                                    <div class="input-group-addon">
+                                                    <div class="input-group-addon">z
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
                                                 </div>
@@ -49,7 +49,7 @@
                                         <span class="cell col2">사업자번호</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="companySeq" name="companySeq" type="hidden"
+                                                <input id="companySeq" name="companySeq" type="hidden" th:value="${purchaseDetail.companySeq}"
                                                        class="form-control subject"
                                                 >
                                                 <div class="input-group" style="width: 50%;">
@@ -80,18 +80,18 @@
                                         <span class="cell col2">입금총액</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="total" name="total" type="number"
-                                                       th:value="${purchaseDetail.total}" class="form-control subject" placeholder="공급가를 입력해주세요." readonly
+                                                <input id="total" name="total" type="text"
+                                                       th:value="${#numbers.formatDecimal(purchaseDetail.total, 1, 'COMMA', 0, 'POINT')}" class="form-control subject" placeholder="공급가를 입력해주세요." readonly
                                                 >
                                             </div>
                                         </span>
                                     </div>
                                     <div class="rowTable">
-                                        <span class="cell col2">은행</span>
+                                        <span class="cell col2">은행입금</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="bank" name="bank" type="number"
-                                                       th:value="${purchaseDetail.bank}" class="form-control subject" placeholder="발행 금액을 입력해주세요."
+                                                <input id="bank" name="bank" type="text"
+                                                       th:value="${#numbers.formatDecimal(purchaseDetail.bank, 1, 'COMMA', 0, 'POINT')}" class="form-control subject" placeholder="발행 금액을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -100,8 +100,8 @@
                                         <span class="cell col2">현금</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="cash" name="cash" type="number"
-                                                       th:value="${purchaseDetail.cash}" class="form-control subject" placeholder="입금 금액을 입력해주세요."
+                                                <input id="cash" name="cash" type="text"
+                                                       th:value="${#numbers.formatDecimal(purchaseDetail.cash, 1, 'COMMA', 0, 'POINT')}" class="form-control subject" placeholder="입금 금액을 입력해주세요."
                                                 >
                                             </div>
                                         </span>
@@ -112,8 +112,8 @@
                                             <div class="searchInputGroup">
                                                 <div class="input-group">
                                                     <div class="radio radio-css pt-0 mt-2 mb-2 radio-inline">
-                                                        <input type="radio" name="billFlag" id="billFlag0" value="0" th:checked="${purchaseDetail.billFlag == '0' or purchaseDetail.billFlag == null}" /><label for="billFlag0">발행</label>
-                                                        <input type="radio" name="billFlag" id="billFlag1" value="1" th:checked="${purchaseDetail.billFlag == '1'}" /><label for="billFlag1" class="ml-2">미발행</label>
+                                                        <input type="radio" name="billFlag" id="billFlag0" value="0" th:checked="${purchaseDetail.billFlag == 0 or purchaseDetail.billFlag == null}" /><label for="billFlag0">발행</label>
+                                                        <input type="radio" name="billFlag" id="billFlag1" value="1" th:checked="${purchaseDetail.billFlag == 1}" /><label for="billFlag1" class="ml-2">미발행</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,8 +125,8 @@
                                             <div class="searchInputGroup">
                                                 <div class="input-group">
                                                     <div class="radio radio-css pt-0 mt-2 mb-2 radio-inline">
-                                                        <input type="radio" name="pageFlag" id="pageFlag0" value="0" th:checked="${purchaseDetail.pageFlag == '0' or purchaseDetail.pageFlag == null}" /><label for="pageFlag0">전자</label>
-                                                        <input type="radio" name="pageFlag" id="pageFlag1" value="1" th:checked="${purchaseDetail.pageFlag == '1'}" /><label for="pageFlag1" class="ml-2">수기</label>
+                                                        <input type="radio" name="pageFlag" id="pageFlag0" value="0" th:checked="${purchaseDetail.pageFlag == 0 or purchaseDetail.pageFlag == null}" /><label for="pageFlag0">전자</label>
+                                                        <input type="radio" name="pageFlag" id="pageFlag1" value="1" th:checked="${purchaseDetail.pageFlag == 1}" /><label for="pageFlag1" class="ml-2">수기</label>
                                                     </div>
                                                 </div>
                                             </div>

@@ -3,6 +3,7 @@ package com.pinocchio.sales.service;
 import com.pinocchio.sales.dto.PurchaseVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PurchaseService {
 
@@ -11,5 +12,6 @@ public interface PurchaseService {
     public PurchaseVo getPurchaseDetail(PurchaseVo purchaseVo);
     public int setPurchaseData(PurchaseVo purchaseVo);
     public int updatePurchaseData(PurchaseVo purchaseVo);
+    public int deletePurchaseData(Map seq);
 
 }

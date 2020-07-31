@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("sellService")
 @Transactional
@@ -35,5 +36,7 @@ public class SellServiceImpl implements SellService {
 	public int updateSellData(SellVo sellVo) {
 		return sellMapper.updateSellData(sellVo);
 	}
+
+	public int deleteSellData(Map seq) { return sellMapper.deleteSellData(seq); }
 
 }

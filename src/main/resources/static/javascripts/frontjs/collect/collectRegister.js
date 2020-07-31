@@ -47,6 +47,11 @@ function setCollectRegister() {
 
     var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/collect/ajaxRegister" : "/collect/ajaxModify";
 
+    var targetForm = $("#registerForm :input");
+    $.each(targetForm, function (index, elem) {
+        $(this).val($(this).val().replace(/,/g, ''));
+    });
+
     $.ajax({
         type: "POST",
         url: url,

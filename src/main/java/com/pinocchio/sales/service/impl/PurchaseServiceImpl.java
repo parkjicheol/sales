@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("purchaseService")
 @Transactional
@@ -36,4 +37,5 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseMapper.updatePurchaseData(purchaseVo);
 	}
 
+	public int deletePurchaseData(Map seq) { return purchaseMapper.deletePurchaseData(seq); }
 }

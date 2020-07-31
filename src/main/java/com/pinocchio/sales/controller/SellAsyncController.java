@@ -73,11 +73,13 @@ public class SellAsyncController extends AbstractBaseController<SellAsyncControl
     public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String sellSeqs) {
 
         Gson gson = new Gson();
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> seq = new HashMap<String, Object>();
 
-        map.put("successCount", 1);
+        seq.put("seq", sellSeqs.split(","));
+        sellService.deleteSellData(seq);
+        seq.put("successCount", 1);
 
-        return gson.toJson(map);
+        return gson.toJson(seq);
     }
 
 }
