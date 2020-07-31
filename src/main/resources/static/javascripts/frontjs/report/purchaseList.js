@@ -7,4 +7,8 @@ $(document).ready(function () {
         document.location.href = '#/purchase/report/' + $('#searchYear').val();
     });
 
+    $("#print").on("click", function (event) {
+        printJS('data-table-combine_wrapper', 'html');
+    });
+
 });
