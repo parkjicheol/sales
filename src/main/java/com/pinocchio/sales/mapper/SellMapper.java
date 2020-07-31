@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -15,5 +16,6 @@ public interface SellMapper {
     public SellVo selectSellDetail(SellVo sellVo);
     public int insertSellData(SellVo sellVo);
     public int updateSellData(SellVo sellVo);
+    public int deleteSellData(Map seq);
 
 }

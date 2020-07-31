@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -15,5 +16,6 @@ public interface PurchaseMapper {
     public PurchaseVo selectPurchaseDetail(PurchaseVo purchaseVo);
     public int insertPurchaseData(PurchaseVo purchaseVo);
     public int updatePurchaseData(PurchaseVo purchaseVo);
+    public int deletePurchaseData(Map seq);
 
 }

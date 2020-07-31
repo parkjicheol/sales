@@ -73,11 +73,14 @@ public class PurchaseAsyncController extends AbstractBaseController<PurchaseAsyn
     public String remove(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model, @RequestParam String purchaseSeqs) {
 
         Gson gson = new Gson();
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> seq = new HashMap<String, Object>();
 
-        map.put("successCount", 1);
+        seq.put("seq", purchaseSeqs.split(","));
+        purchaseService.deletePurchaseData(seq);
 
-        return gson.toJson(map);
+        seq.put("successCount", 1);
+
+        return gson.toJson(seq);
     }
 
 }

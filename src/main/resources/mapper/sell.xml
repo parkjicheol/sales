@@ -141,8 +141,8 @@
 		DELETE FROM sell
 		WHERE
 			seq IN
-			<foreach collection="seqList" item="seq" separator="," index="index" open="(" close=")">
-				#{seq}
+			<foreach collection="seq" item="item" separator="," index="index" open="(" close=")">
+				#{item}
 			</foreach>
 
 	</delete>
