@@ -87,14 +87,14 @@ var dataTable = $('#dataTable').DataTable({
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return (row.billFlag == 0) ? '<span class="text-blue-darker">발행</span>' : '<span class="text-danger">미발</span>';
+                return (row.billFlag == 0) ? '<span class="text-blue-darker">발행</span>' : '<span class="text-danger">미발행</span>';
             }
         }, {
             targets: 5,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return (row.pageFlag == 0) ? '<span class="text-blue-darker">전자</span>' : '<span class="text-danger">수</span>';
+                return (row.pageFlag == 0) ? '<span class="text-blue-darker">전자</span>' : '<span class="text-danger">수기</span>';
             }
         }, {
             targets: [6, 7, 8],
@@ -160,9 +160,9 @@ $(document).ready(function () {
         opens: 'right',
         format: 'YYYY-MM-DD',
         separator: ' to ',
-        startDate: moment().subtract('month', 1).date(1),
-        endDate: moment().subtract('month', 0).date(0),
-        minDate: '2020-01-01',
+        startDate: moment().subtract('month', 0),
+        endDate: moment().subtract('month', 0),
+        minDate: '2018-01-01',
         maxDate: '2039-12-31',
         showDropdowns: true,
         locale: {

@@ -33,4 +33,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportMapper.selectPurchaseList(reportVo);
 	}
 	public ReportVo getPurchaseTotalList(ReportVo reportVo) { return reportMapper.selectPurchaseTotalList(reportVo); }
+	public List<ReportVo> getMonthList(ReportVo reportVo) {
+		return reportMapper.selectMonthList(reportVo);
+	}
+	public ReportVo getMonthTotalList(ReportVo reportVo) { return reportMapper.selectMonthTotalList(reportVo); }
+
 }

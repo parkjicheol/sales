@@ -65,7 +65,7 @@ public class CompanyAsyncController extends AbstractBaseController<CompanyAsyncC
 
         try {
 
-            String filepath = UploadFileUtils.uploadFile(imagePath, uploadPath, uploadFile.getOriginalFilename(), uploadFile.getBytes());
+            String filepath = (uploadFile.isEmpty()) ? "" : UploadFileUtils.uploadFile(imagePath, uploadPath, uploadFile.getOriginalFilename(), uploadFile.getBytes());
 
             companyVo.setRegisterId("admin");
             companyVo.setFileName(StringUtil.getConvertHtml(filepath));

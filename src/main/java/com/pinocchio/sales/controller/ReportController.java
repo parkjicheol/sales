@@ -48,7 +48,6 @@ public class ReportController extends AbstractBaseController<ReportController> {
         model.addAttribute("month", month);
 
         return getSalesReportList(model, currentDate);
-
     }
 
     private String getSalesReportList(Model model, LocalDate currentDate) {
@@ -110,10 +109,10 @@ public class ReportController extends AbstractBaseController<ReportController> {
         model.addAttribute("year", year);
 
         return getPurchaseReportList(model, currentDate);
-
     }
 
     private String getPurchaseReportList(Model model, LocalDate currentDate) {
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy");
         String year = currentDate.format(dateTimeFormatter);
 
@@ -127,6 +126,50 @@ public class ReportController extends AbstractBaseController<ReportController> {
         model.addAttribute("purchaseTotal", reportTotalVo);
 
         return "report/purchaseList";
+    }
+
+    @GetMapping("/month/report")
+    public String monthList(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model) {
+
+        LocalDate currentDate = LocalDate.now();
+        model.addAttribute("year", currentDate.getYear());
+        model.addAttribute("month", currentDate.getMonthValue());
+
+        return getMonthReportList(model, currentDate);
+    }
+
+    @GetMapping("/month/report/{year}/{month}")
+    public String monthSearch(HttpServletRequest request, HttpServletResponse response, HttpSession session, Locale locale, Model model,
+                              @PathVariable("year") String year, @PathVariable("month") String month) {
+
+        LocalDate currentDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), 1);
+        model.addAttribute("year", year);
+        model.addAttribute("month", month);
+
+        return getMonthReportList(model, currentDate);
+    }
+
+    private String getMonthReportList(Model model, LocalDate currentDate) {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        String year = currentDate.format(dateTimeFormatter);
+
+        String startString = currentDate.format(dateTimeFormatter) + "-01";
+        currentDate = currentDate.plusMonths(1L);
+        String finishString = currentDate.format(dateTimeFormatter) + "-01";
+
+        ReportVo reportVo = new ReportVo();
+        reportVo.setYear(year);
+        reportVo.setStartDate(startString);
+        reportVo.setFinishDate(finishString);
+
+        List<ReportVo> monthList = reportService.getMonthList(reportVo);
+        model.addAttribute("monthList", monthList);
+
+        ReportVo reportTotalVo = reportService.getMonthTotalList(reportVo);
+        model.addAttribute("monthTotal", reportTotalVo);
+
+        return "report/monthList";
     }
 
 }

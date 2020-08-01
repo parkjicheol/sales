@@ -31,6 +31,13 @@
                                     <option value="companyName">업체명</option>
                                 </select>
                             </div>
+                            <div class="col-lg-2 pt-3">
+                                <select id="searchType" class="form-control">
+                                    <option value="all">사진 + 문서</option>
+                                    <option value="0">사진</option>
+                                    <option value="1">문서</option>
+                                </select>
+                            </div>
                             <div class="col-lg-3 pt-3">
                                 <div class="searchInputGroup">
                                     <input id="searchKeyword" name="searchKeyword" type="text" class="form-control" placeholder="검색어를 입력해주세요">
@@ -39,7 +46,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-lg-5 pt-3"></div>
+                            <div class="col-lg-3 pt-3"></div>
                             <div class="col-lg-2 pt-3">
                                 <button type="button" id="search" class="btn btn-primary float-right px-4">
                                     검색 <i class="fa fa-fw fa-search pl-3"></i>
@@ -114,8 +121,13 @@
                                         <td class="text-center" th:text="${company.seq}"></td>
                                         <td class="text-center"><a th:href="${'#/company/detail?seq=' + company.seq}" th:text="${company.companyNo}"></a></td>
                                         <td class="text-center"><a th:href="${'#/company/detail?seq=' + company.seq}" th:text="${company.companyName}"></a></td>
-                                        <td class="text-center" th:text="${company.companyLicense}"></td>
-                                        <td class="text-center"><span th:attr="onclick=|fileDownload('${company.fileName}')|"><i class="fa fa-images"></i></span></td>
+                                        <td class="text-center">
+                                            <span class="text-green-darker" th:if="${company.companyLicense.toString().equals('0')}">사진</span>
+                                            <span class="text-blue-darker" th:if="${company.companyLicense.toString().equals('1')}">문서</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${not company.fileName.toString().equals('')}" th:attr="onclick=|fileDownload('${company.fileName}')|"><i class="fa fa-images"></i></span>
+                                        </td>
                                         <td class="text-center" th:text="${company.registerId}"></td>
                                         <td class="text-center" th:text="${company.registerDate}"></td>
                                    </tr>

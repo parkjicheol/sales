@@ -19,5 +19,7 @@ public interface ReportMapper {
     public int selectCollectTotalPrice(CollectVo CollectVo);
     public List<ReportVo> selectPurchaseList(ReportVo reportVo);
     public ReportVo selectPurchaseTotalList(ReportVo reportVo);
+    public List<ReportVo> selectMonthList(ReportVo reportVo);
+    public ReportVo selectMonthTotalList(ReportVo reportVo);
 
 }

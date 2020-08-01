@@ -182,4 +182,91 @@
 
 	</select>
 
+	<select id="selectMonthList" parameterType="com.pinocchio.sales.dto.ReportVo" resultType="com.pinocchio.sales.dto.ReportVo">
+
+		SELECT
+			yyyyMM
+			, companyName
+			, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
+			, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+		FROM
+		(
+			SELECT
+				LEFT(S.sell_date, 7) AS yyyyMM
+				, C.company_name AS companyName
+				, 'sell' AS type
+				, SUM(S.price) AS total
+			FROM
+				sell S
+					INNER JOIN company C
+						ON S.company_seq = C.seq
+			WHERE
+				S.sell_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+			GROUP BY
+				LEFT(S.sell_date, 7), companyName
+
+			UNION ALL
+
+			SELECT
+				LEFT(P.purchase_date, 7) AS yyyyMM
+				, C.company_name AS companyName
+				, 'purchase' AS type
+				, SUM(P.total) AS total
+			FROM
+				purchase P
+					INNER JOIN company C
+						ON P.company_seq = C.seq
+			WHERE
+				P.purchase_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+			GROUP BY
+				LEFT(P.purchase_date, 7), companyName
+		) cal
+		GROUP BY
+			yyyyMM, companyName
+
+	</select>
+
+	<select id="selectMonthTotalList" parameterType="com.pinocchio.sales.dto.ReportVo" resultType="com.pinocchio.sales.dto.ReportVo">
+
+		SELECT
+			SUM(sellTotal) AS sellTotal
+			, SUM(purchaseTotal) AS purchaseTotal
+		FROM
+		(
+			SELECT
+				yyyyMM
+				, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
+				, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+			FROM
+			(
+				SELECT
+					LEFT(sell_date, 7) AS yyyyMM
+					, 'sell' AS type
+					, SUM(price) AS total
+				FROM
+					sell
+				WHERE
+					sell_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+				GROUP BY
+					LEFT(sell_date, 7)
+
+				UNION ALL
+
+				SELECT
+					LEFT(purchase_date, 7) AS yyyyMM
+					, 'purchase' AS type
+					, SUM(total) AS total
+				FROM
+					purchase
+				WHERE
+					purchase_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 00:00:00')
+				GROUP BY
+					LEFT(purchase_date, 7)
+			) cal
+			GROUP BY
+				yyyyMM
+		) summary
+
+	</select>
+
 </mapper>

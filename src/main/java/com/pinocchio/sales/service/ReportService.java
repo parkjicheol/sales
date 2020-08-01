@@ -15,5 +15,7 @@ public interface ReportService {
     public int getCollectTotalPrice(CollectVo collectVo);
     public List<ReportVo> getPurchaseList(ReportVo reportVo);
     public ReportVo getPurchaseTotalList(ReportVo reportVo);
+    public List<ReportVo> getMonthList(ReportVo reportVo);
+    public ReportVo getMonthTotalList(ReportVo reportVo);
 
 }

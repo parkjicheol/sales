@@ -19,6 +19,7 @@ var dataTable = $('#dataTable').DataTable({
         "data": function (d) {
             d.searchField = $("#searchField").val();
             d.searchKeyword = $("#searchKeyword").val();
+            d.searchType = $("#searchType").val();
             d.bRunning = bRunning;
         },
         dataSrc: "data",
@@ -72,14 +73,21 @@ var dataTable = $('#dataTable').DataTable({
                 return '<a href="#/company/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
             }
         }, {
+            targets: 4,
+            className: 'dt-body-center',
+            selector: 'td',
+            render: function (data, type, row, meta) {
+                return (row.companyLicense == 0) ? '<span class="text-green-darker">사진</span>' : '<span class="text-blue-darker">문서</span>';
+            }
+        }, {
             targets: 5,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<span onclick="fileDownload(\'' + $.trim(row.fileName) + '\');"><i class="fa fa-images"></i></span>';
+                return (row.fileName == '') ? '' : '<span onclick="fileDownload(\'' + $.trim(row.fileName) + '\');"><i class="fa fa-images"></i></span>';
             }
         }, {
-            targets: [0, 1, 4, 6, 7],
+            targets: [0, 1, 6, 7],
             className: 'dt-body-center'
         }
     ]

@@ -39,7 +39,10 @@
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">등록증</span>
-                                    <span class="cell col3" th:text="${companyDetail.companyLicense}"></span>
+                                    <span class="cell col3">
+                                        <span class="text-green-darker" th:if="${companyDetail.companyLicense.toString().equals('0')}">사진</span>
+                                        <span class="text-blue-darker" th:if="${companyDetail.companyLicense.toString().equals('1')}">문서</span>
+                                    </span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">이미지</span>

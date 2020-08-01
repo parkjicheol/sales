@@ -20,7 +20,7 @@
                 <input type="hidden" id="seq" name="seq" th:value="${salesDetail.seq}">
                 <div class="panel panel-inverse mb-5" data-sortable-id="form-plugins-1">
                     <div class="searchCondition">
-                        <h4 class="panel-title"><i class="fa fa-clipboard"></i> 매출/수금 내역서 등록</h4>
+                        <h4 class="panel-title"><i class="fa fa-clipboard"></i> 매출/수금 내역서 등록 - 수량 * 단가 = 금액(수금) * 90%, 세액(DC) * 10%</h4>
                     </div>
                     <div class="panel-body">
                         <div id="data-table-combine_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -120,16 +120,6 @@
                                         </span>
                                     </div>
                                     <div class="rowTable">
-                                        <span class="cell col2">공제 </span>
-                                        <span class="cell col3">
-                                            <div class="searchInputGroup">
-                                                <input id="deduction" name="deduction" type="number"
-                                                       th:value="${salesDetail.deduction}" class="form-control subject" placeholder="공제를 입력해주세요."
-                                                >
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <div class="rowTable">
                                         <span class="cell col2">단가 </span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
@@ -140,11 +130,21 @@
                                         </span>
                                     </div>
                                     <div class="rowTable">
+                                        <span class="cell col2">공제 </span>
+                                        <span class="cell col3">
+                                            <div class="searchInputGroup">
+                                                <input id="deduction" name="deduction" type="number"
+                                                       th:value="${salesDetail.deduction}" class="form-control subject" placeholder="공제를 입력해주세요."
+                                                >
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="rowTable">
                                         <span class="cell col2">금액(수금)</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
                                                 <input id="price" name="price" type="number"
-                                                       th:value="${salesDetail.price}" class="form-control subject" placeholder="금액을 입력해주세요."
+                                                       th:value="${salesDetail.price}" class="form-control subject" placeholder="금액을 입력해주세요." readonly
                                                 >
                                             </div>
                                         </span>

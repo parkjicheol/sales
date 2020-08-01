@@ -10,7 +10,9 @@ import lombok.ToString;
 public class ReportVo extends DefaultVo {
 
     private String year;
+    private String month;
     private String yyyyMM;
+    private String companyName;
     private Double sellTotal;
     private Double purchaseTotal;
     private Double percent;

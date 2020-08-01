@@ -55,9 +55,12 @@
                                         <span class="cell col2">등록증</span>
                                         <span class="cell col3">
                                             <div class="searchInputGroup">
-                                                <input id="companyLicense" name="companyLicense" type="text" th:value="${companyDetail.companyLicense}"
-                                                       class="form-control subject" placeholder="등록증을 입력해주세요."
-                                                >
+                                                <div class="input-group">
+                                                    <div class="radio radio-css pt-0 mt-2 mb-2 radio-inline">
+                                                        <input type="radio" name="companyLicense" id="companyLicense0" value="0" th:checked="${companyDetail.companyLicense == '0' or companyDetail.companyLicense == null}" /><label for="companyLicense0">사진</label>
+                                                        <input type="radio" name="companyLicense" id="companyLicense1" value="1" th:checked="${companyDetail.companyLicense == '1'}" /><label for="companyLicense1" class="ml-2">문서</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </span>
                                     </div>

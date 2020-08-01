@@ -10,9 +10,9 @@ import lombok.ToString;
 public class CompanyVo extends DefaultVo {
 
     private Long seq;
-    private String companyNo;
+    private String companyNo = "";
     private String companyName;
-    private String companyLicense;
+    private String companyLicense = "";
     private String fileName;
     private String registerId;
     private String registerDate;

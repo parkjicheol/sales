@@ -33,6 +33,11 @@
 						C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
 				</if>
 			</if>
+			<if test="searchType != null and searchType != ''">
+				<if test="searchType != 'all'">
+					AND C.company_license = #{searchType}
+				</if>
+			</if>
 		ORDER BY
 			C.seq DESC
 		LIMIT
@@ -64,7 +69,11 @@
 					C.company_name LIKE CONCAT('%', #{searchKeyword}, '%')
 				</if>
 			</if>
-
+			<if test="searchType != null and searchType != ''">
+				<if test="searchType != 'all'">
+					AND C.company_license = #{searchType}
+				</if>
+			</if>
 	</select>
 
 	<select id="selectCompanyDetail" parameterType="com.pinocchio.sales.dto.CompanyVo" resultType="com.pinocchio.sales.dto.CompanyVo">

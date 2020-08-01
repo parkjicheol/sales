@@ -13,6 +13,7 @@ public class DefaultVo {
     private Integer length = 10;
     private String searchKeyword = "";
     private String searchField = "";
+    private String searchType = "";
     private Boolean bRunning = true;
     private String startDate = "";
     private String finishDate = "";

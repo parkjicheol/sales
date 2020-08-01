@@ -136,9 +136,9 @@ $(document).ready(function () {
         opens: 'right',
         format: 'YYYY-MM-DD',
         separator: ' to ',
-        startDate: moment().subtract('month', 1).date(1),
-        endDate: moment().subtract('month', 0).date(0),
-        minDate: '2020-01-01',
+        startDate: moment().subtract('month', 0),
+        endDate: moment().subtract('month', 0),
+        minDate: '2018-01-01',
         maxDate: '2039-12-31',
         showDropdowns: true,
         locale: {

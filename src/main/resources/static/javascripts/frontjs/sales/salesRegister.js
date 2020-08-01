@@ -19,9 +19,20 @@ $(document).ready(function () {
         dataTable.draw();
     });
 
-    $("#price").on("keyup", function (event) {
-        var price = $('#price').val();
-        $('#tax').val(Math.round(price / 10));
+    $("#fabricCount").on("keyup", function (event) {
+        var fabricCount = ($.trim($('#fabricCount').val()) == '') ? 0 : $('#fabricCount').val();
+        var unit = ($.trim($('#unit').val()) == '') ? 0 : $('#unit').val();
+        var total = fabricCount * unit;
+        $('#price').val(Math.round(total * 0.9));
+        $('#tax').val(Math.round(total * 0.1));
+    });
+
+    $("#unit").on("keyup", function (event) {
+        var fabricCount = ($.trim($('#fabricCount').val()) == '') ? 0 : $('#fabricCount').val();
+        var unit = ($.trim($('#unit').val()) == '') ? 0 : $('#unit').val();
+        var total = fabricCount * unit;
+        $('#price').val(Math.round(total * 0.9));
+        $('#tax').val(Math.round(total * 0.1));
     });
 
     // modal-SearchCourse02Datatable 생성
