@@ -81,7 +81,7 @@ var dataTable = $('#dataTable').DataTable({
         }, {
             targets: [4, 5, 6],
             className: 'dt-body-right',
-            render: $.fn.dataTable.render.number( ',', '.', 1 )
+            render: $.fn.dataTable.render.number( ',')
         }
     ]
 });

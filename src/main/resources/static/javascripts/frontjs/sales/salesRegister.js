@@ -19,20 +19,28 @@ $(document).ready(function () {
         dataTable.draw();
     });
 
-    $("#fabricCount").on("keyup", function (event) {
-        var fabricCount = ($.trim($('#fabricCount').val()) == '') ? 0 : $('#fabricCount').val();
-        var unit = ($.trim($('#unit').val()) == '') ? 0 : $('#unit').val();
-        var total = fabricCount * unit;
-        $('#price').val(Math.round(total * 0.9));
-        $('#tax').val(Math.round(total * 0.1));
+    $("#section, #fabricCount, #unit, #deduction, #delivery, #receivable").on("keypress", null, function() {
+        if((event.keyCode < 48) || (event.keyCode > 57))
+            event.returnValue = false;
     });
 
-    $("#unit").on("keyup", function (event) {
-        var fabricCount = ($.trim($('#fabricCount').val()) == '') ? 0 : $('#fabricCount').val();
-        var unit = ($.trim($('#unit').val()) == '') ? 0 : $('#unit').val();
+    $("#section, #fabricCount, #unit, #deduction, #delivery, #receivable").on("keyup", null, function () {
+        var $input = $(this);
+        $input.val($input.val().replace(/[^0-9]/g, ''));
+        var value = $input.val().replace(/,/gi, '');
+        var num = value.replace(/(.)(?=(.{3})+$)/g, '$1,');
+        $input.val(num);
+    });
+
+    $("#fabricCount, #unit").on("keyup", function (event) {
+        var fabricCount = $.trim($('#fabricCount').val()).replace(/,/gi, '');
+        var unit = $.trim($('#unit').val()).replace(/,/gi, '');
         var total = fabricCount * unit;
-        $('#price').val(Math.round(total * 0.9));
-        $('#tax').val(Math.round(total * 0.1));
+        var price = Math.round(total * 0.9);
+        var tax = Math.round(total * 0.1);
+
+        $('#price').val(String(price).replace(/(.)(?=(.{3})+$)/g, '$1,'));
+        $('#tax').val(String(tax).replace(/(.)(?=(.{3})+$)/g, '$1,'));
     });
 
     // modal-SearchCourse02Datatable 생성
@@ -150,6 +158,11 @@ function setSalesRegister() {
     }
 
     var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/sales/ajaxRegister" : "/sales/ajaxModify";
+
+    var targetForm = $("#registerForm :input");
+    $.each(targetForm, function (index, elem) {
+        $(this).val($(this).val().replace(/,/g, ''));
+    });
 
     $.ajax({
         type: "POST",

@@ -112,9 +112,10 @@
                                         <td class="text-center">
                                             <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('0')}">은행</a>
                                             <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('1')}">어음</a>
-                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('2')}">기타</a>
+                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('2')}">현금</a>
+                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('3')}">기타</a>
                                         </td>
-                                        <td class="text-right" ><a th:href="${'#/collect/detail?seq=' + collect.seq}" th:text="${#numbers.formatDecimal(collect.price, 1, 'COMMA', 0, 'POINT')}"></a></td>
+                                        <td class="text-right" th:text="${#numbers.formatDecimal(collect.price, 1, 'COMMA', 0, 'POINT')}"></td>
                                         <td class="text-center" th:text="${collect.registerDate}"></td>
                                    </tr>
                                </tbody>

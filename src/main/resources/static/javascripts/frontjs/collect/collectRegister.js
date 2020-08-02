@@ -7,6 +7,19 @@ $(document).ready(function () {
         language: 'kor'
     });
 
+    $("#price").on("keypress", null, function() {
+        if((event.keyCode < 48) || (event.keyCode > 57))
+            event.returnValue=false;
+    });
+
+    $("#price").on("keyup", null, function () {
+        var $input = $(this);
+        $input.val($input.val().replace(/[^0-9]/g,""));
+        var value = $input.val().replace(/,/gi, '');
+        var num = value.replace(/(.)(?=(.{3})+$)/g,"$1,");
+        $input.val(num);
+    });
+
 })
 
 function setCollectRegister() {

@@ -27,7 +27,7 @@
                             <div class="col-lg-4 pt-3">
                                 <select id="searchYear" class="form-control">
                                     <option th:each="searYear : ${#numbers.sequence(2019, #dates.year(#dates.createNow()))}"
-                                            th:selected="${year} == ${searYear}" th:value="${searYear}" th:text="${searYear}">
+                                            th:selected="${year} == ${searYear}" th:value="${searYear}" th:text="${searYear + '년'}">
                                     </option>
                                 </select>
                             </div>

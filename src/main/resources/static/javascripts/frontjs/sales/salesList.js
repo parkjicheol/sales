@@ -111,7 +111,7 @@ var dataTable = $('#dataTable').DataTable({
         {
             targets: [7, 8],
             className: 'dt-body-right',
-            render: $.fn.dataTable.render.number( ',', '.', 1 )
+            render: $.fn.dataTable.render.number( ',')
         },
         {
             targets: [9, 10, 11, 12, 13],

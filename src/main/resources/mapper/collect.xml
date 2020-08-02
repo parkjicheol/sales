@@ -25,7 +25,7 @@
 				AND F.collect_date BETWEEN CONCAT(#{startDate}, ' 00:00:00') AND CONCAT(#{finishDate}, ' 23:59:59')
 			</if>
 		ORDER BY
-			F.seq DESC
+			F.collect_date DESC
 		LIMIT
 			#{start}, #{length}
 

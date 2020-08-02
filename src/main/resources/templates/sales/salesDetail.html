@@ -52,19 +52,19 @@
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">절수</span>
-                                    <span class="cell col3" th:text="${salesDetail.section}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.section, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수량</span>
-                                    <span class="cell col3" th:text="${salesDetail.fabricCount}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.fabricCount, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">단가</span>
-                                    <span class="cell col3" th:text="${salesDetail.unit}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.unit, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">공제</span>
-                                    <span class="cell col3" th:text="${salesDetail.deduction}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.deduction, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">금액(수금)</span>
@@ -73,15 +73,15 @@
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">세액(DC)</span>
-                                    <span class="cell col3" th:text="${salesDetail.tax}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.tax, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">운임</span>
-                                    <span class="cell col3" th:text="${salesDetail.delivery}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.delivery, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">미수잔액</span>
-                                    <span class="cell col3" th:text="${salesDetail.receivable}"></span>
+                                    <span class="cell col3" th:text="${#numbers.formatDecimal(salesDetail.receivable, 1, 'COMMA', 0, 'POINT')}"></span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">비고</span>

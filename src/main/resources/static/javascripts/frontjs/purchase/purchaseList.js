@@ -99,7 +99,7 @@ var dataTable = $('#dataTable').DataTable({
         }, {
             targets: [6, 7, 8],
             className: 'dt-body-right',
-            render: $.fn.dataTable.render.number( ',', '.', 1 )
+            render: $.fn.dataTable.render.number( ',')
         }
     ]
 });

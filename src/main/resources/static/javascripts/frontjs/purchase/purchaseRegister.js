@@ -17,14 +17,10 @@ $(document).ready(function () {
     $("#bank, #cash").on("keyup", null, function () {
         var $input = $(this);
         $input.val($input.val().replace(/[^0-9]/g,""));
-        var value = $input.val().replace(/,/gi, ''),
-            num = value.replace(/(.)(?=(.{3})+$)/g,"$1,");
-
+        var value = $input.val().replace(/,/gi, '');
+        var num = value.replace(/(.)(?=(.{3})+$)/g,"$1,");
         $input.val(num);
-    });
 
-
-    $("#bank, #cash").on("keyup", function (event) {
         var bank = $('#bank').val().replace(/,/gi, '');
         var cash = $('#cash').val().replace(/,/gi, '');
         var total = String(Number(bank) + Number(cash)).replace(/(.)(?=(.{3})+$)/g,"$1,");

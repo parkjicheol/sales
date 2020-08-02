@@ -12,17 +12,17 @@
 			, S.fabric_seq AS fabricSeq
 			, F.fabric_no AS fabricNo
 			, F.fabric_name AS fabricName
-			, S.section
-			, S.color
+			, IFNULL(S.section, 0) AS section
+			, IFNULL(S.color, '') AS color
 			, S.fabric_count AS fabricCount
-			, S.deduction
-			, S.unit
-			, S.price
-			, S.tax
-			, S.delivery
-			, S.receivable
-			, S.etc
-			, S.order_no AS orderNo
+			, IFNULL(S.deduction, 0) AS deduction
+			, IFNULL(S.unit, 0) AS unit
+			, IFNULL(S.price, 0) AS price
+			, IFNULL(S.tax, 0) AS tax
+			, IFNULL(S.delivery, 0) AS delivery
+			, IFNULL(S.receivable, 0) AS receivable
+			, IFNULL(S.etc, '') AS etc
+			, IFNULL(S.order_no, '') AS orderNo
 			, M.name AS registerName
 			, S.register_id AS registerId
 			, S.register_date AS registerDate

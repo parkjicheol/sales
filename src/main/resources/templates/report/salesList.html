@@ -27,7 +27,7 @@
                             <div class="col-lg-2 pt-3">
                                 <select id="searchYear" class="form-control">
                                     <option th:each="year : ${#numbers.sequence(2019, #dates.year(#dates.createNow()))}"
-                                            th:selected="${year} == ${#dates.year(#dates.createNow())}" th:value="${year}" th:text="${year}">
+                                            th:selected="${year} == ${#dates.year(#dates.createNow())}" th:value="${year}" th:text="${year + '년'}">
                                     </option>
                                 </select>
                             </div>
@@ -121,13 +121,14 @@
                                     <td class="text-center" th:text="${sales.orderNo}"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #f2fdf8;" th:each="collect, index : ${collectList}">
-                                    <td class="text-center">2020-07-07</td>
+                                    <td class="text-center" th:text="${#strings.substring(collect.collectDate, 0, 10)}"></td>
                                     <td class="text-center"><span class="text-green-darker">수금</span></td>
                                     <td class="text-center"><span class="text-green-darker">[ 수금액 ]</span></td>
                                     <td class="text-center">
                                         <span th:if="${collect.collectType.toString().equals('0')}">은행</span>
                                         <span th:if="${collect.collectType.toString().equals('1')}">어음</span>
-                                        <span th:if="${collect.collectType.toString().equals('2')}">기타</span>
+                                        <span th:if="${collect.collectType.toString().equals('2')}">현금</span>
+                                        <span th:if="${collect.collectType.toString().equals('3')}">기타</span>
                                     </td>
                                     <td class="text-center"></td>
                                     <td class="text-right"></td>
@@ -142,7 +143,7 @@
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #f3f3ff;" th:if="${not #strings.isEmpty(collectTotal)}">
-                                    <td class="text-center" rowspan="3" colspan="2" style="background-color: #f2f4f5;"><span class="text">합계</span></td>
+                                    <td class="text-center" colspan="2" style="background-color: #f2f4f5;"><span class="text">매출 합계</span></td>
                                     <td class="text-center"><span class="text-blue-darker" th:text="${'< ' + month + '월 매출 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
@@ -158,6 +159,7 @@
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #fdf2f4;" th:if="${not #strings.isEmpty(returnTotal)}">
+                                    <td class="text-center" colspan="2" style="background-color: #f2f4f5;"><span class="text">반품 합계</span></td>
                                     <td class="text-center"><span class="text-danger" th:text="${'< ' + month + '월 반품 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>
@@ -173,6 +175,7 @@
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #f2fdf8;" th:if="${not #strings.isEmpty(collectTotalPrice)}">
+                                    <td class="text-center" colspan="2" style="background-color: #f2f4f5;"><span class="text">수금 합계</span></td>
                                     <td class="text-center"><span class="text-green-darker" th:text="${'< ' + month + '월 수금 >'}"></span></td>
                                     <td class="text-center"></td>
                                     <td class="text-center"></td>

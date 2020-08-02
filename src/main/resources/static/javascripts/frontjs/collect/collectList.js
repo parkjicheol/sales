@@ -63,15 +63,25 @@ var dataTable = $('#dataTable').DataTable({
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectType + '</a>';
+                var collectType = "";
+
+                if (row.collectType == 0) {
+                    collectType = '은행';
+                } else if (row.collectType == 0) {
+                    collectType = '어음';
+                } else if (row.collectType == 0) {
+                    collectType = '현금';
+                } else {
+                    collectType = '기타';
+                }
+
+                return '<a href="#/collect/detail?seq=' + row.seq + '">' + collectType + '</a>';
             }
         }, {
             targets: 3,
             className: 'dt-body-center',
             selector: 'td',
-            render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.price + '</a>';
-            }
+            render: $.fn.dataTable.render.number( ',')
         },
         {
             targets: [0, 4],

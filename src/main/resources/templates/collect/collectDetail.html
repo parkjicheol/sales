@@ -37,7 +37,8 @@
                                     <span class="cell col2">수금지급방법</span>
                                     <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('0')}">은행</span>
                                     <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('1')}">어음</span>
-                                    <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('2')}">기타</span>
+                                    <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('2')}">현금</span>
+                                    <span class="cell col3" th:if="${collectDetail.collectType.toString().equals('3')}">기타</span>
                                 </div>
                                 <div class="rowTable">
                                     <span class="cell col2">수금액</span>
