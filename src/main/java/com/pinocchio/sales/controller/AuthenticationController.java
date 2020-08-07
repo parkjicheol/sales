@@ -5,6 +5,7 @@ import com.pinocchio.sales.dto.UserVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/servlet")
 public class AuthenticationController extends AbstractBaseController<AuthenticationController> {
 
     @GetMapping("/login")
@@ -27,7 +29,7 @@ public class AuthenticationController extends AbstractBaseController<Authenticat
         log.info("Welcome logout! {}, {}", userVo.getId(), userVo.getName());
         session.invalidate();
 
-        return "redirect:/login";
+        return "redirect:/servlet/login";
     }
 
 }

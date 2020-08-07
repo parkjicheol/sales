@@ -119,8 +119,8 @@
                                             </div>
                                         </td>
                                         <td class="text-center" th:text="${company.seq}"></td>
-                                        <td class="text-center"><a th:href="${'#/company/detail?seq=' + company.seq}" th:text="${company.companyNo}"></a></td>
-                                        <td class="text-center"><a th:href="${'#/company/detail?seq=' + company.seq}" th:text="${company.companyName}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/servlet/company/detail?seq=' + company.seq}" th:text="${company.companyNo}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/servlet/company/detail?seq=' + company.seq}" th:text="${company.companyName}"></a></td>
                                         <td class="text-center">
                                             <span class="text-green-darker" th:if="${company.companyLicense.toString().equals('0')}">사진</span>
                                             <span class="text-blue-darker" th:if="${company.companyLicense.toString().equals('1')}">문서</span>
@@ -140,7 +140,7 @@
                                <button type="button" class="btn btn-danger" data-click="swal-danger"
                                    onclick="fn:removeFabric()">삭제</button>
                                <button type="button" class="btn btn-success ml-1"
-                                   onclick="location.href='#/company/register'">등록</button>
+                                   onclick="location.href='#/servlet/company/register'">등록</button>
                            </div>
                        </div>
                    </div>

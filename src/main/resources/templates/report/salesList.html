@@ -98,7 +98,7 @@
                                     <td valign="top" colspan="15" class="dataTables_empty text-center">등록된 수금 내역이 없습니다.</td>
                                 </tr>
                                 <tr role="row" class="odd" th:each="sales, index : ${salesList}">
-                                    <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${#strings.substring(sales.saleDate, 0, 10)}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sales/detail?seq=' + sales.seq}" th:text="${#strings.substring(sales.saleDate, 0, 10)}"></a></td>
                                     <td class="text-center">
                                         <span class="text-blue-darker" th:if="${sales.saleFlag.toString().equals('0')}">매출</span>
                                         <span class="text-danger" th:if="${sales.saleFlag.toString().equals('1')}">반품</span>

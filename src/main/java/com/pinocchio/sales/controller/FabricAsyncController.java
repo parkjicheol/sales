@@ -5,10 +5,7 @@ import com.pinocchio.sales.common.abs.AbstractBaseController;
 import com.pinocchio.sales.dto.FabricVo;
 import com.pinocchio.sales.service.FabricService;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/servlet")
 public class FabricAsyncController extends AbstractBaseController<FabricAsyncController> {
 
     private final FabricService fabricService;

@@ -43,13 +43,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/admin/**").access("hasAuthority('ADMIN') or hasAuthority('USER')")
+        http.authorizeRequests().antMatchers("/servlet/admin/**").access("hasAuthority('ADMIN') or hasAuthority('USER')")
                 .antMatchers("/").hasAuthority("ADMIN")
-                .antMatchers("/member/**").permitAll()
-                .antMatchers("/question/**").permitAll()
-                .antMatchers("/answer/**").permitAll()
-                .and().formLogin().loginPage("/login")
-                .loginProcessingUrl("/loginProcess")
+                .antMatchers("/servlet/").hasAuthority("ADMIN")
+                .antMatchers("/servlet/member/**").permitAll()
+                .antMatchers("/servlet/question/**").permitAll()
+                .antMatchers("/servlet/answer/**").permitAll()
+                .and().formLogin().loginPage("/servlet/login")
+                .loginProcessingUrl("/servlet/loginProcess")
                 .usernameParameter("id")
                 .passwordParameter("password")
                 .successHandler(customAuthenticationSuccessHandler)
@@ -58,7 +59,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
                 .and().logout().deleteCookies("remove")
                 .invalidateHttpSession(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/servlet/logout"))
                 .logoutSuccessUrl("/")
                 .and().csrf().disable();
 

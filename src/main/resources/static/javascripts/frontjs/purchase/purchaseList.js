@@ -14,7 +14,7 @@ var dataTable = $('#dataTable').DataTable({
         "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
     },
     ajax: {
-        "url": "/purchase/ajaxList",
+        "url": "/servlet/purchase/ajaxList",
         "type": "POST",
         "data": function (d) {
             d.startDate = $("#startDate").val();
@@ -73,14 +73,14 @@ var dataTable = $('#dataTable').DataTable({
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/purchase/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
+                return '<a href="#/servlet/purchase/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
             }
         }, {
             targets: 3,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/purchase/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
+                return '<a href="#/servlet/purchase/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
             }
         }, {
             targets: 4,
@@ -249,7 +249,7 @@ function removeSales() {
 
             $.ajax({
                 type: "POST",
-                url: "/purchase/ajaxRemove",
+                url: "/servlet/purchase/ajaxRemove",
                 data: "purchaseSeqs=" + purchaseSeqs,
                 success: function (data) {
 

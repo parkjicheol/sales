@@ -127,9 +127,9 @@
                                             <label th:for="${'sellList_checkbox_' + index.index}">&nbsp;</label>
                                         </div>
                                     </td>
-                                    <td class="text-center"><a th:href="${'#/sell/detail?seq=' + sell.seq}" th:text="${#strings.substring(sell.sellDate, 0, 10)}"></a></td>
-                                    <td class="text-center"><a th:href="${'#/sell/detail?seq=' + sell.seq}" th:text="${sell.companyNo}"></a></td>
-                                    <td class="text-center"><a th:href="${'#/sell/detail?seq=' + sell.seq}" th:text="${sell.companyName}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sell/detail?seq=' + sell.seq}" th:text="${#strings.substring(sell.sellDate, 0, 10)}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sell/detail?seq=' + sell.seq}" th:text="${sell.companyNo}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sell/detail?seq=' + sell.seq}" th:text="${sell.companyName}"></a></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sell.price, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sell.publish, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sell.deposit, 1, 'COMMA', 0, 'POINT')}"></td>
@@ -143,7 +143,7 @@
                                 <button type="button" class="btn btn-danger" data-click="swal-danger"
                                         onclick="fn:removeSales()">삭제</button>
                                 <button type="button" class="btn btn-success ml-1"
-                                        onclick="location.href='#/sell/register'">등록</button>
+                                        onclick="location.href='#/servlet/sell/register'">등록</button>
                             </div>
                         </div>
                     </div>

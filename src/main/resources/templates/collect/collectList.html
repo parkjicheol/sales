@@ -108,12 +108,12 @@
                                                 <label th:for="${'collectList_checkbox_' + index.index}">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <td class="text-center"><a th:href="${'#/collect/detail?seq=' + collect.seq}" th:text="${#strings.substring(collect.collectDate, 0, 10)}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/servlet/collect/detail?seq=' + collect.seq}" th:text="${#strings.substring(collect.collectDate, 0, 10)}"></a></td>
                                         <td class="text-center">
-                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('0')}">은행</a>
-                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('1')}">어음</a>
-                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('2')}">현금</a>
-                                            <a th:href="${'#/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('3')}">기타</a>
+                                            <a th:href="${'#/servlet/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('0')}">은행</a>
+                                            <a th:href="${'#/servlet/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('1')}">어음</a>
+                                            <a th:href="${'#/servlet/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('2')}">현금</a>
+                                            <a th:href="${'#/servlet/collect/detail?seq=' + collect.seq}" th:if="${collect.collectType.toString().equals('3')}">기타</a>
                                         </td>
                                         <td class="text-right" th:text="${#numbers.formatDecimal(collect.price, 1, 'COMMA', 0, 'POINT')}"></td>
                                         <td class="text-center" th:text="${collect.registerDate}"></td>
@@ -127,7 +127,7 @@
                                <button type="button" class="btn btn-danger" data-click="swal-danger"
                                    onclick="fn:removeCollect()">삭제</button>
                                <button type="button" class="btn btn-success ml-1"
-                                   onclick="location.href='#/collect/register'">등록</button>
+                                   onclick="location.href='#/servlet/collect/register'">등록</button>
                            </div>
                        </div>
                    </div>

@@ -129,9 +129,9 @@
                                             <label th:for="${'purchaseList_checkbox_' + index.index}">&nbsp;</label>
                                         </div>
                                     </td>
-                                    <td class="text-center"><a th:href="${'#/purchase/detail?seq=' + purchase.seq}" th:text="${#strings.substring(purchase.purchaseDate, 0, 10)}"></a></td>
-                                    <td class="text-center"><a th:href="${'#/purchase/detail?seq=' + purchase.seq}" th:text="${purchase.companyNo}"></a></td>
-                                    <td class="text-center"><a th:href="${'#/purchase/detail?seq=' + purchase.seq}" th:text="${purchase.companyName}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/purchase/detail?seq=' + purchase.seq}" th:text="${#strings.substring(purchase.purchaseDate, 0, 10)}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/purchase/detail?seq=' + purchase.seq}" th:text="${purchase.companyNo}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/purchase/detail?seq=' + purchase.seq}" th:text="${purchase.companyName}"></a></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchase.total, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchase.bank, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchase.cash, 1, 'COMMA', 0, 'POINT')}"></td>
@@ -153,7 +153,7 @@
                                 <button type="button" class="btn btn-danger" data-click="swal-danger"
                                         onclick="fn:removeSales()">삭제</button>
                                 <button type="button" class="btn btn-success ml-1"
-                                        onclick="location.href='#/purchase/register'">등록</button>
+                                        onclick="location.href='#/servlet/purchase/register'">등록</button>
                             </div>
                         </div>
                     </div>

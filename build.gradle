@@ -25,10 +25,6 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-//    developmentOnly
-//    runtimeClasspath {
-//        extendsFrom developmentOnly
-//    }
 }
 
 repositories {
@@ -40,6 +36,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation("org.springframework.boot:spring-boot-starter-web") {
+//        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//    }
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
     implementation 'com.zaxxer:HikariCP:3.3.1'
     implementation 'org.javassist:javassist:3.23.1-GA'
@@ -47,6 +46,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'junit:junit:4.12'
     compileOnly 'org.projectlombok:lombok'
+//    compileOnly 'org.opendaylight.controller.thirdparty:org.apache.catalina.filters.CorsFilter:7.0.42'
+//    implementation 'org.apache.tomcat:tomcat-catalina:9.0.36'
+//    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'

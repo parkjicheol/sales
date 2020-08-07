@@ -14,7 +14,7 @@ var dataTable = $('#dataTable').DataTable({
         "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
     },
     ajax: {
-        "url": "/collect/ajaxList",
+        "url": "/servlet/collect/ajaxList",
         "type": "POST",
         "data": function (d) {
             d.startDate = $("#startDate").val();
@@ -56,7 +56,7 @@ var dataTable = $('#dataTable').DataTable({
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + row.collectDate.substring(0, 10) + '</a>';
+                return '<a href="#/servlet/collect/detail?seq=' + row.seq + '">' + row.collectDate.substring(0, 10) + '</a>';
             }
         }, {
             targets: 2,
@@ -75,7 +75,7 @@ var dataTable = $('#dataTable').DataTable({
                     collectType = '기타';
                 }
 
-                return '<a href="#/collect/detail?seq=' + row.seq + '">' + collectType + '</a>';
+                return '<a href="#/servlet/collect/detail?seq=' + row.seq + '">' + collectType + '</a>';
             }
         }, {
             targets: 3,
@@ -235,7 +235,7 @@ function removeCollect() {
 
             $.ajax({
                 type: "POST",
-                url: "/collect/ajaxRemove",
+                url: "/servlet/collect/ajaxRemove",
                 data: "collectSeqs=" + collectSeqs,
                 success: function (data) {
 

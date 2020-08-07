@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     // 검색버튼 클릭시
     $("#search").on("click", function (event) {
-        document.location.href = '#/purchase/report/' + $('#searchYear').val();
+        document.location.href = '#/servlet/purchase/report/' + $('#searchYear').val();
     });
 
     $("#print").on("click", function (event) {

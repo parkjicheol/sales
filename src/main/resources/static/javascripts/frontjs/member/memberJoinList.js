@@ -15,7 +15,7 @@ $(document).ready(function () {
 
         ],
         ajax: {
-            "url": "/member/ajaxMemberList",
+            "url": "/servlet/member/ajaxMemberList",
             "type": "POST",
             "data": function (d) {
                 d.channelSeq = $("#channelSeq").val();
@@ -141,7 +141,7 @@ function getDetailList(memberSeq) {
     };
 
     $.ajax({
-        url: '/member/ajaxMemberDetail',
+        url: '/servlet/member/ajaxMemberDetail',
         contentType: 'application/json',
         type: 'POST',
         data: JSON.stringify(param),

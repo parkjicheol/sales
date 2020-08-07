@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/servlet")
 public class FabricController extends AbstractBaseController<FabricController> {
 
     private final FabricService fabricService;

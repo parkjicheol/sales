@@ -110,8 +110,8 @@
                                             </div>
                                         </td>
                                         <td class="text-center" th:text="${fabric.seq}"></td>
-                                        <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricNo}"></a></td>
-                                        <td class="text-center"><a th:href="${'#/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricName}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/servlet/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricNo}"></a></td>
+                                        <td class="text-center"><a th:href="${'#/servlet/fabric/detail?seq=' + fabric.seq}" th:text="${fabric.fabricName}"></a></td>
                                         <td class="text-center" th:text="${fabric.registerId}"></td>
                                         <td class="text-center" th:text="${fabric.registerDate}"></td>
                                    </tr>
@@ -124,7 +124,7 @@
                                <button type="button" class="btn btn-danger" data-click="swal-danger"
                                    onclick="fn:removeFabric()">삭제</button>
                                <button type="button" class="btn btn-success ml-1"
-                                   onclick="location.href='#/fabric/register'">등록</button>
+                                   onclick="location.href='#/servlet/fabric/register'">등록</button>
                            </div>
                        </div>
                    </div>

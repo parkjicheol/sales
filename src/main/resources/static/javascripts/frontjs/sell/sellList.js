@@ -14,7 +14,7 @@ var dataTable = $('#dataTable').DataTable({
         "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
     },
     ajax: {
-        "url": "/sell/ajaxList",
+        "url": "/servlet/sell/ajaxList",
         "type": "POST",
         "data": function (d) {
             d.startDate = $("#startDate").val();
@@ -69,14 +69,14 @@ var dataTable = $('#dataTable').DataTable({
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/sell/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
+                return '<a href="#/servlet/sell/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
             }
         }, {
             targets: 3,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/sell/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
+                return '<a href="#/servlet/sell/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
             }
         }, {
             targets: [4, 5, 6],
@@ -231,7 +231,7 @@ function removeSales() {
 
             $.ajax({
                 type: "POST",
-                url: "/sell/ajaxRemove",
+                url: "/servlet/sell/ajaxRemove",
                 data: "sellSeqs=" + sellSeqs,
                 success: function (data) {
 

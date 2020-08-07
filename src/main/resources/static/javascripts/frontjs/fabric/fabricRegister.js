@@ -39,7 +39,7 @@ function setFabricRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/fabric/ajaxRegister" : "/fabric/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/servlet/fabric/ajaxRegister" : "/servlet/fabric/ajaxModify";
 
     $.ajax({
         type: "POST",
@@ -47,7 +47,7 @@ function setFabricRegister() {
         data: $("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/fabric/list";
+            window.location.href = "#/servlet/fabric/list";
         },
         error: function (data) {
             alert("원단 등록에 실패했습니다.");
@@ -79,7 +79,7 @@ function getFabricList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/fabric/list";
+            window.location.href = "#/servlet/fabric/list";
         }
     });
 }

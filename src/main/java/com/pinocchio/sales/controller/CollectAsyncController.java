@@ -8,6 +8,7 @@ import com.pinocchio.sales.service.CollectService;
 import com.pinocchio.sales.service.FabricService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/servlet")
 public class CollectAsyncController extends AbstractBaseController<CollectAsyncController> {
 
     private final CollectService collectService;

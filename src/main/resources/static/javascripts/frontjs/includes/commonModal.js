@@ -92,7 +92,7 @@ function getSendMemberList(seqs) {
         memberSeqs: seqs
     };
     $.ajax({
-        url: '/member/ajaxSmsMemberList',
+        url: '/servlet/member/ajaxSmsMemberList',
         contentType: 'application/json',
         type: 'POST',
         async: false,

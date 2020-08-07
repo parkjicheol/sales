@@ -14,7 +14,7 @@ var dataTable = $('#dataTable').DataTable({
         "processing": "<img src='/javascripts/plugins/blueimp-file-upload/img/loading.gif' width='50px' />"
     },
     ajax: {
-        "url": "/company/ajaxList",
+        "url": "/servlet/company/ajaxList",
         "type": "POST",
         "data": function (d) {
             d.searchField = $("#searchField").val();
@@ -63,14 +63,14 @@ var dataTable = $('#dataTable').DataTable({
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/company/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
+                return '<a href="#/servlet/company/detail?seq=' + row.seq + '">' + row.companyNo + '</a>';
             }
         }, {
             targets: 3,
             className: 'dt-body-center',
             selector: 'td',
             render: function (data, type, row, meta) {
-                return '<a href="#/company/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
+                return '<a href="#/servlet/company/detail?seq=' + row.seq + '">' + row.companyName + '</a>';
             }
         }, {
             targets: 4,
@@ -201,7 +201,7 @@ function removeFabric() {
 
             $.ajax({
                 type: "POST",
-                url: "/company/ajaxRemove",
+                url: "/servlet/company/ajaxRemove",
                 data: "companySeqs=" + companySeqs,
                 success: function (data) {
 

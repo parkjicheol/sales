@@ -48,7 +48,7 @@ $(document).ready(function () {
         pageLength: 10,
         buttons: [],
         ajax: {
-            "url": "/company/ajaxList",
+            "url": "/servlet/company/ajaxList",
             "type": "POST",
             "data": function (d) {
                 d.searchField = $("#searchField").val();
@@ -151,7 +151,7 @@ function setPurchaseRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/purchase/ajaxRegister" : "/purchase/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/servlet/purchase/ajaxRegister" : "/servlet/purchase/ajaxModify";
 
     var targetForm = $("#registerForm :input");
     $.each(targetForm, function (index, elem) {
@@ -164,7 +164,7 @@ function setPurchaseRegister() {
         data: $("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/purchase/list";
+            window.location.href = "#/servlet/purchase/list";
         },
         error: function (data) {
             alert("매입 등록에 실패했습니다.");
@@ -196,7 +196,7 @@ function getPurchaseList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/purchase/list";
+            window.location.href = "#/servlet/purchase/list";
         }
     });
 }

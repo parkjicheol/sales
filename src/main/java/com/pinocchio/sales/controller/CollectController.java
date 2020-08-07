@@ -8,6 +8,7 @@ import com.pinocchio.sales.service.FabricService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/servlet")
 public class CollectController extends AbstractBaseController<CollectController> {
 
     private final CollectService collectService;

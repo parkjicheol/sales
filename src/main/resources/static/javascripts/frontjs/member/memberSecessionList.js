@@ -11,7 +11,7 @@ $(document).ready(function () {
         initialLoad: false,
         pageLength: 20,
         ajax: {
-            "url": "/member/ajaxMemberList",
+            "url": "/servlet/member/ajaxMemberList",
             "type": "POST",
             "data": function (d) {
                 d.channelSeq = $("#channelSeq").val();
@@ -176,7 +176,7 @@ $(document).ready(function () {
                 };
 
                 $.ajax({
-                    url: '/member/modifyWithdrawMember',
+                    url: '/servlet/member/modifyWithdrawMember',
                     contentType: 'application/json',
                     type: 'POST',
                     data: JSON.stringify(param),
@@ -245,7 +245,7 @@ function getDetailList(memberSeq) {
     };
 
     $.ajax({
-        url: '/member/ajaxMemberDetail',
+        url: '/servlet/member/ajaxMemberDetail',
         contentType: 'application/json',
         type: 'POST',
         data: JSON.stringify(param),

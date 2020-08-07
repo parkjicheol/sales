@@ -4,6 +4,7 @@ import com.pinocchio.sales.common.abs.AbstractBaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/servlet")
 public class IndexController extends AbstractBaseController<IndexController> {
 
     @GetMapping("/")

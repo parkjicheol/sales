@@ -136,13 +136,13 @@
                                             <label th:for="${'salesList_checkbox_' + index.index}">&nbsp;</label>
                                         </div>
                                     </td>
-                                    <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${#strings.substring(sales.saleDate, 0, 10)}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sales/detail?seq=' + sales.seq}" th:text="${#strings.substring(sales.saleDate, 0, 10)}"></a></td>
                                     <td class="text-center">
                                         <span class="text-blue-darker" th:if="${sales.saleFlag.toString().equals('0')}">매출</span>
                                         <span class="text-danger" th:if="${sales.saleFlag.toString().equals('1')}">반품</span>
                                     </td>
-                                    <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricNo}"></a></td>
-                                    <td class="text-center"><a th:href="${'#/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricName}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricNo}"></a></td>
+                                    <td class="text-center"><a th:href="${'#/servlet/sales/detail?seq=' + sales.seq}" th:text="${sales.fabricName}"></a></td>
                                     <td class="text-center" th:text="${sales.color}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.section, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(sales.fabricCount, 1, 'COMMA', 0, 'POINT')}"></td>
@@ -167,7 +167,7 @@
                                 <button type="button" class="btn btn-danger" data-click="swal-danger"
                                         onclick="fn:removeSales()">삭제</button>
                                 <button type="button" class="btn btn-success ml-1"
-                                        onclick="location.href='#/sales/register'">등록</button>
+                                        onclick="location.href='#/servlet/sales/register'">등록</button>
                             </div>
                         </div>
                     </div>

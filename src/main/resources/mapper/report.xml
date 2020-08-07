@@ -88,7 +88,7 @@
 	<select id="selectCollectTotalPrice" parameterType="com.pinocchio.sales.dto.CollectVo" resultType="int">
 
 		SELECT
-			SUM(price) AS collectTotalPrice
+			IFNULL(SUM(price), 0) AS collectTotalPrice
 		FROM
 			collect
 		WHERE

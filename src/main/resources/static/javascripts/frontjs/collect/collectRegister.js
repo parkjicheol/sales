@@ -58,7 +58,7 @@ function setCollectRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/collect/ajaxRegister" : "/collect/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/servlet/collect/ajaxRegister" : "/servlet/collect/ajaxModify";
 
     var targetForm = $("#registerForm :input");
     $.each(targetForm, function (index, elem) {
@@ -71,7 +71,7 @@ function setCollectRegister() {
         data: $("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/collect/list";
+            window.location.href = "#/servlet/collect/list";
         },
         error: function (data) {
             alert("수금액 등록에 실패했습니다.");
@@ -103,7 +103,7 @@ function getCollectList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/collect/list";
+            window.location.href = "#/servlet/collect/list";
         }
     });
 }

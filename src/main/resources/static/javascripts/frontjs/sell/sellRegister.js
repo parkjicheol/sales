@@ -44,7 +44,7 @@ $(document).ready(function () {
         pageLength: 10,
         buttons: [],
         ajax: {
-            "url": "/company/ajaxList",
+            "url": "/servlet/company/ajaxList",
             "type": "POST",
             "data": function (d) {
                 d.searchField = $("#searchField").val();
@@ -147,7 +147,7 @@ function setSalesRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/sell/ajaxRegister" : "/sell/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/servlet/sell/ajaxRegister" : "/servlet/sell/ajaxModify";
 
     var targetForm = $("#registerForm :input");
     $.each(targetForm, function (index, elem) {
@@ -160,7 +160,7 @@ function setSalesRegister() {
         data: $("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/sell/list";
+            window.location.href = "#/servlet/sell/list";
         },
         error: function (data) {
             alert("매출 등록에 실패했습니다.");
@@ -192,7 +192,7 @@ function getSalesList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/sell/list";
+            window.location.href = "#/servlet/sell/list";
         }
     });
 }

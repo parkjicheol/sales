@@ -56,7 +56,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
 <!--                    <a href="javascript:;" class="dropdown-item">Setting</a>-->
 <!--                    <div class="dropdown-divider"></div>-->
-                    <a href="/logout" class="dropdown-item">Log Out</a>
+                    <a href="/servlet/logout" class="dropdown-item">Log Out</a>
                 </div>
             </li>
         </ul>
@@ -85,7 +85,7 @@
                 </li>
                 <li>
                     <ul class="nav nav-profile">
-                        <li><a href="#/about"><i class="fa fa-question-circle"></i> Helps</a></li>
+                        <li><a href="#/servlet/about"><i class="fa fa-question-circle"></i> Helps</a></li>
                     </ul>
                 </li>
             </ul>
@@ -105,7 +105,7 @@
                                 원단 항목 관리
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="#/fabric/list" data-toggle="ajax">원단 항목 리스트</a></li>
+                                <li><a href="#/servlet/fabric/list" data-toggle="ajax">원단 항목 리스트</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -123,8 +123,8 @@
                                 원단 매출/수금 내역서
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="#/collect/list" data-toggle="ajax">원단 수금 내역서 리스트</a></li>
-                                <li><a href="#/sales/list" data-toggle="ajax">원단 매출 내역서 리스트</a></li>
+                                <li><a href="#/servlet/collect/list" data-toggle="ajax">원단 수금 내역서 리스트</a></li>
+                                <li><a href="#/servlet/sales/list" data-toggle="ajax">원단 매출 내역서 리스트</a></li>
                             </ul>
                         </li>
                         <li class="has-sub">
@@ -133,7 +133,7 @@
                                 원단 매출/수금 리포트
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="#/sales/report" data-toggle="ajax">원단 매출/수금 리포트</a></li>
+                                <li><a href="#/servlet/sales/report" data-toggle="ajax">원단 매출/수금 리포트</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -151,7 +151,7 @@
                                 매출 업체 관리
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="#/company/list" data-toggle="ajax">매출 업체 리스트</a></li>
+                                <li><a href="#/servlet/company/list" data-toggle="ajax">매출 업체 리스트</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -169,8 +169,8 @@
                                 매입/매출 관리
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="#/purchase/list" data-toggle="ajax">매입 관리 리스트</a></li>
-                                <li><a href="#/sell/list" data-toggle="ajax">매출 관리 리스트</a></li>
+                                <li><a href="#/servlet/purchase/list" data-toggle="ajax">매입 관리 리스트</a></li>
+                                <li><a href="#/servlet/sell/list" data-toggle="ajax">매출 관리 리스트</a></li>
                             </ul>
                         </li>
                         <li class="has-sub">
@@ -179,8 +179,8 @@
                                 매입/매출 리포트
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="#/purchase/report" data-toggle="ajax">연도별 매입/매출 리포트</a></li>
-                                <li><a href="#/month/report" data-toggle="ajax">월별 매입/매출 리포트</a></li>
+                                <li><a href="#/servlet/purchase/report" data-toggle="ajax">연도별 매입/매출 리포트</a></li>
+                                <li><a href="#/servlet/month/report" data-toggle="ajax">월별 매입/매출 리포트</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -244,7 +244,7 @@
 
     App.settings({
         ajaxMode: true,
-        ajaxDefaultUrl: '#/main',
+        ajaxDefaultUrl: '#/servlet/main',
         ajaxType: 'GET',
         ajaxDataType: 'html'
     });

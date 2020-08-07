@@ -52,7 +52,7 @@ function setFabricRegister() {
         return false;
     }
 
-    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/company/ajaxRegister" : "/company/ajaxModify";
+    var url = ($("#seq").val() == undefined || $("#seq").val() == '') ? "/servlet/company/ajaxRegister" : "/servlet/company/ajaxModify";
     console.log(url);
     $.ajax({
         type: "POST",
@@ -64,7 +64,7 @@ function setFabricRegister() {
         data: new FormData($("#registerForm")[0]), //$("#registerForm").serialize(),
         success: function (data) {
             data = JSON.parse(data)
-            window.location.href = "#/company/list";
+            window.location.href = "#/servlet/company/list";
         },
         error: function (data) {
             alert("업체 등록에 실패했습니다.");
@@ -96,7 +96,7 @@ function getFabricList() {
         }
     }).then(function (isConfirm) {
         if (isConfirm) {
-            window.location.href = "#/company/list";
+            window.location.href = "#/servlet/company/list";
         }
     });
 }

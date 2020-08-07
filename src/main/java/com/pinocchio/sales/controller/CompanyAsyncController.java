@@ -9,6 +9,7 @@ import com.pinocchio.sales.service.CompanyService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/servlet")
 public class CompanyAsyncController extends AbstractBaseController<CompanyAsyncController> {
 
     @Value("${upload.path}")
