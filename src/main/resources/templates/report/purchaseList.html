@@ -83,14 +83,14 @@
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchase.sellTotal, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchase.purchaseTotal, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right text-blue-darker" th:text="${#numbers.formatDecimal(purchase.percent, 1, 'COMMA', 0, 'POINT')}"></td>
-                                    <td class="text-right text-danger" th:text="${#numbers.formatDecimal(purchase.empty, 1, 'COMMA', 0, 'POINT')}"></td>
+                                    <td class="text-right text-danger" th:text="${#numbers.formatDecimal(purchase.emptyPrice, 1, 'COMMA', 0, 'POINT')}"></td>
                                 </tr>
                                 <tr role="row" style="background-color: #f2fdf8;" th:if="${not #strings.isEmpty(purchaseTotal)}">
                                     <td class="text-center"><span class="text-green-darker">합계</span></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchaseTotal.sellTotal, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right" th:text="${#numbers.formatDecimal(purchaseTotal.purchaseTotal, 1, 'COMMA', 0, 'POINT')}"></td>
                                     <td class="text-right text-blue-darker" th:text="${#numbers.formatDecimal(purchaseTotal.percent, 1, 'COMMA', 0, 'POINT')}"></td>
-                                    <td class="text-right text-danger" th:text="${#numbers.formatDecimal(purchaseTotal.empty, 1, 'COMMA', 0, 'POINT')}"></td>
+                                    <td class="text-right text-danger" th:text="${#numbers.formatDecimal(purchaseTotal.emptyPrice, 1, 'COMMA', 0, 'POINT')}"></td>
                                 </tr>
                                 </tbody>
                             </table>

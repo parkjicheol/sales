@@ -16,5 +16,5 @@ public class ReportVo extends DefaultVo {
     private Double sellTotal;
     private Double purchaseTotal;
     private Double percent;
-    private Double empty;
+    private Double emptyPrice;
 }

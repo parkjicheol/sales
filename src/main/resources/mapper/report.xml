@@ -100,15 +100,15 @@
 
 		SELECT
 			yyyyMM
-			, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
-			, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
-			, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85 AS percent
-			, ((MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85) - MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END)) AS empty
+			, MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) AS sellTotal
+			, MAX(CASE WHEN salesType = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+			, MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) * 0.85 AS percent
+			, ((MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) * 0.85) - MAX(CASE WHEN salesType = 'purchase' THEN total ELSE 0 END)) AS emptyPrice
 		FROM
 		(
 			SELECT
 				LEFT(sell_date, 7) AS yyyyMM
-				, 'sell' AS type
+				, 'sell' AS salesType
 				, SUM(price) AS total
 			FROM
 				sell
@@ -121,7 +121,7 @@
 
 			SELECT
 				LEFT(purchase_date, 7) AS yyyyMM
-				, 'purchase' AS type
+				, 'purchase' AS salesType
 				, SUM(total) AS total
 			FROM
 				purchase
@@ -141,20 +141,20 @@
 			SUM(sellTotal) AS sellTotal
 			, SUM(purchaseTotal) AS purchaseTotal
 			, SUM(percent) AS percent
-			, SUM(empty) AS empty
+			, SUM(emptyPrice) AS emptyPrice
 		FROM
 		(
 			SELECT
 				yyyyMM
-				, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
-				, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
-				, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85 AS percent
-				, ((MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) * 0.85) - MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END)) AS empty
+				, MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) AS sellTotal
+				, MAX(CASE WHEN salesType = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+				, MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) * 0.85 AS percent
+				, ((MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) * 0.85) - MAX(CASE WHEN salesType = 'purchase' THEN total ELSE 0 END)) AS emptyPrice
 			FROM
 			(
 				SELECT
 					LEFT(sell_date, 7) AS yyyyMM
-					, 'sell' AS type
+					, 'sell' AS salesType
 					, SUM(price) AS total
 				FROM
 					sell
@@ -167,7 +167,7 @@
 
 				SELECT
 					LEFT(purchase_date, 7) AS yyyyMM
-					, 'purchase' AS type
+					, 'purchase' AS salesType
 					, SUM(total) AS total
 				FROM
 					purchase
@@ -187,14 +187,14 @@
 		SELECT
 			yyyyMM
 			, companyName
-			, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
-			, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+			, MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) AS sellTotal
+			, MAX(CASE WHEN salesType = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
 		FROM
 		(
 			SELECT
 				LEFT(S.sell_date, 7) AS yyyyMM
 				, C.company_name AS companyName
-				, 'sell' AS type
+				, 'sell' AS salesType
 				, SUM(S.price) AS total
 			FROM
 				sell S
@@ -210,7 +210,7 @@
 			SELECT
 				LEFT(P.purchase_date, 7) AS yyyyMM
 				, C.company_name AS companyName
-				, 'purchase' AS type
+				, 'purchase' AS salesType
 				, SUM(P.total) AS total
 			FROM
 				purchase P
@@ -235,13 +235,13 @@
 		(
 			SELECT
 				yyyyMM
-				, MAX(CASE WHEN type = 'sell' THEN total ELSE 0 END) AS sellTotal
-				, MAX(CASE WHEN type = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
+				, MAX(CASE WHEN salesType = 'sell' THEN total ELSE 0 END) AS sellTotal
+				, MAX(CASE WHEN salesType = 'purchase' THEN total ELSE 0 END) AS purchaseTotal
 			FROM
 			(
 				SELECT
 					LEFT(sell_date, 7) AS yyyyMM
-					, 'sell' AS type
+					, 'sell' AS salesType
 					, SUM(price) AS total
 				FROM
 					sell
@@ -254,7 +254,7 @@
 
 				SELECT
 					LEFT(purchase_date, 7) AS yyyyMM
-					, 'purchase' AS type
+					, 'purchase' AS salesType
 					, SUM(total) AS total
 				FROM
 					purchase
