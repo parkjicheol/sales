@@ -3,7 +3,7 @@
 body{font:14px/1.6 'Noto Sans KR',sans-serif;}
 .display_none{display:none;}
 i{cursor:pointer;}
-a{text-decoration:none;color:inherit;}
+a{text-decoration:none;color:#348fe2;}
 a:hover{text-decoration:none;color:inherit;}
 .ui-sortable .panel-heading{cursor:auto;}
 
